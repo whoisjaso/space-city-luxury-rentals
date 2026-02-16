@@ -134,8 +134,8 @@ export const heroConfig: HeroConfig = {
   badge: "Houston's Premier",
   since: "Est. 2024",
   email: "reserve@spacecityrentals.com",
-  heroImage: "/images/hero-rollsroyce.png",
-  heroImageAlt: "White Rolls-Royce Ghost with Houston skyline at night",
+  heroImage: "/images/space-city-logo.png",
+  heroImageAlt: "Space City Luxury Rentals crest logo",
   scrollText: "Scroll to Explore",
   copyrightText: "© 2024 Space City Rentals",
   navLinks: [

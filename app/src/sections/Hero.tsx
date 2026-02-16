@@ -104,7 +104,7 @@ const Hero = () => {
         {/* Center statue */}
         <div
           ref={statueRef}
-          className="relative flex-shrink-0 w-[36vw] md:w-[30vw] lg:w-[26vw] max-w-[480px] will-change-transform"
+          className="relative flex-shrink-0 w-[44vw] md:w-[36vw] lg:w-[30vw] max-w-[560px] will-change-transform"
         >
           {/* Badge above statue */}
           <div
@@ -116,11 +116,7 @@ const Hero = () => {
           <img
             src={heroConfig.heroImage}
             alt={heroConfig.heroImageAlt}
-            className="w-full h-auto object-contain"
-            style={{
-              maskImage: 'radial-gradient(ellipse 72% 78% at 50% 45%, black 45%, transparent 100%)',
-              WebkitMaskImage: 'radial-gradient(ellipse 72% 78% at 50% 45%, black 45%, transparent 100%)',
-            }}
+            className="w-full h-auto object-contain drop-shadow-2xl"
           />
         </div>
 
