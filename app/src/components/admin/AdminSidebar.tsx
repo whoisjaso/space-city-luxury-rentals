@@ -63,12 +63,13 @@ export default function AdminSidebar() {
   const sidebarContent = (
     <div className="flex flex-col h-full">
       {/* Logo */}
-      <div className="p-6 border-b border-white/5">
+      <div className="p-6 border-b border-[#2E1065]/30">
         <Link to="/admin" className="flex items-center gap-3" onClick={() => setMobileOpen(false)}>
           <img
             src="/images/space-city-logo.png"
             alt="Space City"
             className="h-10"
+            style={{ background: 'transparent' }}
           />
           <div>
             <span className="text-white font-semibold text-sm block leading-tight">
@@ -104,7 +105,7 @@ export default function AdminSidebar() {
       </nav>
 
       {/* Bottom section */}
-      <div className="p-3 border-t border-white/5 space-y-1">
+      <div className="p-3 border-t border-[#2E1065]/30 space-y-1">
         {/* View site */}
         <a
           href="/"
@@ -149,7 +150,7 @@ export default function AdminSidebar() {
 
       {/* Sidebar — desktop: fixed, mobile: slide-out */}
       <aside
-        className={`fixed top-0 left-0 h-full w-64 bg-[#0a0a0a] border-r border-white/5 z-40 transition-transform duration-300 ${
+        className={`fixed top-0 left-0 h-full w-64 bg-[#0a0a0a] border-r border-[#2E1065]/30 z-40 transition-transform duration-300 ${
           mobileOpen ? 'translate-x-0' : '-translate-x-full lg:translate-x-0'
         }`}
       >

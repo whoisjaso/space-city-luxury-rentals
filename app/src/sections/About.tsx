@@ -97,7 +97,7 @@ const About = () => {
     >
       {/* Section Header */}
       <div ref={textRef} className="max-w-6xl mx-auto pt-32 pb-20 px-8 lg:px-16">
-        <p className="reveal-text museo-label text-white/50 mb-6" style={{ willChange: 'transform, opacity' }}>
+        <p className="reveal-text museo-label text-[#D4AF37] mb-6" style={{ willChange: 'transform, opacity' }}>
           {aboutConfig.label}
         </p>
         <h2 className="reveal-text museo-headline text-white text-4xl md:text-5xl lg:text-7xl mb-8" style={{ willChange: 'transform, opacity' }}>
@@ -152,7 +152,7 @@ const About = () => {
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8 border-t border-white/10 pt-12">
             {aboutConfig.stats.map((stat, i) => (
               <div key={i} className="stat-item">
-                <p className="museo-headline text-white text-4xl md:text-5xl mb-2">{stat.value}</p>
+                <p className="museo-headline text-[#D4AF37] text-4xl md:text-5xl mb-2">{stat.value}</p>
                 <p className="museo-label text-white/40">{stat.label}</p>
               </div>
             ))}

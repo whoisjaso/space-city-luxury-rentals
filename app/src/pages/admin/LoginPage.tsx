@@ -45,7 +45,7 @@ export default function LoginPage() {
   };
 
   return (
-    <div className="min-h-screen bg-[#050505] flex items-center justify-center px-4">
+    <div className="min-h-screen bg-gradient-to-b from-[#0a0a12] via-[#050505] to-[#0d0818] flex items-center justify-center px-4">
       <div className="w-full max-w-md space-y-8">
         {/* Logo */}
         <div className="text-center">
@@ -54,6 +54,7 @@ export default function LoginPage() {
               src="/images/space-city-logo.png"
               alt="Space City Luxury Rentals"
               className="h-16 mx-auto mb-6"
+              style={{ background: 'transparent' }}
             />
           </Link>
           <h1 className="museo-headline text-white text-2xl">Admin Login</h1>
@@ -64,8 +65,8 @@ export default function LoginPage() {
 
         {/* Demo mode notice */}
         {!supabaseConfigured && (
-          <div className="bg-blue-500/5 border border-blue-500/20 rounded-lg px-5 py-4 flex items-start gap-3">
-            <Info className="w-5 h-5 text-blue-400 mt-0.5 shrink-0" />
+          <div className="bg-[#2E1065]/10 border border-[#2E1065]/30 rounded-lg px-5 py-4 flex items-start gap-3">
+            <Info className="w-5 h-5 text-[#D4AF37] mt-0.5 shrink-0" />
             <div>
               <p className="text-white/70 text-sm font-medium">
                 Demo Mode Active

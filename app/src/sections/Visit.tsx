@@ -49,7 +49,7 @@ const Visit = () => {
     >
       {/* Section Header */}
       <div className="max-w-7xl mx-auto mb-16">
-        <p className="museo-label text-white/50 mb-4">{visitConfig.label}</p>
+        <p className="museo-label text-[#D4AF37] mb-4">{visitConfig.label}</p>
         <h2
           className="museo-headline text-white text-4xl md:text-5xl lg:text-6xl mb-8"
           dangerouslySetInnerHTML={{ __html: visitConfig.headline }}
@@ -67,8 +67,8 @@ const Visit = () => {
         {visitConfig.infoCards.map((card, i) => {
           const IconComponent = iconMap[card.icon];
           return (
-            <div key={i} className="info-card p-8 border border-white/10 hover:border-white/20 transition-colors">
-              {IconComponent && <IconComponent className="w-8 h-8 text-white/50 mb-6" strokeWidth={1.5} />}
+            <div key={i} className="info-card p-8 border border-white/10 hover:border-[#D4AF37]/30 transition-colors bg-white/[0.02]">
+              {IconComponent && <IconComponent className="w-8 h-8 text-[#D4AF37]/70 mb-6" strokeWidth={1.5} />}
               <h3 className="museo-headline text-white text-xl mb-3">{card.title}</h3>
               <div
                 className="museo-body text-white/60 text-sm"
@@ -84,7 +84,7 @@ const Visit = () => {
         <div className="max-w-7xl mx-auto mt-16 text-center">
           <button
             data-cursor="hover"
-            className="inline-flex items-center gap-3 px-10 py-4 bg-white text-[#050505] museo-label hover:bg-white/90 transition-colors"
+            className="inline-flex items-center gap-3 px-10 py-4 bg-[#D4AF37] text-[#050505] museo-label hover:bg-[#D4AF37]/90 transition-colors"
           >
             {visitConfig.ctaText}
           </button>

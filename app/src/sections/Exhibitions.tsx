@@ -71,7 +71,7 @@ const Exhibitions = () => {
     >
       {/* Section Header */}
       <div ref={headerRef} className="max-w-7xl mx-auto mb-16">
-        <p className="reveal-header museo-label text-white/50 mb-4">
+        <p className="reveal-header museo-label text-[#D4AF37] mb-4">
           {exhibitionsConfig.label}
         </p>
         <h2 className="reveal-header museo-headline text-white text-4xl md:text-5xl lg:text-7xl">
@@ -107,7 +107,7 @@ const Exhibitions = () => {
             </div>
 
             {/* Hover border */}
-            <div className="absolute inset-0 border border-white/0 group-hover:border-white/20 transition-colors duration-500 pointer-events-none" />
+            <div className="absolute inset-0 border border-white/0 group-hover:border-[#D4AF37]/30 transition-colors duration-500 pointer-events-none" />
           </div>
         ))}
       </div>
@@ -117,7 +117,7 @@ const Exhibitions = () => {
         <div ref={ctaRef} className="max-w-7xl mx-auto mt-12 flex justify-center">
           <button
             data-cursor="hover"
-            className="museo-label text-white border border-white/20 px-10 py-4 hover:bg-white hover:text-[#050505] transition-all duration-300"
+            className="museo-label text-[#D4AF37] border border-[#D4AF37]/30 px-10 py-4 hover:bg-[#D4AF37] hover:text-[#050505] transition-all duration-300"
           >
             {exhibitionsConfig.ctaText}
           </button>

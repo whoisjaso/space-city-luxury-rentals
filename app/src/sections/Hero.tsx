@@ -88,7 +88,7 @@ const Hero = () => {
           className="absolute top-0 left-0 w-full z-50 px-6 lg:px-16 py-4 lg:py-6 flex items-center justify-between will-change-transform"
         >
           <a href="#hero-section" className="flex items-center gap-3">
-            <img src="/images/space-city-logo.png" alt="Space City Luxury Rentals" className="h-10 w-10 object-contain" />
+            <img src="/images/space-city-logo.png" alt="Space City Luxury Rentals" className="h-10 w-10 object-contain" style={{ background: 'transparent' }} />
             <span className="museo-label text-white/70">SPACE CITY</span>
           </a>
           <div className="flex items-center gap-4">
@@ -153,7 +153,7 @@ const Hero = () => {
           >
             <div
               ref={badgeRef}
-              className="absolute -top-8 md:-top-10 left-1/2 -translate-x-1/2 museo-label text-white/50 text-[10px] whitespace-nowrap will-change-transform"
+              className="absolute -top-8 md:-top-10 left-1/2 -translate-x-1/2 museo-label text-[#D4AF37]/70 text-[10px] whitespace-nowrap will-change-transform"
             >
               {heroConfig.badge}
             </div>

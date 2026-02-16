@@ -7,13 +7,14 @@ import { Link } from 'react-router';
 
 function NotFoundPage() {
   return (
-    <div className="min-h-screen bg-[#050505] flex items-center justify-center px-6">
+    <div className="min-h-screen bg-gradient-to-b from-[#0a0a12] via-[#050505] to-[#0d0818] flex items-center justify-center px-6">
       <div className="text-center max-w-md">
         {/* Logo */}
         <img
           src="/images/space-city-logo.png"
           alt="Space City Luxury Rentals"
           className="w-20 h-20 mx-auto mb-8 object-contain"
+          style={{ background: 'transparent' }}
         />
 
         {/* 404 heading */}

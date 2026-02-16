@@ -42,7 +42,7 @@ const Testimonials = () => {
       <div ref={contentRef} className="max-w-5xl mx-auto text-center">
         {/* Quote Icon */}
         <div className="reveal-item flex justify-center mb-12">
-          <Quote className="w-16 h-16 text-white/30" strokeWidth={1} />
+          <Quote className="w-16 h-16 text-[#D4AF37]/40" strokeWidth={1} />
         </div>
 
         {/* Quote Text */}
@@ -63,7 +63,7 @@ const Testimonials = () => {
           )}
           <div className="text-center md:text-left">
             <p className="museo-headline text-white text-lg">{testimonialsConfig.authorName}</p>
-            <p className="museo-label text-white/50">
+            <p className="museo-label text-[#D4AF37]/60">
               {testimonialsConfig.authorTitle}
             </p>
           </div>
@@ -71,7 +71,7 @@ const Testimonials = () => {
 
         {/* Decorative Line */}
         <div className="reveal-item mt-24 flex items-center justify-center">
-          <div className="w-24 h-px bg-white/20" />
+          <div className="w-24 h-px bg-[#D4AF37]/30" />
         </div>
       </div>
     </section>

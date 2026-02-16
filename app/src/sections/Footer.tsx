@@ -41,7 +41,7 @@ const Footer = () => {
             {/* Brand Column */}
             <div className="lg:col-span-2">
               <div className="flex items-center gap-4 mb-4">
-                <img src="/images/space-city-logo.png" alt="Space City Luxury Rentals" className="h-14 w-14 object-contain" />
+                <img src="/images/space-city-logo.png" alt="Space City Luxury Rentals" className="h-14 w-14 object-contain" style={{ background: 'transparent' }} />
                 <h3 className="museo-headline text-white text-2xl">
                   {footerConfig.brandName}
                 </h3>
@@ -69,7 +69,7 @@ const Footer = () => {
             {/* Quick Links */}
             {footerConfig.quickLinks.length > 0 && (
               <div>
-                <h4 className="museo-label text-white/50 mb-6">{footerConfig.quickLinksTitle}</h4>
+                <h4 className="museo-label text-[#D4AF37]/70 mb-6">{footerConfig.quickLinksTitle}</h4>
                 <ul className="space-y-3">
                   {footerConfig.quickLinks.map((link, i) => (
                     <li key={i}>
@@ -90,7 +90,7 @@ const Footer = () => {
             {/* Contact */}
             {footerConfig.contactItems.length > 0 && (
               <div>
-                <h4 className="museo-label text-white/50 mb-6">{footerConfig.contactTitle}</h4>
+                <h4 className="museo-label text-[#D4AF37]/70 mb-6">{footerConfig.contactTitle}</h4>
                 <ul className="space-y-3">
                   {footerConfig.contactItems.map((item, i) => (
                     <li

@@ -71,6 +71,7 @@ const MobileMenu = ({ open, onClose, navLinks, currentPath }: MobileMenuProps) =
               src="/images/space-city-logo.png"
               alt="Space City Luxury Rentals"
               className="h-10 w-10 object-contain"
+              style={{ background: 'transparent' }}
             />
             <span className="museo-label text-white/70">SPACE CITY</span>
           </div>

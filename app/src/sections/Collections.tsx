@@ -92,7 +92,7 @@ const Collections = () => {
     >
       {/* Section Header */}
       <div ref={headerRef} className="max-w-7xl mx-auto pt-32 pb-8 px-8 lg:px-16">
-        <p className="reveal-header museo-label text-white/40 mb-4">
+        <p className="reveal-header museo-label text-[#D4AF37] mb-4">
           {collectionsConfig.label}
         </p>
         <h2 className="reveal-header museo-headline text-white text-4xl md:text-5xl lg:text-7xl">
@@ -137,7 +137,7 @@ const Collections = () => {
                     index % 2 !== 0 ? 'lg:[direction:ltr]' : ''
                   }`}
                 >
-                  <p className="coll-text-el museo-label text-white/30 mb-3">
+                  <p className="coll-text-el museo-label text-[#D4AF37]/60 mb-3">
                     {item.year}
                   </p>
                   <h3 className="coll-text-el museo-headline text-white text-2xl md:text-3xl lg:text-5xl mb-4">
