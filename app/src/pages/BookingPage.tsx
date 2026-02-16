@@ -103,7 +103,7 @@ function BookingPage() {
 
   return (
     <div ref={pageRef} className="min-h-screen bg-[#050505]">
-      <div className="max-w-2xl mx-auto px-6 lg:px-16 pt-8 pb-20">
+      <div className="max-w-2xl mx-auto px-4 sm:px-6 lg:px-16 pt-6 sm:pt-8 pb-20">
         {confirmation ? (
           /* ---- Confirmation Panel ---- */
           <div ref={confirmRef} className="space-y-8">
@@ -206,9 +206,10 @@ function BookingPage() {
                   Status: Pending Review
                 </p>
                 <p className="text-white/40 text-sm mt-0.5">
-                  Joey will review your request and get back to you soon.
-                  Save your confirmation code to check your booking status
-                  anytime.
+                  Joey will review your request and reach out via text,
+                  email, or phone once your booking is approved or updated.
+                  You can also check your status anytime using your
+                  confirmation code.
                 </p>
               </div>
             </div>

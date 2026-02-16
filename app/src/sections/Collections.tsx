@@ -1,4 +1,5 @@
 import { useRef } from 'react';
+import { Link } from 'react-router';
 import { gsap, ScrollTrigger, useGSAP } from '../lib/gsap';
 import { collectionsConfig } from '../config';
 
@@ -147,7 +148,8 @@ const Collections = () => {
                     {item.description}
                   </p>
                   {collectionsConfig.ctaText && (
-                    <button
+                    <Link
+                      to="/book"
                       data-cursor="hover"
                       className="coll-text-el inline-flex items-center gap-2 museo-label text-white border border-white/20 px-6 py-3 hover:bg-white/10 hover:border-white/40 transition-all duration-300"
                     >
@@ -161,7 +163,7 @@ const Collections = () => {
                           strokeLinejoin="round"
                         />
                       </svg>
-                    </button>
+                    </Link>
                   )}
                 </div>
               </div>

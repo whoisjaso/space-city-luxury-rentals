@@ -1,5 +1,5 @@
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
-import { supabase, supabaseConfigured } from '../lib/supabase';
+import { supabase, isDemoMode } from '../lib/supabase';
 import { SEED_VEHICLES } from './useVehicles';
 import type { Vehicle, VehicleInsert, VehicleUpdate } from '../types/database';
 
@@ -24,7 +24,7 @@ export { resetDemoState };
 // ---------- Fetch all vehicles (including inactive) ----------
 
 async function fetchAdminVehicles(): Promise<Vehicle[]> {
-  if (!supabaseConfigured || !supabase) {
+  if (isDemoMode() || !supabase) {
     await new Promise((r) => setTimeout(r, 300));
     return [...demoVehicles];
   }
@@ -48,7 +48,7 @@ export function useAdminVehicles() {
 // ---------- Fetch single vehicle by ID ----------
 
 async function fetchAdminVehicle(id: string): Promise<Vehicle | null> {
-  if (!supabaseConfigured || !supabase) {
+  if (isDemoMode() || !supabase) {
     return demoVehicles.find((v) => v.id === id) ?? null;
   }
 
@@ -77,7 +77,7 @@ export function useAdminVehicle(id: string) {
 // ---------- Create vehicle ----------
 
 async function createVehicle(input: VehicleInsert): Promise<Vehicle> {
-  if (!supabaseConfigured || !supabase) {
+  if (isDemoMode() || !supabase) {
     await new Promise((r) => setTimeout(r, 500));
     const now = new Date().toISOString();
     const newVehicle: Vehicle = {
@@ -119,7 +119,7 @@ interface UpdateVehicleInput {
 }
 
 async function updateVehicle({ id, updates }: UpdateVehicleInput): Promise<Vehicle> {
-  if (!supabaseConfigured || !supabase) {
+  if (isDemoMode() || !supabase) {
     await new Promise((r) => setTimeout(r, 500));
     const idx = demoVehicles.findIndex((v) => v.id === id);
     if (idx === -1) throw new Error('Vehicle not found');
@@ -158,7 +158,7 @@ export function useUpdateVehicle() {
 // ---------- Delete vehicle (soft-delete: set is_active = false) ----------
 
 async function deleteVehicle(id: string): Promise<void> {
-  if (!supabaseConfigured || !supabase) {
+  if (isDemoMode() || !supabase) {
     await new Promise((r) => setTimeout(r, 300));
     demoVehicles = demoVehicles.filter((v) => v.id !== id);
     return;
@@ -216,7 +216,7 @@ async function uploadVehicleImage({
   file,
   vehicleId,
 }: UploadImageInput): Promise<UploadImageResult> {
-  if (!supabaseConfigured || !supabase) {
+  if (isDemoMode() || !supabase) {
     // Demo mode: create a local object URL for preview
     await new Promise((r) => setTimeout(r, 300));
     const url = URL.createObjectURL(file);

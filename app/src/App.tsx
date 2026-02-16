@@ -2,9 +2,11 @@ import { Routes, Route } from 'react-router';
 import './App.css';
 import { AuthProvider } from './providers/AuthProvider';
 import { QueryProvider } from './providers/QueryProvider';
+import ScrollToTop from './components/ScrollToTop';
 import LandingPage from './pages/LandingPage';
 import PublicLayout from './layouts/PublicLayout';
 import FleetPage from './pages/FleetPage';
+import InventoryPage from './pages/InventoryPage';
 import VehicleDetailPage from './pages/VehicleDetailPage';
 import BookingPage from './pages/BookingPage';
 import BookingStatusPage from './pages/BookingStatusPage';
@@ -23,6 +25,7 @@ function App() {
   return (
     <QueryProvider>
       <AuthProvider>
+        <ScrollToTop />
         <Routes>
           {/* Landing page — own cinematic nav, no PublicLayout */}
           <Route path="/" element={<LandingPage />} />
@@ -30,6 +33,7 @@ function App() {
           {/* Public pages — shared header/footer via PublicLayout */}
           <Route element={<PublicLayout />}>
             <Route path="/fleet" element={<FleetPage />} />
+            <Route path="/inventory" element={<InventoryPage />} />
             <Route path="/fleet/:slug" element={<VehicleDetailPage />} />
             <Route path="/book" element={<BookingPage />} />
             <Route path="/book/:code" element={<BookingStatusPage />} />

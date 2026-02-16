@@ -128,7 +128,7 @@ function BookingStatusPage() {
 
   return (
     <div ref={pageRef} className="min-h-screen bg-[#050505]">
-      <div className="max-w-2xl mx-auto px-6 lg:px-16 pt-8 pb-20">
+      <div className="max-w-2xl mx-auto px-4 sm:px-6 lg:px-16 pt-6 sm:pt-8 pb-20">
         {/* Page header */}
         <div ref={headerRef} className="mb-10 space-y-3">
           <span className="museo-label text-[#D4AF37] block">

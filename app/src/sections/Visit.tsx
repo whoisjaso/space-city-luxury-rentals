@@ -1,4 +1,5 @@
 import { useRef } from 'react';
+import { Link } from 'react-router';
 import { gsap, ScrollTrigger, useGSAP } from '../lib/gsap';
 import { MapPin, Clock, Calendar, Ticket } from 'lucide-react';
 import { visitConfig } from '../config';
@@ -82,12 +83,13 @@ const Visit = () => {
       {/* CTA */}
       {visitConfig.ctaText && (
         <div className="max-w-7xl mx-auto mt-16 text-center">
-          <button
+          <Link
+            to="/book"
             data-cursor="hover"
             className="inline-flex items-center gap-3 px-10 py-4 bg-[#D4AF37] text-[#050505] museo-label hover:bg-[#D4AF37]/90 transition-colors"
           >
             {visitConfig.ctaText}
-          </button>
+          </Link>
         </div>
       )}
     </section>

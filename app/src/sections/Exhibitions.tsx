@@ -1,4 +1,5 @@
 import { useRef } from 'react';
+import { Link } from 'react-router';
 import { gsap, ScrollTrigger, useGSAP } from '../lib/gsap';
 import { exhibitionsConfig } from '../config';
 
@@ -112,15 +113,16 @@ const Exhibitions = () => {
         ))}
       </div>
 
-      {/* Get Tickets CTA */}
+      {/* View All Vehicles CTA */}
       {exhibitionsConfig.ctaText && (
         <div ref={ctaRef} className="max-w-7xl mx-auto mt-12 flex justify-center">
-          <button
+          <Link
+            to="/inventory"
             data-cursor="hover"
             className="museo-label text-[#D4AF37] border border-[#D4AF37]/30 px-10 py-4 hover:bg-[#D4AF37] hover:text-[#050505] transition-all duration-300"
           >
             {exhibitionsConfig.ctaText}
-          </button>
+          </Link>
         </div>
       )}
     </section>

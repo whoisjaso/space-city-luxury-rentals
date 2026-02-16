@@ -75,7 +75,7 @@ function FleetPage() {
 
   return (
     <div ref={sectionRef} className="min-h-screen bg-[#050505]">
-      <div className="max-w-7xl mx-auto px-6 lg:px-16 pt-8 pb-20">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-16 pt-6 sm:pt-8 pb-20">
         {/* Page header */}
         <div ref={headerRef} className="mb-12 space-y-4">
           <span className="museo-label text-[#D4AF37] block">THE FLEET</span>

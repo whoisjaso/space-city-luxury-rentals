@@ -132,12 +132,12 @@ export const heroConfig: HeroConfig = {
   brandRight: "CITY",
   tagline: "Luxury Rentals",
   badge: "Houston's Premier",
-  since: "Est. 2024",
-  email: "reserve@spacecityrentals.com",
+  since: "Est. 2026",
+  email: "Primetaxsolutions25@gmail.com",
   heroImage: "/images/space-city-logo.png",
   heroImageAlt: "Space City Luxury Rentals crest logo",
   scrollText: "Scroll to Explore",
-  copyrightText: "© 2024 Space City Rentals",
+  copyrightText: "© 2026 Space City Rentals",
   navLinks: [
     { label: "Fleet", href: "#fleet" },
     { label: "Experiences", href: "#experiences" },
@@ -145,9 +145,7 @@ export const heroConfig: HeroConfig = {
     { label: "Contact", href: "#contact" },
   ],
   socialLinks: [
-    { label: "Instagram", href: "https://instagram.com/spacecityrentals" },
-    { label: "Twitter", href: "https://twitter.com/spacecityrentals" },
-    { label: "Facebook", href: "https://facebook.com/spacecityrentals" },
+    { label: "Instagram", href: "https://www.instagram.com/gtprofit100" },
   ],
 };
 
@@ -273,7 +271,7 @@ export const visitConfig: VisitConfig = {
     {
       icon: "Phone",
       title: "Contact",
-      content: "(713) 555-SPACE<br />reserve@spacecityrentals.com",
+      content: "(667) 391-7797<br />Primetaxsolutions25@gmail.com",
     },
   ],
 };
@@ -284,23 +282,21 @@ export const footerConfig: FooterConfig = {
   brandName: "Space City Rentals",
   brandDescription: "Houston's premier luxury vehicle experience. Where kings come to get their chariots. This isn't a rental—it's a transformation.",
   socialLinks: [
-    { label: "Instagram", href: "https://instagram.com/spacecityrentals" },
-    { label: "Twitter", href: "https://twitter.com/spacecityrentals" },
-    { label: "Facebook", href: "https://facebook.com/spacecityrentals" },
-    { label: "Linkedin", href: "https://linkedin.com/company/spacecityrentals" },
+    { label: "Instagram", href: "https://www.instagram.com/gtprofit100" },
+    { label: "Globe", href: "https://dot.cards/artispovgroupllc" },
   ],
   quickLinks: [
-    { label: "Our Fleet", href: "#fleet" },
-    { label: "Experience Packages", href: "#experiences" },
-    { label: "About Us", href: "#about" },
-    { label: "Contact", href: "#contact" },
+    { label: "Our Fleet", href: "/fleet" },
+    { label: "Inventory", href: "/inventory" },
+    { label: "Book a Vehicle", href: "/book" },
+    { label: "Contact", href: "/#contact" },
   ],
   quickLinksTitle: "Quick Links",
   contactTitle: "Get in Touch",
   contactItems: [
-    "Downtown Houston, TX",
-    "(713) 555-SPACE",
-    "reserve@spacecityrentals.com",
+    "Houston, TX",
+    "(667) 391-7797",
+    "Primetaxsolutions25@gmail.com",
   ],
   bottomLinks: [
     { label: "Privacy Policy", href: "#" },

@@ -28,3 +28,16 @@ export const supabaseConfigured = isConfigured(supabaseUrl, supabaseAnonKey);
 export const supabase: SupabaseClient | null = supabaseConfigured
   ? createClient(supabaseUrl, supabaseAnonKey)
   : null;
+
+/**
+ * Returns true when the app should use local demo data instead of Supabase.
+ * This happens when Supabase is not configured OR when the user logged in
+ * with the demo admin credentials (no real Supabase auth session).
+ */
+export function isDemoMode(): boolean {
+  if (!supabaseConfigured || !supabase) return true;
+  if (typeof sessionStorage !== 'undefined' && sessionStorage.getItem('demo-admin') === 'true') {
+    return true;
+  }
+  return false;
+}

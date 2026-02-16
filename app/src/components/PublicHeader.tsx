@@ -5,6 +5,7 @@ import MobileMenu from './MobileMenu';
 const navLinks = [
   { label: 'Home', href: '/', type: 'route' as const },
   { label: 'Fleet', href: '/fleet', type: 'route' as const },
+  { label: 'Inventory', href: '/inventory', type: 'route' as const },
   { label: 'Experiences', href: '/#experiences', type: 'hash' as const },
   { label: 'Contact', href: '/#contact', type: 'hash' as const },
 ];

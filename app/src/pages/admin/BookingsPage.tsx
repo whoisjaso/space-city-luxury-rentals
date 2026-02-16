@@ -52,22 +52,21 @@ export default function BookingsPage() {
 
   const handleConfirm = (notes: string) => {
     if (!modalState) return;
-    updateStatus.mutate(
-      {
-        id: modalState.booking.id,
-        status: modalState.action === 'approve' ? 'approved' : 'declined',
-        admin_notes: notes || null,
-      },
-      {
-        onSuccess: () => {
-          setModalState(null);
-        },
-      },
-    );
+    updateStatus.mutate({
+      id: modalState.booking.id,
+      status: modalState.action === 'approve' ? 'approved' : 'declined',
+      admin_notes: notes || null,
+    });
   };
 
   const handleCancel = () => {
     setModalState(null);
+    updateStatus.reset();
+  };
+
+  const handleDone = () => {
+    setModalState(null);
+    updateStatus.reset();
   };
 
   return (
@@ -137,7 +136,9 @@ export default function BookingsPage() {
           action={modalState.action}
           onConfirm={handleConfirm}
           onCancel={handleCancel}
+          onDone={handleDone}
           isLoading={updateStatus.isPending}
+          isSuccess={updateStatus.isSuccess}
         />
       )}
     </div>

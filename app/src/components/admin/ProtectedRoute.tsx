@@ -1,6 +1,5 @@
 import { Navigate, Outlet } from 'react-router';
 import { useAuth } from '../../providers/AuthProvider';
-import { supabaseConfigured } from '../../lib/supabase';
 
 // ---------------------------------------------------------------
 // ProtectedRoute — wraps admin routes with authentication check.
@@ -23,8 +22,9 @@ export default function ProtectedRoute() {
     );
   }
 
-  // Not configured or not authenticated — redirect to login
-  if (!supabaseConfigured || !user) {
+  // Not authenticated — redirect to login
+  // Allow through if user exists (either Supabase auth or demo admin)
+  if (!user) {
     return <Navigate to="/admin/login" replace />;
   }
 

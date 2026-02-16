@@ -44,12 +44,10 @@ button:focus-visible {
   outline-offset: 4px;
 }
 
-/* Only hide system cursor for devices with a precise pointer (mouse) */
+/* Only hide system cursor when custom cursor is active (landing page only) */
 @media (any-hover: hover) and (pointer: fine) {
-  a {
-    cursor: none;
-  }
-  button {
+  body.custom-cursor-active a,
+  body.custom-cursor-active button {
     cursor: none;
   }
 }

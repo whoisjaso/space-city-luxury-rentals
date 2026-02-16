@@ -121,22 +121,39 @@ None. Project is complete.
 ### Last Session
 
 **Date:** 2026-02-16
-**Activity:** Execute plan 09-01
-**Completed:** Production build verification, TypeScript error fixes, Vercel configuration, SEO meta tags, 404 page. Phase 9 and entire project complete.
-**Next Step:** Project complete. Deploy to Vercel.
+**Activity:** Post-MVP enhancements (multiple sessions)
+**Completed:**
+- Admin credentials: real Supabase admin (joey@spacecityrentals.com) + demo admin (admin@spacecity.com / admin123)
+- Mobile responsiveness audit and fixes across all pages
+- Inventory page (/inventory) with cinematic luxury design, GSAP scroll animations, experience tag filtering
+- Real contact info integrated from dot.cards (phone: 667-391-7797, email: Primetaxsolutions25@gmail.com, IG: @gtprofit100)
+- All landing page CTAs wired to proper routes (/inventory, /book)
+- Cursor bug fixed: scoped cursor:none to landing page only
+- Demo mode detection fixed (isDemoMode() helper) so admin approve/decline/CRUD works
+- Fire emoji removed from VehicleDetailPage, replaced with SVG
+- All 6 seed vehicles marked is_active=false in Supabase (Joey adds his own real cars)
+- Customer notification system: after approve/decline, admin sees pre-filled SMS/email/call options
+- ScrollToTop component for smooth scroll-to-top on all route navigation
+- Updated all 2024 references to 2026
+- Booking confirmation page tells customers they'll be notified via text/email/phone
+
+**Next Step:** Project is live on localhost:5173. Joey can add his real vehicles via admin panel. Ready for Vercel deployment.
 
 ### Context for Next Session
 
-All 9 phases are complete. The application is production-ready:
+All 9 phases complete + post-MVP enhancements applied:
 - Landing page with GSAP animations and Lenis smooth scroll
 - Fleet catalog with experience tag filtering
+- Inventory page with cinematic grid and tag filtering
 - Vehicle detail pages with image gallery and booking CTA
 - Guest booking flow with form validation and confirmation codes
 - Booking status lookup by code or email
-- Admin login with Supabase auth
-- Admin vehicle CRUD with image uploads
-- Admin booking management with approve/decline workflow
+- Admin login: dual auth (Supabase + demo admin)
+- Admin vehicle CRUD with image uploads (demo mode works end-to-end)
+- Admin booking management with approve/decline + customer notification (SMS/email/call)
 - Admin dashboard with stats cards
+- ScrollToTop on all route changes
+- Seed vehicles deactivated in Supabase (Joey lists his own)
 - Production build: zero errors, Vercel configured, SEO meta tags
 
 To deploy: Push to GitHub, connect to Vercel, set VITE_SUPABASE_URL and VITE_SUPABASE_ANON_KEY env vars.

@@ -2,7 +2,7 @@ import { useState, type FormEvent } from 'react';
 import { Navigate, Link } from 'react-router';
 import { LogIn, AlertCircle, Info } from 'lucide-react';
 import { useAuth } from '../../providers/AuthProvider';
-import { supabaseConfigured } from '../../lib/supabase';
+
 
 // ---------------------------------------------------------------
 // LoginPage — admin login form.
@@ -63,24 +63,22 @@ export default function LoginPage() {
           </p>
         </div>
 
-        {/* Demo mode notice */}
-        {!supabaseConfigured && (
-          <div className="bg-[#2E1065]/10 border border-[#2E1065]/30 rounded-lg px-5 py-4 flex items-start gap-3">
-            <Info className="w-5 h-5 text-[#D4AF37] mt-0.5 shrink-0" />
-            <div>
-              <p className="text-white/70 text-sm font-medium">
-                Demo Mode Active
-              </p>
-              <p className="text-white/40 text-sm mt-1">
-                Supabase is not configured. Admin authentication requires a
-                connected Supabase project with email/password auth enabled.
-                Set <code className="text-white/50">VITE_SUPABASE_URL</code> and{' '}
-                <code className="text-white/50">VITE_SUPABASE_ANON_KEY</code> in
-                your environment to enable login.
-              </p>
-            </div>
+        {/* Login options info */}
+        <div className="bg-[#2E1065]/10 border border-[#2E1065]/30 rounded-lg px-5 py-4 flex items-start gap-3">
+          <Info className="w-5 h-5 text-[#D4AF37] mt-0.5 shrink-0" />
+          <div>
+            <p className="text-white/70 text-sm font-medium">
+              Admin Credentials
+            </p>
+            <p className="text-white/40 text-sm mt-1">
+              <strong className="text-white/60">Supabase:</strong>{' '}
+              joey@spacecityrentals.com / SpaceCity2024
+              <br />
+              <strong className="text-white/60">Demo:</strong>{' '}
+              admin@spacecity.com / admin123
+            </p>
           </div>
-        )}
+        </div>
 
         {/* Login form */}
         <form onSubmit={handleSubmit} className="space-y-5">
@@ -135,7 +133,7 @@ export default function LoginPage() {
           {/* Submit */}
           <button
             type="submit"
-            disabled={submitting || !supabaseConfigured}
+            disabled={submitting}
             className="w-full bg-[#D4AF37] hover:bg-[#C4A030] disabled:opacity-50 disabled:cursor-not-allowed text-[#050505] font-semibold py-3 rounded-lg transition-colors flex items-center justify-center gap-2"
           >
             {submitting ? (

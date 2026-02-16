@@ -7,13 +7,30 @@ import {
   type ReactNode,
 } from 'react';
 import type { Session, User } from '@supabase/supabase-js';
-import { supabase } from '../lib/supabase';
+import { supabase, supabaseConfigured } from '../lib/supabase';
 
 // ---------------------------------------------------------------
 // Auth context – exposes Supabase auth state and helpers.
 // When Supabase is not configured (supabase === null), the provider
 // renders children with a "not authenticated" default state.
+//
+// Demo admin: When Supabase auth fails (e.g. email not confirmed),
+// the admin can use demo credentials: admin@spacecity.com / admin123
+// This creates a synthetic user object for local development.
 // ---------------------------------------------------------------
+
+const DEMO_ADMIN_EMAIL = 'admin@spacecity.com';
+const DEMO_ADMIN_PASSWORD = 'admin123';
+
+const DEMO_USER = {
+  id: 'demo-admin-001',
+  email: DEMO_ADMIN_EMAIL,
+  aud: 'authenticated',
+  role: 'authenticated',
+  app_metadata: { provider: 'demo' },
+  user_metadata: { email: DEMO_ADMIN_EMAIL },
+  created_at: new Date().toISOString(),
+} as unknown as User;
 
 interface AuthContextValue {
   user: User | null;
@@ -31,6 +48,14 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    // Check for persisted demo session
+    const demoSession = sessionStorage.getItem('demo-admin');
+    if (demoSession === 'true') {
+      setUser(DEMO_USER);
+      setLoading(false);
+      return;
+    }
+
     if (!supabase) {
       setLoading(false);
       return;
@@ -58,15 +83,42 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   }, []);
 
   const signIn = useCallback(async (email: string, password: string) => {
-    if (!supabase) throw new Error('Supabase is not configured');
-    const { error } = await supabase.auth.signInWithPassword({ email, password });
-    if (error) throw error;
+    // Try demo admin credentials first
+    if (email === DEMO_ADMIN_EMAIL && password === DEMO_ADMIN_PASSWORD) {
+      sessionStorage.setItem('demo-admin', 'true');
+      setUser(DEMO_USER);
+      return;
+    }
+
+    // Try Supabase auth
+    if (supabaseConfigured && supabase) {
+      const { error } = await supabase.auth.signInWithPassword({ email, password });
+      if (error) {
+        // If email not confirmed, suggest demo credentials
+        if (error.message.includes('Email not confirmed')) {
+          throw new Error(
+            'Email not confirmed. Use demo credentials: admin@spacecity.com / admin123'
+          );
+        }
+        throw error;
+      }
+      return;
+    }
+
+    throw new Error('Supabase is not configured. Use demo credentials: admin@spacecity.com / admin123');
   }, []);
 
   const signOut = useCallback(async () => {
-    if (!supabase) throw new Error('Supabase is not configured');
-    const { error } = await supabase.auth.signOut();
-    if (error) throw error;
+    // Clear demo session
+    sessionStorage.removeItem('demo-admin');
+
+    if (supabase) {
+      const { error } = await supabase.auth.signOut();
+      if (error) throw error;
+    }
+
+    setUser(null);
+    setSession(null);
   }, []);
 
   return (

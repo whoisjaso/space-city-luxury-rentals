@@ -1,5 +1,5 @@
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
-import { supabase, supabaseConfigured } from '../lib/supabase';
+import { supabase, isDemoMode } from '../lib/supabase';
 import { SEED_VEHICLES } from './useVehicles';
 import type { Booking, BookingStatus } from '../types/database';
 
@@ -134,7 +134,7 @@ let demoBookings: BookingWithVehicle[] = [
 async function fetchAdminBookings(
   statusFilter?: BookingStatus,
 ): Promise<BookingWithVehicle[]> {
-  if (!supabaseConfigured || !supabase) {
+  if (isDemoMode() || !supabase) {
     await new Promise((r) => setTimeout(r, 300));
     let filtered = [...demoBookings];
     if (statusFilter) {
@@ -178,7 +178,7 @@ export function useAdminBookings(statusFilter?: BookingStatus) {
 // ---------- Fetch dashboard stats ----------
 
 async function fetchAdminStats(): Promise<AdminStats> {
-  if (!supabaseConfigured || !supabase) {
+  if (isDemoMode() || !supabase) {
     await new Promise((r) => setTimeout(r, 200));
     return {
       totalBookings: demoBookings.length,
@@ -225,7 +225,7 @@ async function updateBookingStatus({
   status,
   admin_notes,
 }: UpdateBookingStatusInput): Promise<BookingWithVehicle> {
-  if (!supabaseConfigured || !supabase) {
+  if (isDemoMode() || !supabase) {
     await new Promise((r) => setTimeout(r, 400));
     const idx = demoBookings.findIndex((b) => b.id === id);
     if (idx === -1) throw new Error('Booking not found');
