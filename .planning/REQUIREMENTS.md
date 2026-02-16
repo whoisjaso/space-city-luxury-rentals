@@ -92,36 +92,34 @@
 
 ## Traceability
 
-Which phases cover which requirements. Updated during roadmap creation.
-
 | Requirement | Phase | Status |
 |-------------|-------|--------|
-| CAT-01 | — | Pending |
-| CAT-02 | — | Pending |
-| CAT-03 | — | Pending |
-| CAT-04 | — | Pending |
-| BOOK-01 | — | Pending |
-| BOOK-02 | — | Pending |
-| BOOK-03 | — | Pending |
-| BOOK-04 | — | Pending |
-| ADMIN-01 | — | Pending |
-| ADMIN-02 | — | Pending |
-| ADMIN-03 | — | Pending |
-| ADMIN-04 | — | Pending |
-| BRAND-01 | — | Pending |
-| BRAND-02 | — | Pending |
-| BRAND-03 | — | Pending |
-| BRAND-04 | — | Pending |
-| INFRA-01 | — | Pending |
-| INFRA-02 | — | Pending |
-| INFRA-03 | — | Pending |
-| INFRA-04 | — | Pending |
+| CAT-01 | Phase 4: Fleet Catalog Page | Pending |
+| CAT-02 | Phase 5: Vehicle Detail Pages | Pending |
+| CAT-03 | Phase 4: Fleet Catalog Page | Pending |
+| CAT-04 | Phase 5: Vehicle Detail Pages | Pending |
+| BOOK-01 | Phase 6: Guest Booking Flow | Pending |
+| BOOK-02 | Phase 6: Guest Booking Flow | Pending |
+| BOOK-03 | Phase 6: Guest Booking Flow | Pending |
+| BOOK-04 | Phase 6: Guest Booking Flow | Pending |
+| ADMIN-01 | Phase 7: Admin Auth & Vehicle Management | Pending |
+| ADMIN-02 | Phase 7: Admin Auth & Vehicle Management | Pending |
+| ADMIN-03 | Phase 8: Admin Booking Management & Dashboard | Pending |
+| ADMIN-04 | Phase 8: Admin Booking Management & Dashboard | Pending |
+| BRAND-01 | Phase 3: Public Layout & Brand Shell | Pending |
+| BRAND-02 | Phase 5: Vehicle Detail Pages | Pending |
+| BRAND-03 | Phase 4: Fleet Catalog Page | Pending |
+| BRAND-04 | Phase 3: Public Layout & Brand Shell | Pending |
+| INFRA-01 | Phase 1: Routing & Animation Survival | Pending |
+| INFRA-02 | Phase 2: Supabase Foundation | Pending |
+| INFRA-03 | Phase 2: Supabase Foundation | Pending |
+| INFRA-04 | Phase 9: Production Deploy & Polish | Pending |
 
 **Coverage:**
 - v1 requirements: 20 total
-- Mapped to phases: 0
-- Unmapped: 20 (will be mapped during roadmap creation)
+- Mapped to phases: 20
+- Unmapped: 0
 
 ---
 *Requirements defined: 2026-02-15*
-*Last updated: 2026-02-15 after initial definition*
+*Last updated: 2026-02-15 after roadmap creation*
