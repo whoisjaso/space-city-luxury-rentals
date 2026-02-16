@@ -4,15 +4,15 @@
 
 **Core Value:** Customers can discover Joey's vehicles and submit a booking request with zero friction -- and Joey can manage his fleet and respond to every request from a single admin panel.
 
-**Current Focus:** Phase 7 complete -- Admin Auth & Vehicle Management (1/1 plans complete). Ready for Phase 8.
+**Current Focus:** Phase 8 complete -- Admin Booking Management & Dashboard (1/1 plans complete). Ready for Phase 9.
 
 ## Current Position
 
-**Phase:** 7 of 9 (Admin Auth & Vehicle Management)
-**Plan:** 1 of 1 in Phase 7
+**Phase:** 8 of 9 (Admin Booking Management & Dashboard)
+**Plan:** 1 of 1 in Phase 8
 **Status:** Phase complete
-**Last activity:** 2026-02-15 -- Completed 07-01-PLAN.md
-**Progress:** [##########] ~37% (10 plans of ~27 estimated)
+**Last activity:** 2026-02-15 -- Completed 08-01-PLAN.md
+**Progress:** [###########] ~41% (11 plans of ~27 estimated)
 
 ## Phase Overview
 
@@ -25,15 +25,15 @@
 | 5 | Vehicle Detail Pages | COMPLETE (1/1 plans) |
 | 6 | Guest Booking Flow | COMPLETE (1/1 plans) |
 | 7 | Admin Auth & Vehicle Management | COMPLETE (1/1 plans) |
-| 8 | Admin Booking Management & Dashboard | Not Started |
+| 8 | Admin Booking Management & Dashboard | COMPLETE (1/1 plans) |
 | 9 | Production Deploy & Polish | Not Started |
 
 ## Performance Metrics
 
-**Plans completed:** 10
+**Plans completed:** 11
 **Plans total:** ~27 estimated
-**Requirements delivered:** 9/20 (INFRA-01: React Router, INFRA-02: Supabase schema, FLEET-01: Fleet catalog page, FLEET-02: Vehicle detail pages, BOOK-01: Booking form, BOOK-02: Booking status, ADMIN-01: Admin login, ADMIN-02: Vehicle management, ADMIN-03: Protected routes)
-**Phases completed:** 7/9
+**Requirements delivered:** 11/20 (INFRA-01: React Router, INFRA-02: Supabase schema, FLEET-01: Fleet catalog page, FLEET-02: Vehicle detail pages, BOOK-01: Booking form, BOOK-02: Booking status, ADMIN-01: Admin login, ADMIN-02: Vehicle management, ADMIN-03: Protected routes, ADMIN-04: Booking management, ADMIN-05: Dashboard stats)
+**Phases completed:** 8/9
 
 ## Accumulated Context
 
@@ -78,6 +78,10 @@
 | Admin sidebar collapses on mobile | Slide-out panel with hamburger toggle; consistent with PublicHeader mobile pattern | Phase 7 |
 | Slug auto-generation from vehicle name | Stops auto-generating when user manually edits slug field | Phase 7 |
 | Two-click delete with auto-cancel | First click shows confirm state, second click executes; 3s timeout resets to prevent stale confirm state | Phase 7 |
+| Optimistic booking status updates with rollback | setQueriesData patches all cached booking queries immediately; onError rolls back | Phase 8 |
+| Parallel query for pending tab badge | BookingsPage fetches unfiltered bookings alongside filtered query for accurate pending count | Phase 8 |
+| Expandable table rows for booking details | Click-to-expand reveals email, phone, notes without separate detail page | Phase 8 |
+| Demo bookings as mutable module-level array | Same pattern as useAdminVehicles; 5 mock bookings persist within session | Phase 8 |
 
 ### Known Issues
 
@@ -103,6 +107,7 @@ None currently.
 - [x] Build vehicle detail pages with gallery, social proof, and booking CTA (Phase 5) -- DONE in 05-01
 - [x] Build guest booking flow with form, validation, confirmation, and status lookup (Phase 6) -- DONE in 06-01
 - [x] Build admin auth, protected routes, and vehicle CRUD management (Phase 7) -- DONE in 07-01
+- [x] Build admin dashboard and booking management (Phase 8) -- DONE in 08-01
 - [ ] Upgrade Supabase to Pro tier before production launch (Phase 9)
 - [ ] Consider email notifications for booking confirmation (post-MVP)
 
@@ -111,26 +116,22 @@ None currently.
 ### Last Session
 
 **Date:** 2026-02-15
-**Activity:** Execute plan 07-01
-**Completed:** Admin auth, protected routes, sidebar layout, and full vehicle CRUD (table, add/edit form, image upload, search/sort). Phase 7 complete.
-**Next Step:** Begin Phase 8 (Admin Booking Management & Dashboard)
+**Activity:** Execute plan 08-01
+**Completed:** Admin dashboard with stats cards, booking table with status filtering, approve/decline modal with notes. Phase 8 complete.
+**Next Step:** Begin Phase 9 (Production Deploy & Polish)
 
 ### Context for Next Session
 
-Phase 7 (Admin Auth & Vehicle Management) is fully complete:
-- LoginPage (07-01): Admin login at /admin/login with email/password, demo mode notice when Supabase not configured
-- ProtectedRoute (07-01): Auth guard checking user and supabaseConfigured, redirects to login
-- AdminLayout (07-01): Fixed sidebar (w-64) + main content area with mobile collapse
-- AdminSidebar (07-01): Dashboard/Vehicles/Bookings nav, View Site link, Sign Out, active link gold highlight
-- useAdminVehicles (07-01): CRUD hooks (list, create, update, delete, toggle active, upload image) with demo mode fallback
-- VehicleTable (07-01): Sortable/searchable table with status badges, edit links, toggle active, two-click delete
-- ImageUpload (07-01): Drag-and-drop with preview thumbnails, file validation (JPG/PNG/WebP, 5MB), remove capability
-- VehiclesPage (07-01): Vehicle list with "Add Vehicle" button, loading/error states
-- VehicleFormPage (07-01): Dual add/edit form with slug auto-gen, tag checkboxes, price-in-cents, active toggle
-- Dashboard placeholder: metric cards (Vehicles, Active Bookings, Revenue) with "--" values
-- Bookings placeholder: "Coming in Phase 8" notice
+Phase 8 (Admin Booking Management & Dashboard) is fully complete:
+- DashboardPage (08-01): Stats cards (total bookings, pending requests, active vehicles), recent bookings list, quick links
+- BookingsPage (08-01): Status filter tabs (All/Pending/Approved/Declined) with pending count badge, booking table, action modal
+- BookingTable (08-01): Desktop table + mobile cards, expandable rows with contact info and admin notes
+- BookingActionModal (08-01): Approve/decline confirmation with notes textarea for customer-visible messages
+- useAdminBookings (08-01): Fetch/filter bookings, dashboard stats, optimistic status updates with rollback
+- DashboardStats (08-01): Three stat cards with loading skeletons, gold highlight for pending > 0
+- App.tsx updated: inline placeholders replaced with proper page components
 
-Phase 8 builds admin booking management and dashboard. The admin will need to view/approve/decline bookings and see dashboard metrics. The placeholder routes and layout are already in place.
+All admin panel features are now complete. Phase 9 handles production deployment and final polish.
 
 ---
 
