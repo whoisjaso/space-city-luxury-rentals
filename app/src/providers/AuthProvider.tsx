@@ -11,6 +11,8 @@ import { supabase } from '../lib/supabase';
 
 // ---------------------------------------------------------------
 // Auth context – exposes Supabase auth state and helpers.
+// When Supabase is not configured (supabase === null), the provider
+// renders children with a "not authenticated" default state.
 // ---------------------------------------------------------------
 
 interface AuthContextValue {
@@ -29,6 +31,11 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    if (!supabase) {
+      setLoading(false);
+      return;
+    }
+
     // 1. Hydrate from existing session
     supabase.auth.getSession().then(({ data: { session: currentSession } }) => {
       setSession(currentSession);
@@ -51,11 +58,13 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   }, []);
 
   const signIn = useCallback(async (email: string, password: string) => {
+    if (!supabase) throw new Error('Supabase is not configured');
     const { error } = await supabase.auth.signInWithPassword({ email, password });
     if (error) throw error;
   }, []);
 
   const signOut = useCallback(async () => {
+    if (!supabase) throw new Error('Supabase is not configured');
     const { error } = await supabase.auth.signOut();
     if (error) throw error;
   }, []);
