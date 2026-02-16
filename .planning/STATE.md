@@ -4,15 +4,15 @@
 
 **Core Value:** Customers can discover Joey's vehicles and submit a booking request with zero friction -- and Joey can manage his fleet and respond to every request from a single admin panel.
 
-**Current Focus:** Phase 4 complete -- Fleet Catalog Page (1/1 plans complete). Ready for Phase 5.
+**Current Focus:** Phase 5 complete -- Vehicle Detail Pages (1/1 plans complete). Ready for Phase 6.
 
 ## Current Position
 
-**Phase:** 4 of 9 (Fleet Catalog Page)
-**Plan:** 1 of 1 in Phase 4
+**Phase:** 5 of 9 (Vehicle Detail Pages)
+**Plan:** 1 of 1 in Phase 5
 **Status:** Phase complete
-**Last activity:** 2026-02-15 -- Completed 04-01-PLAN.md
-**Progress:** [#######...] ~26% (7 plans of ~27 estimated)
+**Last activity:** 2026-02-15 -- Completed 05-01-PLAN.md
+**Progress:** [########..] ~30% (8 plans of ~27 estimated)
 
 ## Phase Overview
 
@@ -22,7 +22,7 @@
 | 2 | Supabase Foundation | COMPLETE (2/2 plans) |
 | 3 | Public Layout & Brand Shell | COMPLETE (1/1 plans) |
 | 4 | Fleet Catalog Page | COMPLETE (1/1 plans) |
-| 5 | Vehicle Detail Pages | Not Started |
+| 5 | Vehicle Detail Pages | COMPLETE (1/1 plans) |
 | 6 | Guest Booking Flow | Not Started |
 | 7 | Admin Auth & Vehicle Management | Not Started |
 | 8 | Admin Booking Management & Dashboard | Not Started |
@@ -30,10 +30,10 @@
 
 ## Performance Metrics
 
-**Plans completed:** 7
+**Plans completed:** 8
 **Plans total:** ~27 estimated
-**Requirements delivered:** 3/20 (INFRA-01: React Router, INFRA-02: Supabase schema, FLEET-01: Fleet catalog page)
-**Phases completed:** 4/9
+**Requirements delivered:** 4/20 (INFRA-01: React Router, INFRA-02: Supabase schema, FLEET-01: Fleet catalog page, FLEET-02: Vehicle detail pages)
+**Phases completed:** 5/9
 
 ## Accumulated Context
 
@@ -66,6 +66,9 @@
 | Slide-out mobile menu panel | Right-side panel instead of full-screen overlay; more refined UX with backdrop close | Phase 3 |
 | Seed data fallback in useVehicles | 6 hardcoded vehicles returned when Supabase not configured; matches config fleet | Phase 4 |
 | Identity headline as primary card text | Vehicle headline (tagline) is dominant; vehicle name is secondary museo-label style | Phase 4 |
+| Exported SEED_VEHICLES for cross-hook reuse | useVehicle.ts imports same seed array from useVehicles.ts; avoids duplication | Phase 5 |
+| PGRST116 treated as null not error | Supabase "no rows found" on .single() returns null for clean not-found UX | Phase 5 |
+| Sticky pricing card (top-24) | Pricing stays visible on scroll for long descriptions; standard e-commerce pattern | Phase 5 |
 
 ### Known Issues
 
@@ -88,6 +91,7 @@ None currently.
 - [x] Create Supabase database schema and seed data (Phase 2) -- DONE in 02-02
 - [x] Create public layout shell with header, mobile menu, routing (Phase 3) -- DONE in 03-01
 - [x] Build fleet catalog page with vehicle cards and experience filtering (Phase 4) -- DONE in 04-01
+- [x] Build vehicle detail pages with gallery, social proof, and booking CTA (Phase 5) -- DONE in 05-01
 - [ ] Decide on image optimization approach for vehicle photos (Phase 7)
 - [ ] Upgrade Supabase to Pro tier before production launch (Phase 9)
 - [ ] Consider email notifications for booking confirmation (post-MVP)
@@ -97,20 +101,19 @@ None currently.
 ### Last Session
 
 **Date:** 2026-02-15
-**Activity:** Execute plan 04-01
-**Completed:** FleetPage with VehicleCard, ExperienceFilter, useVehicles hook, and conditional Supabase client. Phase 4 complete.
-**Next Step:** Begin Phase 5 (Vehicle Detail Pages)
+**Activity:** Execute plan 05-01
+**Completed:** VehicleDetailPage with ImageGallery, useVehicle hook, social proof, and booking CTA. Phase 5 complete.
+**Next Step:** Begin Phase 6 (Guest Booking Flow)
 
 ### Context for Next Session
 
-Phase 4 (Fleet Catalog Page) is fully complete:
-- FleetPage (04-01): Responsive 1/2/3-col vehicle grid with GSAP scroll animations, loading skeletons, error state
-- VehicleCard (04-01): Cinematic card with identity headline, hero image, price badge, experience tag pills, links to /fleet/:slug
-- ExperienceFilter (04-01): Horizontal scrollable filter chips for 7 experience tags (All + 6 specific tags)
-- useVehicles (04-01): TanStack Query hook fetching from Supabase with 6-vehicle seed data fallback
-- supabase.ts (04-01): Now exports nullable client and supabaseConfigured flag for demo mode
+Phase 5 (Vehicle Detail Pages) is fully complete:
+- VehicleDetailPage (05-01): Cinematic detail page at /fleet/:slug with hero gallery, identity headline, description, experience tags, pricing card, social proof, and booking CTA
+- ImageGallery (05-01): Hero image with optional thumbnail strip, gold active border, opacity fade transitions
+- useVehicle (05-01): TanStack Query hook fetching single vehicle by slug with Supabase query and seed data fallback
+- SEED_VEHICLES exported from useVehicles.ts for cross-hook reuse
 
-Phase 5 builds vehicle detail pages at /fleet/:slug, showing full vehicle info, image gallery, and a booking CTA. The VehicleCard already links to these routes and the useVehicles hook pattern is established.
+Phase 6 builds the guest booking flow at /book?vehicle={slug}. The booking CTA on the detail page already links to this route. The booking form needs to collect guest info, dates, and submit to Supabase bookings table.
 
 ---
 
