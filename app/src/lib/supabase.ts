@@ -1,7 +1,10 @@
 import { createClient, type SupabaseClient } from '@supabase/supabase-js';
 
-const supabaseUrl = import.meta.env.VITE_SUPABASE_URL as string;
-const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY as string;
+// Strip whitespace: Rollup may convert long strings to template literals
+// and wrap them across lines, embedding \n inside the value. HTTP headers
+// reject newlines, so we must clean the values.
+const supabaseUrl = String(import.meta.env.VITE_SUPABASE_URL || '').replace(/\s/g, '');
+const supabaseAnonKey = String(import.meta.env.VITE_SUPABASE_ANON_KEY || '').replace(/\s/g, '');
 
 // ---------------------------------------------------------------
 // Supabase is optional for local development.  When env vars are
