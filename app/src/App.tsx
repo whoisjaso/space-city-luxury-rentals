@@ -15,6 +15,8 @@ import ProtectedRoute from './components/admin/ProtectedRoute';
 import AdminLayout from './layouts/AdminLayout';
 import VehiclesPage from './pages/admin/VehiclesPage';
 import VehicleFormPage from './pages/admin/VehicleFormPage';
+import DashboardPage from './pages/admin/DashboardPage';
+import BookingsPage from './pages/admin/BookingsPage';
 
 function App() {
   return (
@@ -38,41 +40,11 @@ function App() {
           {/* Admin — protected routes with sidebar layout */}
           <Route path="/admin" element={<ProtectedRoute />}>
             <Route element={<AdminLayout />}>
-              <Route
-                index
-                element={
-                  <div className="space-y-4">
-                    <h1 className="museo-headline text-white text-2xl lg:text-3xl">Dashboard</h1>
-                    <p className="museo-body text-white/40">Coming in Phase 8 — booking management, revenue metrics, and fleet overview.</p>
-                    <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mt-6">
-                      <div className="bg-white/[0.03] border border-white/5 rounded-xl p-6">
-                        <span className="museo-label text-white/30 block">Vehicles</span>
-                        <span className="text-white text-3xl font-bold mt-2 block">--</span>
-                      </div>
-                      <div className="bg-white/[0.03] border border-white/5 rounded-xl p-6">
-                        <span className="museo-label text-white/30 block">Active Bookings</span>
-                        <span className="text-white text-3xl font-bold mt-2 block">--</span>
-                      </div>
-                      <div className="bg-white/[0.03] border border-white/5 rounded-xl p-6">
-                        <span className="museo-label text-white/30 block">Revenue (MTD)</span>
-                        <span className="text-white text-3xl font-bold mt-2 block">--</span>
-                      </div>
-                    </div>
-                  </div>
-                }
-              />
+              <Route index element={<DashboardPage />} />
               <Route path="vehicles" element={<VehiclesPage />} />
               <Route path="vehicles/new" element={<VehicleFormPage />} />
               <Route path="vehicles/edit/:id" element={<VehicleFormPage />} />
-              <Route
-                path="bookings"
-                element={
-                  <div className="space-y-4">
-                    <h1 className="museo-headline text-white text-2xl lg:text-3xl">Bookings</h1>
-                    <p className="museo-body text-white/40">Coming in Phase 8 — view, approve, and manage booking requests.</p>
-                  </div>
-                }
-              />
+              <Route path="bookings" element={<BookingsPage />} />
             </Route>
           </Route>
 
