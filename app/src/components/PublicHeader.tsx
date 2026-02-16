@@ -62,8 +62,7 @@ const PublicHeader = () => {
 
           {/* Desktop Nav */}
           <nav className="hidden md:flex items-center gap-8">
-            {navLinks.map((link) =>
-              link.type === 'route' ? (
+            {navLinks.map((link) => (
                 <Link
                   key={link.href}
                   to={link.href}
@@ -75,16 +74,7 @@ const PublicHeader = () => {
                 >
                   {link.label}
                 </Link>
-              ) : (
-                <a
-                  key={link.href}
-                  href={link.href}
-                  className="museo-label text-white/70 hover:text-[var(--space-gold)] transition-colors"
-                >
-                  {link.label}
-                </a>
-              )
-            )}
+            ))}
             <Link
               to="/admin"
               className="w-9 h-9 rounded-full border border-white/20 flex items-center justify-center text-white/60 hover:text-white hover:border-white/40 transition-colors"

@@ -86,8 +86,7 @@ const MobileMenu = ({ open, onClose, navLinks, currentPath }: MobileMenuProps) =
 
         {/* Nav Links */}
         <nav className="flex flex-col px-6 py-8 gap-2">
-          {navLinks.map((link) =>
-            link.type === 'route' ? (
+          {navLinks.map((link) => (
               <Link
                 key={link.href}
                 to={link.href}
@@ -100,17 +99,7 @@ const MobileMenu = ({ open, onClose, navLinks, currentPath }: MobileMenuProps) =
               >
                 {link.label}
               </Link>
-            ) : (
-              <a
-                key={link.href}
-                href={link.href}
-                onClick={onClose}
-                className="museo-label text-lg py-3 border-b border-white/5 text-white/70 hover:text-[var(--space-gold)] transition-colors"
-              >
-                {link.label}
-              </a>
-            )
-          )}
+          ))}
         </nav>
 
         {/* Bottom CTA */}

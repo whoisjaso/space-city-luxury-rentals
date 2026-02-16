@@ -1,4 +1,5 @@
 import { ArrowUpRight, Instagram, Twitter, Facebook, Linkedin, Youtube, Globe } from 'lucide-react';
+import { Link } from 'react-router';
 import { footerConfig } from '../config';
 
 const socialIconMap: Record<string, React.ComponentType<{ className?: string }>> = {
@@ -73,14 +74,13 @@ const Footer = () => {
                 <ul className="space-y-3">
                   {footerConfig.quickLinks.map((link, i) => (
                     <li key={i}>
-                      <a
-                        href={link.href}
-                        data-cursor="hover"
+                      <Link
+                        to={link.href}
                         className="group museo-body text-white/70 text-sm hover:text-white transition-colors flex items-center gap-2"
                       >
                         {link.label}
                         <ArrowUpRight className="w-3 h-3 opacity-0 group-hover:opacity-100 transition-opacity" />
-                      </a>
+                      </Link>
                     </li>
                   ))}
                 </ul>
