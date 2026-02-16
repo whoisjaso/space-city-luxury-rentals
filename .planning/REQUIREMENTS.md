@@ -38,7 +38,7 @@
 - [x] **INFRA-01**: React Router integrated without breaking existing GSAP landing page animations
 - [x] **INFRA-02**: Supabase backend configured (auth, PostgreSQL database, file storage for vehicle images)
 - [x] **INFRA-03**: Supabase Row Level Security (RLS) policies protecting customer data and admin operations
-- [ ] **INFRA-04**: Deployed to Vercel with proper routing configuration
+- [x] **INFRA-04**: Deployed to Vercel with proper routing configuration
 
 ## v2 Requirements
 
@@ -94,26 +94,26 @@
 
 | Requirement | Phase | Status |
 |-------------|-------|--------|
-| CAT-01 | Phase 4: Fleet Catalog Page | Pending |
-| CAT-02 | Phase 5: Vehicle Detail Pages | Pending |
-| CAT-03 | Phase 4: Fleet Catalog Page | Pending |
-| CAT-04 | Phase 5: Vehicle Detail Pages | Pending |
-| BOOK-01 | Phase 6: Guest Booking Flow | Pending |
-| BOOK-02 | Phase 6: Guest Booking Flow | Pending |
-| BOOK-03 | Phase 6: Guest Booking Flow | Pending |
-| BOOK-04 | Phase 6: Guest Booking Flow | Pending |
-| ADMIN-01 | Phase 7: Admin Auth & Vehicle Management | Pending |
-| ADMIN-02 | Phase 7: Admin Auth & Vehicle Management | Pending |
-| ADMIN-03 | Phase 8: Admin Booking Management & Dashboard | Pending |
-| ADMIN-04 | Phase 8: Admin Booking Management & Dashboard | Pending |
-| BRAND-01 | Phase 3: Public Layout & Brand Shell | Pending |
-| BRAND-02 | Phase 5: Vehicle Detail Pages | Pending |
-| BRAND-03 | Phase 4: Fleet Catalog Page | Pending |
-| BRAND-04 | Phase 3: Public Layout & Brand Shell | Pending |
+| CAT-01 | Phase 4: Fleet Catalog Page | Complete |
+| CAT-02 | Phase 5: Vehicle Detail Pages | Complete |
+| CAT-03 | Phase 4: Fleet Catalog Page | Complete |
+| CAT-04 | Phase 5: Vehicle Detail Pages | Complete |
+| BOOK-01 | Phase 6: Guest Booking Flow | Complete |
+| BOOK-02 | Phase 6: Guest Booking Flow | Complete |
+| BOOK-03 | Phase 6: Guest Booking Flow | Complete |
+| BOOK-04 | Phase 6: Guest Booking Flow | Complete |
+| ADMIN-01 | Phase 7: Admin Auth & Vehicle Management | Complete |
+| ADMIN-02 | Phase 7: Admin Auth & Vehicle Management | Complete |
+| ADMIN-03 | Phase 8: Admin Booking Management & Dashboard | Complete |
+| ADMIN-04 | Phase 8: Admin Booking Management & Dashboard | Complete |
+| BRAND-01 | Phase 3: Public Layout & Brand Shell | Complete |
+| BRAND-02 | Phase 5: Vehicle Detail Pages | Complete |
+| BRAND-03 | Phase 4: Fleet Catalog Page | Complete |
+| BRAND-04 | Phase 3: Public Layout & Brand Shell | Complete |
 | INFRA-01 | Phase 1: Routing & Animation Survival | Complete |
-| INFRA-02 | Phase 2: Supabase Foundation | Pending |
-| INFRA-03 | Phase 2: Supabase Foundation | Pending |
-| INFRA-04 | Phase 9: Production Deploy & Polish | Pending |
+| INFRA-02 | Phase 2: Supabase Foundation | Complete |
+| INFRA-03 | Phase 2: Supabase Foundation | Complete |
+| INFRA-04 | Phase 9: Production Deploy & Polish | Complete |
 
 **Coverage:**
 - v1 requirements: 20 total
