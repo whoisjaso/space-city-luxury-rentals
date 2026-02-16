@@ -28,10 +28,10 @@
 
 ### Design & Brand
 
-- [ ] **BRAND-01**: Space City Luxury Rentals logo displayed in site header/navigation
+- [x] **BRAND-01**: Space City Luxury Rentals logo displayed in site header/navigation
 - [ ] **BRAND-02**: Vehicles presented with cinematic imagery (hero-style photos, moody lighting, lifestyle context)
 - [ ] **BRAND-03**: Identity headlines used for vehicles instead of spec sheets ("Move in Silence. Let the Car Do the Talking.")
-- [ ] **BRAND-04**: Fully responsive mobile-first design across all pages
+- [x] **BRAND-04**: Fully responsive mobile-first design across all pages
 
 ### Infrastructure
 
