@@ -4,15 +4,15 @@
 
 **Core Value:** Customers can discover Joey's vehicles and submit a booking request with zero friction -- and Joey can manage his fleet and respond to every request from a single admin panel.
 
-**Current Focus:** Phase 6 complete -- Guest Booking Flow (1/1 plans complete). Ready for Phase 7.
+**Current Focus:** Phase 7 complete -- Admin Auth & Vehicle Management (1/1 plans complete). Ready for Phase 8.
 
 ## Current Position
 
-**Phase:** 6 of 9 (Guest Booking Flow)
-**Plan:** 1 of 1 in Phase 6
+**Phase:** 7 of 9 (Admin Auth & Vehicle Management)
+**Plan:** 1 of 1 in Phase 7
 **Status:** Phase complete
-**Last activity:** 2026-02-15 -- Completed 06-01-PLAN.md
-**Progress:** [#########.] ~33% (9 plans of ~27 estimated)
+**Last activity:** 2026-02-15 -- Completed 07-01-PLAN.md
+**Progress:** [##########] ~37% (10 plans of ~27 estimated)
 
 ## Phase Overview
 
@@ -24,16 +24,16 @@
 | 4 | Fleet Catalog Page | COMPLETE (1/1 plans) |
 | 5 | Vehicle Detail Pages | COMPLETE (1/1 plans) |
 | 6 | Guest Booking Flow | COMPLETE (1/1 plans) |
-| 7 | Admin Auth & Vehicle Management | Not Started |
+| 7 | Admin Auth & Vehicle Management | COMPLETE (1/1 plans) |
 | 8 | Admin Booking Management & Dashboard | Not Started |
 | 9 | Production Deploy & Polish | Not Started |
 
 ## Performance Metrics
 
-**Plans completed:** 9
+**Plans completed:** 10
 **Plans total:** ~27 estimated
-**Requirements delivered:** 6/20 (INFRA-01: React Router, INFRA-02: Supabase schema, FLEET-01: Fleet catalog page, FLEET-02: Vehicle detail pages, BOOK-01: Booking form, BOOK-02: Booking status)
-**Phases completed:** 6/9
+**Requirements delivered:** 9/20 (INFRA-01: React Router, INFRA-02: Supabase schema, FLEET-01: Fleet catalog page, FLEET-02: Vehicle detail pages, BOOK-01: Booking form, BOOK-02: Booking status, ADMIN-01: Admin login, ADMIN-02: Vehicle management, ADMIN-03: Protected routes)
+**Phases completed:** 7/9
 
 ## Accumulated Context
 
@@ -73,6 +73,11 @@
 | Single-page booking form (no multi-step) | Under 60 seconds to complete; fewer clicks = less friction for luxury experience | Phase 6 |
 | Validation on blur with touched tracking | Errors only appear after user interacts with field; no red text on initial render | Phase 6 |
 | Status page auto-detects code vs email | Unified search input with @ symbol detection reduces UI complexity | Phase 6 |
+| Demo mode CRUD uses mutable module-level array | Data persists across component remounts within a session; simulates real DB behavior | Phase 7 |
+| ProtectedRoute as Outlet wrapper | Checks auth state and Supabase config, redirects to /admin/login if not authenticated | Phase 7 |
+| Admin sidebar collapses on mobile | Slide-out panel with hamburger toggle; consistent with PublicHeader mobile pattern | Phase 7 |
+| Slug auto-generation from vehicle name | Stops auto-generating when user manually edits slug field | Phase 7 |
+| Two-click delete with auto-cancel | First click shows confirm state, second click executes; 3s timeout resets to prevent stale confirm state | Phase 7 |
 
 ### Known Issues
 
@@ -97,7 +102,7 @@ None currently.
 - [x] Build fleet catalog page with vehicle cards and experience filtering (Phase 4) -- DONE in 04-01
 - [x] Build vehicle detail pages with gallery, social proof, and booking CTA (Phase 5) -- DONE in 05-01
 - [x] Build guest booking flow with form, validation, confirmation, and status lookup (Phase 6) -- DONE in 06-01
-- [ ] Decide on image optimization approach for vehicle photos (Phase 7)
+- [x] Build admin auth, protected routes, and vehicle CRUD management (Phase 7) -- DONE in 07-01
 - [ ] Upgrade Supabase to Pro tier before production launch (Phase 9)
 - [ ] Consider email notifications for booking confirmation (post-MVP)
 
@@ -106,20 +111,26 @@ None currently.
 ### Last Session
 
 **Date:** 2026-02-15
-**Activity:** Execute plan 06-01
-**Completed:** Guest booking flow with BookingForm, BookingPage, BookingStatusPage, useBooking hooks, and TermsModal. Phase 6 complete.
-**Next Step:** Begin Phase 7 (Admin Auth & Vehicle Management)
+**Activity:** Execute plan 07-01
+**Completed:** Admin auth, protected routes, sidebar layout, and full vehicle CRUD (table, add/edit form, image upload, search/sort). Phase 7 complete.
+**Next Step:** Begin Phase 8 (Admin Booking Management & Dashboard)
 
 ### Context for Next Session
 
-Phase 6 (Guest Booking Flow) is fully complete:
-- BookingPage (06-01): Guest booking form at /book with ?vehicle=slug pre-selection, real-time validation, terms checkbox, confirmation panel with code copy
-- BookingStatusPage (06-01): Status lookup at /book/:code with code/email auto-detection, status badges (pending/approved/declined), admin notes display
-- useBooking (06-01): useCreateBooking mutation, useBookingStatus by code, useBookingsByEmail -- all with demo mode fallback
-- BookingForm (06-01): Single-page form with vehicle selector, date pickers, guest info, inline validation on blur, estimated total
-- TermsModal (06-01): Rental terms overlay with period, deposit, damage, mileage, cancellation, and driver requirement sections
+Phase 7 (Admin Auth & Vehicle Management) is fully complete:
+- LoginPage (07-01): Admin login at /admin/login with email/password, demo mode notice when Supabase not configured
+- ProtectedRoute (07-01): Auth guard checking user and supabaseConfigured, redirects to login
+- AdminLayout (07-01): Fixed sidebar (w-64) + main content area with mobile collapse
+- AdminSidebar (07-01): Dashboard/Vehicles/Bookings nav, View Site link, Sign Out, active link gold highlight
+- useAdminVehicles (07-01): CRUD hooks (list, create, update, delete, toggle active, upload image) with demo mode fallback
+- VehicleTable (07-01): Sortable/searchable table with status badges, edit links, toggle active, two-click delete
+- ImageUpload (07-01): Drag-and-drop with preview thumbnails, file validation (JPG/PNG/WebP, 5MB), remove capability
+- VehiclesPage (07-01): Vehicle list with "Add Vehicle" button, loading/error states
+- VehicleFormPage (07-01): Dual add/edit form with slug auto-gen, tag checkboxes, price-in-cents, active toggle
+- Dashboard placeholder: metric cards (Vehicles, Active Bookings, Revenue) with "--" values
+- Bookings placeholder: "Coming in Phase 8" notice
 
-Phase 7 builds admin authentication and vehicle management. The admin will need to log in, view/add/edit vehicles, and eventually manage bookings (Phase 8). The /admin route exists as a placeholder in App.tsx.
+Phase 8 builds admin booking management and dashboard. The admin will need to view/approve/decline bookings and see dashboard metrics. The placeholder routes and layout are already in place.
 
 ---
 
