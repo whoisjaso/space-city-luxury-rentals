@@ -35,7 +35,7 @@
 
 ### Infrastructure
 
-- [ ] **INFRA-01**: React Router integrated without breaking existing GSAP landing page animations
+- [x] **INFRA-01**: React Router integrated without breaking existing GSAP landing page animations
 - [ ] **INFRA-02**: Supabase backend configured (auth, PostgreSQL database, file storage for vehicle images)
 - [ ] **INFRA-03**: Supabase Row Level Security (RLS) policies protecting customer data and admin operations
 - [ ] **INFRA-04**: Deployed to Vercel with proper routing configuration
@@ -110,7 +110,7 @@
 | BRAND-02 | Phase 5: Vehicle Detail Pages | Pending |
 | BRAND-03 | Phase 4: Fleet Catalog Page | Pending |
 | BRAND-04 | Phase 3: Public Layout & Brand Shell | Pending |
-| INFRA-01 | Phase 1: Routing & Animation Survival | Pending |
+| INFRA-01 | Phase 1: Routing & Animation Survival | Complete |
 | INFRA-02 | Phase 2: Supabase Foundation | Pending |
 | INFRA-03 | Phase 2: Supabase Foundation | Pending |
 | INFRA-04 | Phase 9: Production Deploy & Polish | Pending |
