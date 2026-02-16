@@ -4,22 +4,22 @@
 
 **Core Value:** Customers can discover Joey's vehicles and submit a booking request with zero friction -- and Joey can manage his fleet and respond to every request from a single admin panel.
 
-**Current Focus:** Phase 1 complete -- ready for Phase 2 (Supabase Foundation)
+**Current Focus:** Phase 2 in progress -- Supabase Foundation (1/2 plans complete)
 
 ## Current Position
 
-**Phase:** 1 of 9 (Routing & Animation Survival) -- COMPLETE
-**Plan:** 3 of 3 in Phase 1
-**Status:** Phase complete
-**Last activity:** 2026-02-15 -- Completed 01-03-PLAN.md
-**Progress:** [###.......] ~11% (3 plans of ~27 estimated)
+**Phase:** 2 of 9 (Supabase Foundation)
+**Plan:** 1 of 2 in Phase 2
+**Status:** In progress
+**Last activity:** 2026-02-15 -- Completed 02-01-PLAN.md
+**Progress:** [####......] ~15% (4 plans of ~27 estimated)
 
 ## Phase Overview
 
 | Phase | Name | Status |
 |-------|------|--------|
 | 1 | Routing & Animation Survival | COMPLETE (3/3 plans) |
-| 2 | Supabase Foundation | Not Started |
+| 2 | Supabase Foundation | In Progress (1/2 plans) |
 | 3 | Public Layout & Brand Shell | Not Started |
 | 4 | Fleet Catalog Page | Not Started |
 | 5 | Vehicle Detail Pages | Not Started |
@@ -30,8 +30,8 @@
 
 ## Performance Metrics
 
-**Plans completed:** 3
-**Plans total:** 3 (Phase 1 complete)
+**Plans completed:** 4
+**Plans total:** ~27 estimated
 **Requirements delivered:** 1/20 (INFRA-01: React Router integration)
 **Phases completed:** 1/9
 
@@ -55,6 +55,9 @@
 | Landing page extracted to pages/LandingPage.tsx | App.tsx is thin router shell; page components own their lifecycle (Lenis, cursor, ScrollTrigger) | Phase 1 |
 | Nuclear cleanup on landing page unmount | ScrollTrigger.getAll().forEach(t => t.kill()) catches orphans from child sections | Phase 1 |
 | All router imports from 'react-router' not 'react-router-dom' | react-router v7 single-package standard; dom package deprecated | Phase 1 |
+| Runtime env var validation in supabase.ts | Fail fast with clear error rather than cryptic network errors | Phase 2 |
+| QueryClient defaults: 5min stale, 1 retry, no window refocus | MVP-appropriate, quiet dev experience | Phase 2 |
+| QueryProvider > AuthProvider > Routes nesting | Auth doesn't need Query; Query may serve auth-adjacent hooks later | Phase 2 |
 
 ### Known Issues
 
@@ -72,6 +75,8 @@ None currently.
 - [x] Fix existing GSAP/Lenis bugs before building on top of them (Phase 1) -- DONE in 01-01
 - [x] Migrate all section components from useEffect to useGSAP (Phase 1) -- DONE in 01-02
 - [x] Add React Router with scoped landing page lifecycle (Phase 1) -- DONE in 01-03
+- [x] Install Supabase + TanStack Query, create client/types/providers (Phase 2) -- DONE in 02-01
+- [ ] Create Supabase database schema and seed data (Phase 2) -- 02-02
 - [ ] Decide on image optimization approach for vehicle photos (Phase 7)
 - [ ] Upgrade Supabase to Pro tier before production launch (Phase 9)
 - [ ] Consider email notifications for booking confirmation (post-MVP)
@@ -81,20 +86,20 @@ None currently.
 ### Last Session
 
 **Date:** 2026-02-15
-**Activity:** Execute plan 01-03
-**Completed:** React Router integration -- LandingPage.tsx created, App.tsx rewritten as router shell, BrowserRouter in main.tsx. Human verification approved.
-**Next Step:** Begin Phase 2 (Supabase Foundation)
+**Activity:** Execute plan 02-01
+**Completed:** Supabase client infrastructure -- lib/supabase.ts, types/database.ts, AuthProvider, QueryProvider, all wired into App.tsx.
+**Next Step:** Execute plan 02-02 (database schema and seed data)
 
 ### Context for Next Session
 
-Phase 1 is fully complete. All 3 plans executed successfully:
-- 01-01: Dependencies installed, bugs fixed, GSAP centralized in lib/gsap.ts
-- 01-02: All 6 sections migrated from useEffect to useGSAP with scope
-- 01-03: React Router integrated, landing page extracted to pages/LandingPage.tsx
+Phase 2 plan 1 is complete. The client-side Supabase infrastructure is fully wired:
+- lib/supabase.ts: typed client singleton reading from VITE_SUPABASE_URL and VITE_SUPABASE_ANON_KEY
+- types/database.ts: Vehicle, Booking, VehicleInsert, BookingInsert, VehicleUpdate, BookingUpdate, Database
+- providers/AuthProvider.tsx: session hydration, onAuthStateChange listener, signIn/signOut, useAuth hook
+- providers/QueryProvider.tsx: QueryClient with staleTime 5min, retry 1
+- App.tsx: QueryProvider > AuthProvider > Routes
 
-The routing architecture is ready for new routes. App.tsx is a thin shell with Routes/Route/Navigate. New pages go in pages/ directory and get added as Route entries. Lenis smooth scroll, custom cursor, and ScrollTrigger are all scoped to the landing page and clean up on unmount.
-
-Phase 2 should set up Supabase: database schema (vehicles, bookings tables), client configuration, and seed data.
+Plan 02-02 should create the Supabase database schema (vehicles and bookings tables via SQL migration) and seed data. The .env file has placeholder values -- real Supabase project credentials need to be filled in before database operations.
 
 ---
 
