@@ -9,16 +9,16 @@
 ## Current Position
 
 **Phase:** 1 of 9 (Routing & Animation Survival)
-**Plan:** 1 of 3 in Phase 1
+**Plan:** 2 of 3 in Phase 1
 **Status:** In progress
-**Last activity:** 2026-02-15 -- Completed 01-01-PLAN.md
-**Progress:** [#.........] ~3% (1 plan of ~27 estimated)
+**Last activity:** 2026-02-15 -- Completed 01-02-PLAN.md
+**Progress:** [##........] ~7% (2 plans of ~27 estimated)
 
 ## Phase Overview
 
 | Phase | Name | Status |
 |-------|------|--------|
-| 1 | Routing & Animation Survival | In Progress (1/3 plans) |
+| 1 | Routing & Animation Survival | In Progress (2/3 plans) |
 | 2 | Supabase Foundation | Not Started |
 | 3 | Public Layout & Brand Shell | Not Started |
 | 4 | Fleet Catalog Page | Not Started |
@@ -30,7 +30,7 @@
 
 ## Performance Metrics
 
-**Plans completed:** 1
+**Plans completed:** 2
 **Plans total:** 3 (Phase 1 planned)
 **Requirements delivered:** 0/20
 **Phases completed:** 0/9
@@ -49,6 +49,9 @@
 | Centralized GSAP imports via lib/gsap.ts | Single registerPlugin call; all components import from lib/gsap.ts, never directly from 'gsap' | Phase 1 |
 | cursor:none behind @media (any-hover: hover) and (pointer: fine) | Touch devices need system cursor; custom cursor JS only works with mouse | Phase 1 |
 | Deleted useScrollTrigger.ts entirely | No component imports it; useGSAP from @gsap/react is the replacement | Phase 1 |
+| useGSAP with scope:sectionRef for all 6 sections | gsap.context() auto-reverts all property changes on unmount; essential for router navigation | Phase 1 |
+| Conditional returns after all hooks in sections | Rules of Hooks: hooks must be called unconditionally in every render | Phase 1 |
+| ScrollTrigger.refresh() in Collections | Batch pin triggers with pinSpacing:false need recalculation after creation | Phase 1 |
 
 ### Known Issues
 
@@ -64,6 +67,7 @@ None currently.
 ### TODOs (Cross-Phase)
 
 - [x] Fix existing GSAP/Lenis bugs before building on top of them (Phase 1) -- DONE in 01-01
+- [x] Migrate all section components from useEffect to useGSAP (Phase 1) -- DONE in 01-02
 - [ ] Decide on image optimization approach for vehicle photos (Phase 7)
 - [ ] Upgrade Supabase to Pro tier before production launch (Phase 9)
 - [ ] Consider email notifications for booking confirmation (post-MVP)
@@ -73,13 +77,13 @@ None currently.
 ### Last Session
 
 **Date:** 2026-02-15
-**Activity:** Execute plan 01-01
-**Completed:** Dependencies installed, bugs fixed, GSAP centralized, vercel.json created
-**Next Step:** Execute plan 01-02 (migrate section components from useEffect to useGSAP)
+**Activity:** Execute plan 01-02
+**Completed:** All 6 section components migrated from useEffect to useGSAP with scope, manual cleanup removed, Rules of Hooks violations fixed
+**Next Step:** Execute plan 01-03 (add React Router with three-layout pattern)
 
 ### Context for Next Session
 
-Plan 01-01 is complete. The centralized `lib/gsap.ts` exports `gsap`, `ScrollTrigger`, and `useGSAP`. All 7 section files now import from this module. The three known bugs are fixed. Plan 01-02 should migrate all section components from raw `useEffect` + `gsap` to the `useGSAP` hook for proper React lifecycle integration and automatic ScrollTrigger cleanup. Plan 01-03 will then add React Router.
+Plans 01-01 and 01-02 are complete. All 6 section components (Hero, About, Exhibitions, Collections, Testimonials, Visit) now use the useGSAP hook with `{ scope: sectionRef }` instead of raw useEffect. Manual ScrollTrigger cleanup arrays (triggersRef) are eliminated -- gsap.context() handles teardown automatically. Conditional returns are after all hooks. Build passes cleanly. Plan 01-03 should add React Router with the three-layout pattern (Landing, Public, Admin).
 
 ---
 
