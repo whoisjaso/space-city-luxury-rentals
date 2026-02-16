@@ -39,8 +39,8 @@ function LandingPage() {
     const sections = [
       { selector: '#hero-section', color: '#8c8c91' },
       { selector: '#about', color: '#050505' },
-      { selector: '#exhibitions', color: '#050505' },
-      { selector: '#collections', color: '#f0f0f0' },
+      { selector: '#fleet', color: '#050505' },
+      { selector: '#experiences', color: '#f0f0f0' },
       { selector: '#testimonials-section', color: '#8c8c91' },
       { selector: '#contact', color: '#050505' },
       { selector: '#footer-section', color: '#8c8c91' },

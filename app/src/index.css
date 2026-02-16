@@ -15,7 +15,7 @@
     --popover-foreground: 0 0% 94%;
     --primary: 45 70% 52%;
     --primary-foreground: 0 0% 2%;
-    --secondary: 270 100% 28%;
+    --secondary: 270 77% 22%;
     --secondary-foreground: 0 0% 94%;
     --muted: 0 0% 15%;
     --muted-foreground: 0 0% 55%;
@@ -29,7 +29,7 @@
     --radius: 0.5rem;
     
     /* Space City Rentals Brand Colors */
-    --space-purple: #4A148C;
+    --space-purple: #2E1065;
     --space-gold: #D4AF37;
     --space-black: #050505;
     --space-charcoal: #0a0a0a;
@@ -198,7 +198,7 @@
 }
 
 .section-purple {
-  background: linear-gradient(180deg, #050505 0%, #1a0a2e 50%, #050505 100%);
+  background: linear-gradient(180deg, #050505 0%, #2E1065 50%, #050505 100%);
 }
 
 .section-charcoal {

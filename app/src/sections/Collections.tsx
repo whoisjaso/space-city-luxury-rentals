@@ -86,7 +86,7 @@ const Collections = () => {
 
   return (
     <section
-      id="collections"
+      id="experiences"
       ref={sectionRef}
       className="relative w-full bg-[#f0f0f0]"
     >

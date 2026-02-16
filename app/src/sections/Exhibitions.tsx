@@ -65,7 +65,7 @@ const Exhibitions = () => {
 
   return (
     <section
-      id="exhibitions"
+      id="fleet"
       ref={sectionRef}
       className="relative w-full bg-[#050505] py-32 px-8 lg:px-16"
     >

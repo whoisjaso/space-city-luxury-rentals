@@ -40,9 +40,12 @@ const Footer = () => {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-16">
             {/* Brand Column */}
             <div className="lg:col-span-2">
-              <h3 className="museo-headline text-white text-2xl mb-4">
-                {footerConfig.brandName}
-              </h3>
+              <div className="flex items-center gap-4 mb-4">
+                <img src="/images/space-city-logo.png" alt="Space City Luxury Rentals" className="h-14 w-14 object-contain" />
+                <h3 className="museo-headline text-white text-2xl">
+                  {footerConfig.brandName}
+                </h3>
+              </div>
               <p className="museo-body text-white/60 text-sm max-w-sm mb-6">
                 {footerConfig.brandDescription}
               </p>

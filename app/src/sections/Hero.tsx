@@ -70,7 +70,10 @@ const Hero = () => {
         ref={navRef}
         className="absolute top-0 left-0 w-full z-50 px-8 lg:px-16 py-6 flex items-center justify-between will-change-transform"
       >
-        <div className="museo-label text-white/70">{heroConfig.brandLeft} {heroConfig.brandRight}</div>
+        <a href="#hero-section" className="flex items-center gap-3">
+          <img src="/images/space-city-logo.png" alt="Space City Luxury Rentals" className="h-10 w-10 object-contain" />
+          <span className="museo-label text-white/70">SPACE CITY</span>
+        </a>
         <div className="flex items-center gap-8">
           {heroConfig.navLinks.map((link, i) => (
             <a key={i} href={link.href} className="museo-label text-white/70 hover:text-white transition-colors">{link.label}</a>
