@@ -8,9 +8,9 @@
 ### Vehicle Catalog
 
 - [x] **CAT-01**: User can browse all available vehicles on a fleet page with photos, identity headlines, and starting prices
-- [ ] **CAT-02**: User can view individual vehicle detail pages with image gallery, full description, pricing, and booking CTA
+- [x] **CAT-02**: User can view individual vehicle detail pages with image gallery, full description, pricing, and booking CTA
 - [x] **CAT-03**: User can filter/browse vehicles by experience tags (Date Night, Content Ready, Boss Move, Wedding Day, Weekend Takeover, Statement)
-- [ ] **CAT-04**: Each vehicle displays social proof metrics (rental count, popularity indicators)
+- [x] **CAT-04**: Each vehicle displays social proof metrics (rental count, popularity indicators)
 
 ### Booking
 
@@ -29,7 +29,7 @@
 ### Design & Brand
 
 - [x] **BRAND-01**: Space City Luxury Rentals logo displayed in site header/navigation
-- [ ] **BRAND-02**: Vehicles presented with cinematic imagery (hero-style photos, moody lighting, lifestyle context)
+- [x] **BRAND-02**: Vehicles presented with cinematic imagery (hero-style photos, moody lighting, lifestyle context)
 - [x] **BRAND-03**: Identity headlines used for vehicles instead of spec sheets ("Move in Silence. Let the Car Do the Talking.")
 - [x] **BRAND-04**: Fully responsive mobile-first design across all pages
 
