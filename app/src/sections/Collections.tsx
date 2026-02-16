@@ -1,5 +1,5 @@
-import { useEffect, useRef } from 'react';
-import { gsap, ScrollTrigger } from '../lib/gsap';
+import { useRef } from 'react';
+import { gsap, ScrollTrigger, useGSAP } from '../lib/gsap';
 import { collectionsConfig } from '../config';
 
 const Collections = () => {
@@ -7,11 +7,8 @@ const Collections = () => {
   const headerRef = useRef<HTMLDivElement>(null);
   const stackRef = useRef<HTMLDivElement>(null);
   const cardsRef = useRef<HTMLDivElement[]>([]);
-  const triggersRef = useRef<ScrollTrigger[]>([]);
 
-  if (!collectionsConfig.headline && collectionsConfig.collections.length === 0) return null;
-
-  useEffect(() => {
+  useGSAP(() => {
     const section = sectionRef.current;
     const header = headerRef.current;
     const stack = stackRef.current;
@@ -23,14 +20,13 @@ const Collections = () => {
     const headerEls = header.querySelectorAll('.reveal-header');
     headerEls.forEach((el) => {
       gsap.set(el, { opacity: 0, y: 30 });
-      const trigger = ScrollTrigger.create({
+      ScrollTrigger.create({
         trigger: header,
         start: 'top 80%',
         onEnter: () => {
           gsap.to(el, { opacity: 1, y: 0, duration: 0.8, ease: 'power3.out' });
         },
       });
-      triggersRef.current.push(trigger);
     });
 
     // Stacking cards: each card pins and the NEXT card slides up over it
@@ -38,7 +34,7 @@ const Collections = () => {
       if (i === cards.length - 1) return; // last card doesn't need pinning
 
       // Pin this card in place while the next card scrolls up to cover it
-      const trigger = ScrollTrigger.create({
+      ScrollTrigger.create({
         trigger: card,
         start: 'top top',
         // Pin until the next card has fully covered this one
@@ -47,10 +43,9 @@ const Collections = () => {
         pin: true,
         pinSpacing: false,
       });
-      triggersRef.current.push(trigger);
 
       // Slight scale-down + dim as the next card covers this one
-      const dimTrigger = ScrollTrigger.create({
+      ScrollTrigger.create({
         trigger: cards[i + 1],
         start: 'top bottom',
         end: 'top top',
@@ -63,7 +58,6 @@ const Collections = () => {
           });
         },
       });
-      triggersRef.current.push(dimTrigger);
     });
 
     // Text reveal inside each card
@@ -71,7 +65,7 @@ const Collections = () => {
       const textEls = card.querySelectorAll('.coll-text-el');
       textEls.forEach((el, i) => {
         gsap.set(el, { opacity: 0, y: 30 });
-        const trigger = ScrollTrigger.create({
+        ScrollTrigger.create({
           trigger: card,
           start: 'top 60%',
           onEnter: () => {
@@ -81,15 +75,14 @@ const Collections = () => {
             });
           },
         });
-        triggersRef.current.push(trigger);
       });
     });
 
-    return () => {
-      triggersRef.current.forEach((t) => t.kill());
-      triggersRef.current = [];
-    };
-  }, []);
+    // Refresh after all pin triggers are created to ensure correct calculations
+    ScrollTrigger.refresh();
+  }, { scope: sectionRef });
+
+  if (!collectionsConfig.headline && collectionsConfig.collections.length === 0) return null;
 
   return (
     <section

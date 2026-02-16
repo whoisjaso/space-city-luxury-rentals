@@ -1,5 +1,5 @@
-import { useEffect, useRef } from 'react';
-import { gsap, ScrollTrigger } from '../lib/gsap';
+import { useRef } from 'react';
+import { gsap, ScrollTrigger, useGSAP } from '../lib/gsap';
 import { MapPin, Clock, Calendar, Ticket } from 'lucide-react';
 import { visitConfig } from '../config';
 
@@ -13,11 +13,8 @@ const iconMap: Record<string, React.ComponentType<{ className?: string; strokeWi
 const Visit = () => {
   const sectionRef = useRef<HTMLElement>(null);
   const cardsRef = useRef<HTMLDivElement>(null);
-  const triggersRef = useRef<ScrollTrigger[]>([]);
 
-  if (!visitConfig.headline && visitConfig.infoCards.length === 0) return null;
-
-  useEffect(() => {
+  useGSAP(() => {
     const section = sectionRef.current;
     const cards = cardsRef.current;
 
@@ -26,7 +23,7 @@ const Visit = () => {
     const cardElements = cards.querySelectorAll('.info-card');
     cardElements.forEach((card, i) => {
       gsap.set(card, { opacity: 0, y: 40 });
-      const trigger = ScrollTrigger.create({
+      ScrollTrigger.create({
         trigger: card,
         start: 'top 85%',
         onEnter: () => {
@@ -39,14 +36,10 @@ const Visit = () => {
           });
         },
       });
-      triggersRef.current.push(trigger);
     });
+  }, { scope: sectionRef });
 
-    return () => {
-      triggersRef.current.forEach((t) => t.kill());
-      triggersRef.current = [];
-    };
-  }, []);
+  if (!visitConfig.headline && visitConfig.infoCards.length === 0) return null;
 
   return (
     <section

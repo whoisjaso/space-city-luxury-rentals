@@ -1,16 +1,13 @@
-import { useEffect, useRef } from 'react';
-import { gsap, ScrollTrigger } from '../lib/gsap';
+import { useRef } from 'react';
+import { gsap, ScrollTrigger, useGSAP } from '../lib/gsap';
 import { Quote } from 'lucide-react';
 import { testimonialsConfig } from '../config';
 
 const Testimonials = () => {
   const sectionRef = useRef<HTMLElement>(null);
   const contentRef = useRef<HTMLDivElement>(null);
-  const triggersRef = useRef<ScrollTrigger[]>([]);
 
-  if (!testimonialsConfig.quote) return null;
-
-  useEffect(() => {
+  useGSAP(() => {
     const section = sectionRef.current;
     const content = contentRef.current;
 
@@ -19,7 +16,7 @@ const Testimonials = () => {
     const elements = content.querySelectorAll('.reveal-item');
     elements.forEach((el, i) => {
       gsap.set(el, { opacity: 0, y: 30 });
-      const trigger = ScrollTrigger.create({
+      ScrollTrigger.create({
         trigger: el,
         start: 'top 85%',
         onEnter: () => {
@@ -32,14 +29,10 @@ const Testimonials = () => {
           });
         },
       });
-      triggersRef.current.push(trigger);
     });
+  }, { scope: sectionRef });
 
-    return () => {
-      triggersRef.current.forEach((t) => t.kill());
-      triggersRef.current = [];
-    };
-  }, []);
+  if (!testimonialsConfig.quote) return null;
 
   return (
     <section
