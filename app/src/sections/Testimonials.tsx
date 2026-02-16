@@ -1,10 +1,7 @@
 import { useEffect, useRef } from 'react';
-import { gsap } from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { gsap, ScrollTrigger } from '../lib/gsap';
 import { Quote } from 'lucide-react';
 import { testimonialsConfig } from '../config';
-
-gsap.registerPlugin(ScrollTrigger);
 
 const Testimonials = () => {
   const sectionRef = useRef<HTMLElement>(null);

@@ -1,10 +1,7 @@
 import { useEffect, useRef } from 'react';
-import { gsap } from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { gsap, ScrollTrigger } from '../lib/gsap';
 import { MapPin, Clock, Calendar, Ticket } from 'lucide-react';
 import { visitConfig } from '../config';
-
-gsap.registerPlugin(ScrollTrigger);
 
 const iconMap: Record<string, React.ComponentType<{ className?: string; strokeWidth?: number }>> = {
   MapPin,

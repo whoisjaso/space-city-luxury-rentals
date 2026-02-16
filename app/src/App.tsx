@@ -1,6 +1,5 @@
 import { useEffect, useRef } from 'react';
-import { gsap } from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { gsap, ScrollTrigger } from './lib/gsap';
 import './App.css';
 
 // Config
@@ -18,8 +17,6 @@ import Collections from './sections/Collections';
 import Testimonials from './sections/Testimonials';
 import Visit from './sections/Visit';
 import Footer from './sections/Footer';
-
-gsap.registerPlugin(ScrollTrigger);
 
 function App() {
   const mainRef = useRef<HTMLDivElement>(null);

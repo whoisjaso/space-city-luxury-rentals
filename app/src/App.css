@@ -14,12 +14,6 @@ body {
 /* Global link hover effects */
 a {
   text-decoration: none;
-  cursor: none;
-}
-
-/* Button base styles */
-button {
-  cursor: none;
 }
 
 /* Image loading optimization */
@@ -48,6 +42,16 @@ a:focus-visible,
 button:focus-visible {
   outline: 2px solid rgba(255, 255, 255, 0.5);
   outline-offset: 4px;
+}
+
+/* Only hide system cursor for devices with a precise pointer (mouse) */
+@media (any-hover: hover) and (pointer: fine) {
+  a {
+    cursor: none;
+  }
+  button {
+    cursor: none;
+  }
 }
 
 /* Reduced motion support */

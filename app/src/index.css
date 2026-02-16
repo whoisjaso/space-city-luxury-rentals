@@ -70,7 +70,12 @@
     @apply bg-[#050505] text-[#f0f0f0] antialiased;
     font-family: 'Inter', sans-serif;
     overflow-x: hidden;
-    cursor: none;
+  }
+
+  @media (any-hover: hover) and (pointer: fine) {
+    body {
+      cursor: none;
+    }
   }
   
   ::selection {

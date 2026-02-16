@@ -1,9 +1,6 @@
 import { useEffect, useRef } from 'react';
-import { gsap } from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { gsap, ScrollTrigger } from '../lib/gsap';
 import { exhibitionsConfig } from '../config';
-
-gsap.registerPlugin(ScrollTrigger);
 
 const Exhibitions = () => {
   const sectionRef = useRef<HTMLElement>(null);
