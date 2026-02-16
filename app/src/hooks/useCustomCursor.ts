@@ -33,6 +33,8 @@ export const useCustomCursor = () => {
     const isTouchDevice = window.matchMedia('(pointer: coarse)').matches;
     if (isTouchDevice) return;
 
+    document.body.classList.add('custom-cursor-active');
+
     const cursor = document.createElement('div');
     cursor.className = 'custom-cursor';
     document.body.appendChild(cursor);
@@ -74,6 +76,7 @@ export const useCustomCursor = () => {
       document.removeEventListener('mouseout', handleMouseLeave);
       cancelAnimationFrame(rafId.current);
       cursor.remove();
+      document.body.classList.remove('custom-cursor-active');
     };
   }, [animate]);
 };

@@ -48,7 +48,12 @@ const Hero = () => {
       .to(rightText, { opacity: 1, y: 0, duration: 1 }, '-=0.85')
       .to(nav, { opacity: 1, y: 0, duration: 0.7 }, '-=0.7')
       .to(badge, { opacity: 1, y: 0, duration: 0.6 }, '-=0.5')
-      .to(bottom, { opacity: 1, duration: 0.5 }, '-=0.3');
+      .to(bottom, { opacity: 1, duration: 0.5 }, '-=0.3')
+      .then(() => {
+        // Clear inline styles from statue to kill the GPU compositing layer
+        // that creates a visible "box" behind the transparent logo
+        if (statue) gsap.set(statue, { clearProps: 'all' });
+      });
 
     // Scroll parallax — only on desktop
     const mm = gsap.matchMedia();
@@ -144,7 +149,7 @@ const Hero = () => {
           {/* Center logo */}
           <div
             ref={statueRef}
-            className="relative flex-shrink-0 w-[55vw] md:w-[36vw] lg:w-[30vw] max-w-[300px] md:max-w-[560px] will-change-transform"
+            className="relative flex-shrink-0 w-[55vw] md:w-[36vw] lg:w-[30vw] max-w-[300px] md:max-w-[560px]"
           >
             <div
               ref={badgeRef}
@@ -156,6 +161,7 @@ const Hero = () => {
               src={heroConfig.heroImage}
               alt={heroConfig.heroImageAlt}
               className="w-full h-auto object-contain"
+              style={{ background: 'transparent', isolation: 'isolate' }}
             />
           </div>
 
