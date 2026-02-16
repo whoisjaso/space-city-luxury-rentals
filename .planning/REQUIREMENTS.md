@@ -14,10 +14,10 @@
 
 ### Booking
 
-- [ ] **BOOK-01**: User can submit a booking request as a guest (name, phone, email, dates, vehicle) in under 60 seconds
-- [ ] **BOOK-02**: User sees a confirmation page with confirmation code and booking status after submitting
-- [ ] **BOOK-03**: User can check booking status by entering confirmation code or email
-- [ ] **BOOK-04**: User acknowledges rental terms/agreement before submitting a booking request
+- [x] **BOOK-01**: User can submit a booking request as a guest (name, phone, email, dates, vehicle) in under 60 seconds
+- [x] **BOOK-02**: User sees a confirmation page with confirmation code and booking status after submitting
+- [x] **BOOK-03**: User can check booking status by entering confirmation code or email
+- [x] **BOOK-04**: User acknowledges rental terms/agreement before submitting a booking request
 
 ### Admin
 
