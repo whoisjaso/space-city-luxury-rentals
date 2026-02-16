@@ -33,8 +33,8 @@
     --space-gold: #D4AF37;
     --space-black: #050505;
     --space-charcoal: #0a0a0a;
-    --space-light: #f0f0f0;
-    --space-grey: #8c8c91;
+    --space-light: #e8e0f0;
+    --space-grey: #1a1028;
     --space-dark-grey: #2a2a2a;
   }
 
@@ -234,7 +234,7 @@
   content: '';
   position: absolute;
   inset: 0;
-  background: #8c8c91;
+  background: #0d0818;
   transform: scaleY(1);
   transform-origin: top;
   transition: transform 1s cubic-bezier(0.77, 0, 0.175, 1);

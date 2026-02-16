@@ -28,7 +28,7 @@ function NotFoundPage() {
           Page Not Found
         </h2>
 
-        <p className="text-gray-400 mb-8">
+        <p className="text-white/50 mb-8">
           The page you are looking for does not exist or has been moved.
         </p>
 
@@ -49,7 +49,7 @@ function NotFoundPage() {
           </Link>
           <Link
             to="/fleet"
-            className="inline-block px-6 py-3 rounded-lg font-semibold text-white border border-gray-600 hover:border-gray-400 transition-colors"
+            className="inline-block px-6 py-3 rounded-lg font-semibold text-white border border-white/20 hover:border-white/40 transition-colors"
           >
             Browse Fleet
           </Link>

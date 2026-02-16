@@ -63,7 +63,7 @@ const Hero = () => {
   return (
     <section
       ref={sectionRef}
-      className="relative h-screen w-full overflow-hidden bg-[#8c8c91]"
+      className="relative h-screen w-full overflow-hidden bg-[#0a0a12]"
     >
       {/* Navigation */}
       <nav

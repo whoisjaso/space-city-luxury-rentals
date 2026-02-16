@@ -16,7 +16,7 @@ const Footer = () => {
   if (!footerConfig.brandName) return null;
 
   return (
-    <footer className="relative w-full bg-[#8c8c91] overflow-hidden">
+    <footer className="relative w-full bg-[#0a0a12] overflow-hidden">
       {/* Marquee Section */}
       {footerConfig.marqueeText && (
         <div className="py-20 overflow-hidden border-t border-white/10">

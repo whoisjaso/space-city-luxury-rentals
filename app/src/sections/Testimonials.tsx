@@ -37,7 +37,7 @@ const Testimonials = () => {
   return (
     <section
       ref={sectionRef}
-      className="relative w-full bg-[#8c8c91] py-32 px-8 lg:px-16"
+      className="relative w-full bg-[#1a0e2e] py-32 px-8 lg:px-16"
     >
       <div ref={contentRef} className="max-w-5xl mx-auto text-center">
         {/* Quote Icon */}

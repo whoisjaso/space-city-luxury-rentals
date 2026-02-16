@@ -37,13 +37,13 @@ function LandingPage() {
   // Background color transitions -- using useGSAP for automatic cleanup
   useGSAP(() => {
     const sections = [
-      { selector: '#hero-section', color: '#8c8c91' },
+      { selector: '#hero-section', color: '#0a0a12' },
       { selector: '#about', color: '#050505' },
       { selector: '#fleet', color: '#050505' },
-      { selector: '#experiences', color: '#f0f0f0' },
-      { selector: '#testimonials-section', color: '#8c8c91' },
+      { selector: '#experiences', color: '#0d0818' },
+      { selector: '#testimonials-section', color: '#1a0e2e' },
       { selector: '#contact', color: '#050505' },
-      { selector: '#footer-section', color: '#8c8c91' },
+      { selector: '#footer-section', color: '#0a0a12' },
     ];
 
     sections.forEach(({ selector, color }) => {

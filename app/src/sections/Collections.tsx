@@ -88,14 +88,14 @@ const Collections = () => {
     <section
       id="experiences"
       ref={sectionRef}
-      className="relative w-full bg-[#f0f0f0]"
+      className="relative w-full bg-[#0d0818]"
     >
       {/* Section Header */}
       <div ref={headerRef} className="max-w-7xl mx-auto pt-32 pb-8 px-8 lg:px-16">
-        <p className="reveal-header museo-label text-[#1a1a1a]/40 mb-4">
+        <p className="reveal-header museo-label text-white/40 mb-4">
           {collectionsConfig.label}
         </p>
-        <h2 className="reveal-header museo-headline text-[#1a1a1a] text-4xl md:text-5xl lg:text-7xl">
+        <h2 className="reveal-header museo-headline text-white text-4xl md:text-5xl lg:text-7xl">
           {collectionsConfig.headline}
         </h2>
       </div>
@@ -108,7 +108,7 @@ const Collections = () => {
             ref={(el) => {
               if (el) cardsRef.current[index] = el;
             }}
-            className="relative w-full min-h-screen bg-[#f0f0f0] will-change-transform"
+            className="relative w-full min-h-screen bg-[#0d0818] will-change-transform"
             style={{ zIndex: index + 1 }}
           >
             <div className="max-w-7xl mx-auto px-8 lg:px-16 py-16 lg:py-24 flex items-center min-h-screen">
@@ -137,19 +137,19 @@ const Collections = () => {
                     index % 2 !== 0 ? 'lg:[direction:ltr]' : ''
                   }`}
                 >
-                  <p className="coll-text-el museo-label text-[#1a1a1a]/30 mb-3">
+                  <p className="coll-text-el museo-label text-white/30 mb-3">
                     {item.year}
                   </p>
-                  <h3 className="coll-text-el museo-headline text-[#1a1a1a] text-2xl md:text-3xl lg:text-5xl mb-4">
+                  <h3 className="coll-text-el museo-headline text-white text-2xl md:text-3xl lg:text-5xl mb-4">
                     {item.title}
                   </h3>
-                  <p className="coll-text-el museo-body text-[#1a1a1a]/55 mb-8 max-w-md text-sm lg:text-base">
+                  <p className="coll-text-el museo-body text-white/55 mb-8 max-w-md text-sm lg:text-base">
                     {item.description}
                   </p>
                   {collectionsConfig.ctaText && (
                     <button
                       data-cursor="hover"
-                      className="coll-text-el inline-flex items-center gap-2 museo-label text-[#1a1a1a] border border-[#1a1a1a]/20 px-6 py-3 hover:bg-[#1a1a1a] hover:text-[#f0f0f0] transition-all duration-300"
+                      className="coll-text-el inline-flex items-center gap-2 museo-label text-white border border-white/20 px-6 py-3 hover:bg-white/10 hover:border-white/40 transition-all duration-300"
                     >
                       {collectionsConfig.ctaText}
                       <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
