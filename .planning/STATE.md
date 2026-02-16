@@ -4,15 +4,15 @@
 
 **Core Value:** Customers can discover Joey's vehicles and submit a booking request with zero friction -- and Joey can manage his fleet and respond to every request from a single admin panel.
 
-**Current Focus:** Phase 5 complete -- Vehicle Detail Pages (1/1 plans complete). Ready for Phase 6.
+**Current Focus:** Phase 6 complete -- Guest Booking Flow (1/1 plans complete). Ready for Phase 7.
 
 ## Current Position
 
-**Phase:** 5 of 9 (Vehicle Detail Pages)
-**Plan:** 1 of 1 in Phase 5
+**Phase:** 6 of 9 (Guest Booking Flow)
+**Plan:** 1 of 1 in Phase 6
 **Status:** Phase complete
-**Last activity:** 2026-02-15 -- Completed 05-01-PLAN.md
-**Progress:** [########..] ~30% (8 plans of ~27 estimated)
+**Last activity:** 2026-02-15 -- Completed 06-01-PLAN.md
+**Progress:** [#########.] ~33% (9 plans of ~27 estimated)
 
 ## Phase Overview
 
@@ -23,17 +23,17 @@
 | 3 | Public Layout & Brand Shell | COMPLETE (1/1 plans) |
 | 4 | Fleet Catalog Page | COMPLETE (1/1 plans) |
 | 5 | Vehicle Detail Pages | COMPLETE (1/1 plans) |
-| 6 | Guest Booking Flow | Not Started |
+| 6 | Guest Booking Flow | COMPLETE (1/1 plans) |
 | 7 | Admin Auth & Vehicle Management | Not Started |
 | 8 | Admin Booking Management & Dashboard | Not Started |
 | 9 | Production Deploy & Polish | Not Started |
 
 ## Performance Metrics
 
-**Plans completed:** 8
+**Plans completed:** 9
 **Plans total:** ~27 estimated
-**Requirements delivered:** 4/20 (INFRA-01: React Router, INFRA-02: Supabase schema, FLEET-01: Fleet catalog page, FLEET-02: Vehicle detail pages)
-**Phases completed:** 5/9
+**Requirements delivered:** 6/20 (INFRA-01: React Router, INFRA-02: Supabase schema, FLEET-01: Fleet catalog page, FLEET-02: Vehicle detail pages, BOOK-01: Booking form, BOOK-02: Booking status)
+**Phases completed:** 6/9
 
 ## Accumulated Context
 
@@ -69,6 +69,10 @@
 | Exported SEED_VEHICLES for cross-hook reuse | useVehicle.ts imports same seed array from useVehicles.ts; avoids duplication | Phase 5 |
 | PGRST116 treated as null not error | Supabase "no rows found" on .single() returns null for clean not-found UX | Phase 5 |
 | Sticky pricing card (top-24) | Pricing stays visible on scroll for long descriptions; standard e-commerce pattern | Phase 5 |
+| Demo mode mutation with fake confirmation codes | useMutation fallback generates 8-char alphanumeric code with 800ms simulated delay | Phase 6 |
+| Single-page booking form (no multi-step) | Under 60 seconds to complete; fewer clicks = less friction for luxury experience | Phase 6 |
+| Validation on blur with touched tracking | Errors only appear after user interacts with field; no red text on initial render | Phase 6 |
+| Status page auto-detects code vs email | Unified search input with @ symbol detection reduces UI complexity | Phase 6 |
 
 ### Known Issues
 
@@ -92,6 +96,7 @@ None currently.
 - [x] Create public layout shell with header, mobile menu, routing (Phase 3) -- DONE in 03-01
 - [x] Build fleet catalog page with vehicle cards and experience filtering (Phase 4) -- DONE in 04-01
 - [x] Build vehicle detail pages with gallery, social proof, and booking CTA (Phase 5) -- DONE in 05-01
+- [x] Build guest booking flow with form, validation, confirmation, and status lookup (Phase 6) -- DONE in 06-01
 - [ ] Decide on image optimization approach for vehicle photos (Phase 7)
 - [ ] Upgrade Supabase to Pro tier before production launch (Phase 9)
 - [ ] Consider email notifications for booking confirmation (post-MVP)
@@ -101,19 +106,20 @@ None currently.
 ### Last Session
 
 **Date:** 2026-02-15
-**Activity:** Execute plan 05-01
-**Completed:** VehicleDetailPage with ImageGallery, useVehicle hook, social proof, and booking CTA. Phase 5 complete.
-**Next Step:** Begin Phase 6 (Guest Booking Flow)
+**Activity:** Execute plan 06-01
+**Completed:** Guest booking flow with BookingForm, BookingPage, BookingStatusPage, useBooking hooks, and TermsModal. Phase 6 complete.
+**Next Step:** Begin Phase 7 (Admin Auth & Vehicle Management)
 
 ### Context for Next Session
 
-Phase 5 (Vehicle Detail Pages) is fully complete:
-- VehicleDetailPage (05-01): Cinematic detail page at /fleet/:slug with hero gallery, identity headline, description, experience tags, pricing card, social proof, and booking CTA
-- ImageGallery (05-01): Hero image with optional thumbnail strip, gold active border, opacity fade transitions
-- useVehicle (05-01): TanStack Query hook fetching single vehicle by slug with Supabase query and seed data fallback
-- SEED_VEHICLES exported from useVehicles.ts for cross-hook reuse
+Phase 6 (Guest Booking Flow) is fully complete:
+- BookingPage (06-01): Guest booking form at /book with ?vehicle=slug pre-selection, real-time validation, terms checkbox, confirmation panel with code copy
+- BookingStatusPage (06-01): Status lookup at /book/:code with code/email auto-detection, status badges (pending/approved/declined), admin notes display
+- useBooking (06-01): useCreateBooking mutation, useBookingStatus by code, useBookingsByEmail -- all with demo mode fallback
+- BookingForm (06-01): Single-page form with vehicle selector, date pickers, guest info, inline validation on blur, estimated total
+- TermsModal (06-01): Rental terms overlay with period, deposit, damage, mileage, cancellation, and driver requirement sections
 
-Phase 6 builds the guest booking flow at /book?vehicle={slug}. The booking CTA on the detail page already links to this route. The booking form needs to collect guest info, dates, and submit to Supabase bookings table.
+Phase 7 builds admin authentication and vehicle management. The admin will need to log in, view/add/edit vehicles, and eventually manage bookings (Phase 8). The /admin route exists as a placeholder in App.tsx.
 
 ---
 
