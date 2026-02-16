@@ -36,8 +36,8 @@
 ### Infrastructure
 
 - [x] **INFRA-01**: React Router integrated without breaking existing GSAP landing page animations
-- [ ] **INFRA-02**: Supabase backend configured (auth, PostgreSQL database, file storage for vehicle images)
-- [ ] **INFRA-03**: Supabase Row Level Security (RLS) policies protecting customer data and admin operations
+- [x] **INFRA-02**: Supabase backend configured (auth, PostgreSQL database, file storage for vehicle images)
+- [x] **INFRA-03**: Supabase Row Level Security (RLS) policies protecting customer data and admin operations
 - [ ] **INFRA-04**: Deployed to Vercel with proper routing configuration
 
 ## v2 Requirements

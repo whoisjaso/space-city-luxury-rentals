@@ -187,7 +187,7 @@ Plans:
 | Phase | Name | Requirements | Status |
 |-------|------|-------------|--------|
 | 1 | Routing & Animation Survival | INFRA-01 | ✓ Complete |
-| 2 | Supabase Foundation | INFRA-02, INFRA-03 | Not Started |
+| 2 | Supabase Foundation | INFRA-02, INFRA-03 | ✓ Complete |
 | 3 | Public Layout & Brand Shell | BRAND-01, BRAND-04 | Not Started |
 | 4 | Fleet Catalog Page | CAT-01, CAT-03, BRAND-03 | Not Started |
 | 5 | Vehicle Detail Pages | CAT-02, CAT-04, BRAND-02 | Not Started |
