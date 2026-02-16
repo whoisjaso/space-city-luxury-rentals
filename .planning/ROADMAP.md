@@ -20,6 +20,13 @@ This roadmap transforms the existing cinematic landing page into a functional lu
 **Requirements:**
 - INFRA-01: React Router integrated without breaking existing GSAP landing page animations
 
+**Plans:** 3 plans
+
+Plans:
+- [ ] 01-01-PLAN.md -- Dependencies, bug fixes, config, and centralized GSAP registration
+- [ ] 01-02-PLAN.md -- Migrate all 6 section components from useEffect to useGSAP
+- [ ] 01-03-PLAN.md -- Router integration (LandingPage, App shell, BrowserRouter) and verification
+
 **Success Criteria:**
 1. User can visit the root URL and see the full landing page with all 7 sections, GSAP scroll animations, and Lenis smooth scrolling working identically to the pre-routing state
 2. User can navigate to a non-root URL (e.g., /fleet) and back to the landing page without animations doubling, breaking, or leaking memory
