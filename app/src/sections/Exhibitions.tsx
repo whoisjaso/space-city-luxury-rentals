@@ -1,5 +1,5 @@
-import { useEffect, useRef } from 'react';
-import { gsap, ScrollTrigger } from '../lib/gsap';
+import { useRef } from 'react';
+import { gsap, ScrollTrigger, useGSAP } from '../lib/gsap';
 import { exhibitionsConfig } from '../config';
 
 const Exhibitions = () => {
@@ -7,11 +7,8 @@ const Exhibitions = () => {
   const headerRef = useRef<HTMLDivElement>(null);
   const gridRef = useRef<HTMLDivElement>(null);
   const ctaRef = useRef<HTMLDivElement>(null);
-  const triggersRef = useRef<ScrollTrigger[]>([]);
 
-  if (!exhibitionsConfig.headline && exhibitionsConfig.exhibitions.length === 0) return null;
-
-  useEffect(() => {
+  useGSAP(() => {
     const section = sectionRef.current;
     const header = headerRef.current;
     const grid = gridRef.current;
@@ -23,14 +20,13 @@ const Exhibitions = () => {
     const headerEls = header.querySelectorAll('.reveal-header');
     headerEls.forEach((el) => {
       gsap.set(el, { opacity: 0, y: 40 });
-      const trigger = ScrollTrigger.create({
+      ScrollTrigger.create({
         trigger: el,
         start: 'top 85%',
         onEnter: () => {
           gsap.to(el, { opacity: 1, y: 0, duration: 1, ease: 'power3.out' });
         },
       });
-      triggersRef.current.push(trigger);
     });
 
     // Card staggered reveal — translate from below + opacity 0.4 -> 1
@@ -39,7 +35,7 @@ const Exhibitions = () => {
       const yOffset = [0, 100, 200, 300][i] || 0;
       gsap.set(card, { opacity: 0.4, y: yOffset });
 
-      const trigger = ScrollTrigger.create({
+      ScrollTrigger.create({
         trigger: card,
         start: 'top 95%',
         end: 'top 30%',
@@ -52,25 +48,20 @@ const Exhibitions = () => {
           });
         },
       });
-      triggersRef.current.push(trigger);
     });
 
     // CTA reveal
     gsap.set(cta, { opacity: 0, y: 30 });
-    const ctaTrigger = ScrollTrigger.create({
+    ScrollTrigger.create({
       trigger: cta,
       start: 'top 90%',
       onEnter: () => {
         gsap.to(cta, { opacity: 1, y: 0, duration: 0.8, ease: 'power3.out' });
       },
     });
-    triggersRef.current.push(ctaTrigger);
+  }, { scope: sectionRef });
 
-    return () => {
-      triggersRef.current.forEach((t) => t.kill());
-      triggersRef.current = [];
-    };
-  }, []);
+  if (!exhibitionsConfig.headline && exhibitionsConfig.exhibitions.length === 0) return null;
 
   return (
     <section

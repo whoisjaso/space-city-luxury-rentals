@@ -1,5 +1,5 @@
-import { useEffect, useRef } from 'react';
-import { gsap, ScrollTrigger } from '../lib/gsap';
+import { useRef } from 'react';
+import { gsap, ScrollTrigger, useGSAP } from '../lib/gsap';
 import { aboutConfig } from '../config';
 
 const About = () => {
@@ -7,11 +7,8 @@ const About = () => {
   const textRef = useRef<HTMLDivElement>(null);
   const galleryRef = useRef<HTMLDivElement>(null);
   const statsRef = useRef<HTMLDivElement>(null);
-  const triggersRef = useRef<ScrollTrigger[]>([]);
 
-  if (!aboutConfig.headline) return null;
-
-  useEffect(() => {
+  useGSAP(() => {
     const section = sectionRef.current;
     const text = textRef.current;
     const gallery = galleryRef.current;
@@ -23,21 +20,20 @@ const About = () => {
     const textElements = text.querySelectorAll('.reveal-text');
     textElements.forEach((el) => {
       gsap.set(el, { opacity: 0, y: 50 });
-      const trigger = ScrollTrigger.create({
+      ScrollTrigger.create({
         trigger: el,
         start: 'top 85%',
         onEnter: () => {
           gsap.to(el, { opacity: 1, y: 0, duration: 1, ease: 'power3.out' });
         },
       });
-      triggersRef.current.push(trigger);
     });
 
     // Gallery column parallax — contained within the gallery wrapper
     const columns = gallery.querySelectorAll<HTMLElement>('.gallery-col');
     columns.forEach((col) => {
       const speed = parseFloat(col.dataset.speed || '0');
-      const trigger = ScrollTrigger.create({
+      ScrollTrigger.create({
         trigger: gallery,
         start: 'top bottom',
         end: 'bottom top',
@@ -46,7 +42,6 @@ const About = () => {
           gsap.set(col, { y: self.progress * speed });
         },
       });
-      triggersRef.current.push(trigger);
     });
 
     // Gallery images: opacity 0.4 -> 1 + slide up
@@ -55,7 +50,7 @@ const About = () => {
       const offset = parseFloat(wrap.dataset.offset || '0');
       gsap.set(wrap, { opacity: 0.4, y: offset });
 
-      const trigger = ScrollTrigger.create({
+      ScrollTrigger.create({
         trigger: wrap,
         start: 'top 92%',
         end: 'top 40%',
@@ -68,14 +63,13 @@ const About = () => {
           });
         },
       });
-      triggersRef.current.push(trigger);
     });
 
     // Stats reveal
     const statItems = stats.querySelectorAll('.stat-item');
     statItems.forEach((el, i) => {
       gsap.set(el, { opacity: 0, y: 40 });
-      const trigger = ScrollTrigger.create({
+      ScrollTrigger.create({
         trigger: el,
         start: 'top 90%',
         onEnter: () => {
@@ -85,14 +79,10 @@ const About = () => {
           });
         },
       });
-      triggersRef.current.push(trigger);
     });
+  }, { scope: sectionRef });
 
-    return () => {
-      triggersRef.current.forEach((t) => t.kill());
-      triggersRef.current = [];
-    };
-  }, []);
+  if (!aboutConfig.headline) return null;
 
   // Split gallery images into 3 columns
   const col1Images = aboutConfig.galleryImages.filter((_, i) => i % 3 === 0);

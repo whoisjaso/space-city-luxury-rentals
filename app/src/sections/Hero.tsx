@@ -1,5 +1,5 @@
-import { useEffect, useRef } from 'react';
-import { gsap, ScrollTrigger } from '../lib/gsap';
+import { useRef } from 'react';
+import { gsap, ScrollTrigger, useGSAP } from '../lib/gsap';
 import { heroConfig } from '../config';
 
 const Hero = () => {
@@ -10,11 +10,8 @@ const Hero = () => {
   const navRef = useRef<HTMLElement>(null);
   const badgeRef = useRef<HTMLDivElement>(null);
   const bottomRef = useRef<HTMLDivElement>(null);
-  const triggersRef = useRef<ScrollTrigger[]>([]);
 
-  if (!heroConfig.brandLeft && !heroConfig.brandRight) return null;
-
-  useEffect(() => {
+  useGSAP(() => {
     const section = sectionRef.current;
     const statue = statueRef.current;
     const leftText = leftTextRef.current;
@@ -46,7 +43,7 @@ const Hero = () => {
       .to(bottom, { opacity: 1, duration: 0.5 }, '-=0.3');
 
     // Scroll parallax — statue moves slower, text drifts outward
-    const scrollTrigger = ScrollTrigger.create({
+    ScrollTrigger.create({
       trigger: section,
       start: 'top top',
       end: 'bottom top',
@@ -59,14 +56,9 @@ const Hero = () => {
         gsap.set(badge, { y: p * 80 });
       },
     });
-    triggersRef.current.push(scrollTrigger);
+  }, { scope: sectionRef });
 
-    return () => {
-      triggersRef.current.forEach((t) => t.kill());
-      triggersRef.current = [];
-      tl.kill();
-    };
-  }, []);
+  if (!heroConfig.brandLeft && !heroConfig.brandRight) return null;
 
   return (
     <section
