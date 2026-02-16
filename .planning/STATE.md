@@ -4,21 +4,21 @@
 
 **Core Value:** Customers can discover Joey's vehicles and submit a booking request with zero friction -- and Joey can manage his fleet and respond to every request from a single admin panel.
 
-**Current Focus:** Phase 1 -- Routing & Animation Survival
+**Current Focus:** Phase 1 complete -- ready for Phase 2 (Supabase Foundation)
 
 ## Current Position
 
-**Phase:** 1 of 9 (Routing & Animation Survival)
-**Plan:** 2 of 3 in Phase 1
-**Status:** In progress
-**Last activity:** 2026-02-15 -- Completed 01-02-PLAN.md
-**Progress:** [##........] ~7% (2 plans of ~27 estimated)
+**Phase:** 1 of 9 (Routing & Animation Survival) -- COMPLETE
+**Plan:** 3 of 3 in Phase 1
+**Status:** Phase complete
+**Last activity:** 2026-02-15 -- Completed 01-03-PLAN.md
+**Progress:** [###.......] ~11% (3 plans of ~27 estimated)
 
 ## Phase Overview
 
 | Phase | Name | Status |
 |-------|------|--------|
-| 1 | Routing & Animation Survival | In Progress (2/3 plans) |
+| 1 | Routing & Animation Survival | COMPLETE (3/3 plans) |
 | 2 | Supabase Foundation | Not Started |
 | 3 | Public Layout & Brand Shell | Not Started |
 | 4 | Fleet Catalog Page | Not Started |
@@ -30,10 +30,10 @@
 
 ## Performance Metrics
 
-**Plans completed:** 2
-**Plans total:** 3 (Phase 1 planned)
-**Requirements delivered:** 0/20
-**Phases completed:** 0/9
+**Plans completed:** 3
+**Plans total:** 3 (Phase 1 complete)
+**Requirements delivered:** 1/20 (INFRA-01: React Router integration)
+**Phases completed:** 1/9
 
 ## Accumulated Context
 
@@ -52,6 +52,9 @@
 | useGSAP with scope:sectionRef for all 6 sections | gsap.context() auto-reverts all property changes on unmount; essential for router navigation | Phase 1 |
 | Conditional returns after all hooks in sections | Rules of Hooks: hooks must be called unconditionally in every render | Phase 1 |
 | ScrollTrigger.refresh() in Collections | Batch pin triggers with pinSpacing:false need recalculation after creation | Phase 1 |
+| Landing page extracted to pages/LandingPage.tsx | App.tsx is thin router shell; page components own their lifecycle (Lenis, cursor, ScrollTrigger) | Phase 1 |
+| Nuclear cleanup on landing page unmount | ScrollTrigger.getAll().forEach(t => t.kill()) catches orphans from child sections | Phase 1 |
+| All router imports from 'react-router' not 'react-router-dom' | react-router v7 single-package standard; dom package deprecated | Phase 1 |
 
 ### Known Issues
 
@@ -68,6 +71,7 @@ None currently.
 
 - [x] Fix existing GSAP/Lenis bugs before building on top of them (Phase 1) -- DONE in 01-01
 - [x] Migrate all section components from useEffect to useGSAP (Phase 1) -- DONE in 01-02
+- [x] Add React Router with scoped landing page lifecycle (Phase 1) -- DONE in 01-03
 - [ ] Decide on image optimization approach for vehicle photos (Phase 7)
 - [ ] Upgrade Supabase to Pro tier before production launch (Phase 9)
 - [ ] Consider email notifications for booking confirmation (post-MVP)
@@ -77,13 +81,20 @@ None currently.
 ### Last Session
 
 **Date:** 2026-02-15
-**Activity:** Execute plan 01-02
-**Completed:** All 6 section components migrated from useEffect to useGSAP with scope, manual cleanup removed, Rules of Hooks violations fixed
-**Next Step:** Execute plan 01-03 (add React Router with three-layout pattern)
+**Activity:** Execute plan 01-03
+**Completed:** React Router integration -- LandingPage.tsx created, App.tsx rewritten as router shell, BrowserRouter in main.tsx. Human verification approved.
+**Next Step:** Begin Phase 2 (Supabase Foundation)
 
 ### Context for Next Session
 
-Plans 01-01 and 01-02 are complete. All 6 section components (Hero, About, Exhibitions, Collections, Testimonials, Visit) now use the useGSAP hook with `{ scope: sectionRef }` instead of raw useEffect. Manual ScrollTrigger cleanup arrays (triggersRef) are eliminated -- gsap.context() handles teardown automatically. Conditional returns are after all hooks. Build passes cleanly. Plan 01-03 should add React Router with the three-layout pattern (Landing, Public, Admin).
+Phase 1 is fully complete. All 3 plans executed successfully:
+- 01-01: Dependencies installed, bugs fixed, GSAP centralized in lib/gsap.ts
+- 01-02: All 6 sections migrated from useEffect to useGSAP with scope
+- 01-03: React Router integrated, landing page extracted to pages/LandingPage.tsx
+
+The routing architecture is ready for new routes. App.tsx is a thin shell with Routes/Route/Navigate. New pages go in pages/ directory and get added as Route entries. Lenis smooth scroll, custom cursor, and ScrollTrigger are all scoped to the landing page and clean up on unmount.
+
+Phase 2 should set up Supabase: database schema (vehicles, bookings tables), client configuration, and seed data.
 
 ---
 
