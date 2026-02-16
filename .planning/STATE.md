@@ -4,15 +4,15 @@
 
 **Core Value:** Customers can discover Joey's vehicles and submit a booking request with zero friction -- and Joey can manage his fleet and respond to every request from a single admin panel.
 
-**Current Focus:** Phase 2 complete -- Supabase Foundation (2/2 plans complete). Ready for Phase 3.
+**Current Focus:** Phase 3 complete -- Public Layout & Brand Shell (1/1 plans complete). Ready for Phase 4.
 
 ## Current Position
 
-**Phase:** 2 of 9 (Supabase Foundation)
-**Plan:** 2 of 2 in Phase 2
+**Phase:** 3 of 9 (Public Layout & Brand Shell)
+**Plan:** 1 of 1 in Phase 3
 **Status:** Phase complete
-**Last activity:** 2026-02-15 -- Completed 02-02-PLAN.md
-**Progress:** [#####.....] ~19% (5 plans of ~27 estimated)
+**Last activity:** 2026-02-15 -- Completed 03-01-PLAN.md
+**Progress:** [######....] ~22% (6 plans of ~27 estimated)
 
 ## Phase Overview
 
@@ -20,7 +20,7 @@
 |-------|------|--------|
 | 1 | Routing & Animation Survival | COMPLETE (3/3 plans) |
 | 2 | Supabase Foundation | COMPLETE (2/2 plans) |
-| 3 | Public Layout & Brand Shell | Not Started |
+| 3 | Public Layout & Brand Shell | COMPLETE (1/1 plans) |
 | 4 | Fleet Catalog Page | Not Started |
 | 5 | Vehicle Detail Pages | Not Started |
 | 6 | Guest Booking Flow | Not Started |
@@ -30,10 +30,10 @@
 
 ## Performance Metrics
 
-**Plans completed:** 5
+**Plans completed:** 6
 **Plans total:** ~27 estimated
 **Requirements delivered:** 2/20 (INFRA-01: React Router, INFRA-02: Supabase schema)
-**Phases completed:** 2/9
+**Phases completed:** 3/9
 
 ## Accumulated Context
 
@@ -61,6 +61,9 @@
 | Anon SELECT on all bookings, filter at app level | MVP simplicity: guests look up by confirmation_code, no user accounts needed | Phase 2 |
 | DB trigger generates 8-char confirmation codes | Server-side generation ensures uniqueness; client never provides one | Phase 2 |
 | 4 numbered SQL migration files | Tables first, then RLS, then storage -- clear dependency order | Phase 2 |
+| React Router Outlet layout routes | PublicLayout wraps child routes via Outlet; cleaner than wrapper HOC | Phase 3 |
+| Hash links use <a> tags, route links use <Link> | Hash links need native behavior for Lenis smooth scroll on landing page | Phase 3 |
+| Slide-out mobile menu panel | Right-side panel instead of full-screen overlay; more refined UX with backdrop close | Phase 3 |
 
 ### Known Issues
 
@@ -80,6 +83,7 @@ None currently.
 - [x] Add React Router with scoped landing page lifecycle (Phase 1) -- DONE in 01-03
 - [x] Install Supabase + TanStack Query, create client/types/providers (Phase 2) -- DONE in 02-01
 - [x] Create Supabase database schema and seed data (Phase 2) -- DONE in 02-02
+- [x] Create public layout shell with header, mobile menu, routing (Phase 3) -- DONE in 03-01
 - [ ] Decide on image optimization approach for vehicle photos (Phase 7)
 - [ ] Upgrade Supabase to Pro tier before production launch (Phase 9)
 - [ ] Consider email notifications for booking confirmation (post-MVP)
@@ -89,22 +93,20 @@ None currently.
 ### Last Session
 
 **Date:** 2026-02-15
-**Activity:** Execute plan 02-02
-**Completed:** Database schema, RLS policies, storage bucket, and 6-vehicle seed data. Phase 2 complete.
-**Next Step:** Begin Phase 3 (Public Layout & Brand Shell)
+**Activity:** Execute plan 03-01
+**Completed:** PublicHeader, MobileMenu, PublicLayout, placeholder pages, and App.tsx routing. Phase 3 complete.
+**Next Step:** Begin Phase 4 (Fleet Catalog Page)
 
 ### Context for Next Session
 
-Phase 2 (Supabase Foundation) is fully complete:
-- Client infrastructure (02-01): lib/supabase.ts, types/database.ts, AuthProvider, QueryProvider
-- Database schema (02-02): 4 SQL migrations + seed data in supabase/migrations/
-  - 001: vehicles table (12 columns, updated_at trigger)
-  - 002: bookings table (13 columns, confirmation_code auto-generation)
-  - 003: RLS policies (anon read vehicles, anon create bookings, admin full CRUD)
-  - 004: storage bucket (vehicle-images, public read, admin upload/delete)
-  - seed.sql: 6 vehicles matching fleet showcase
+Phase 3 (Public Layout & Brand Shell) is fully complete:
+- PublicHeader (03-01): Sticky header with logo, desktop nav, mobile hamburger, scroll-reactive blur
+- MobileMenu (03-01): Slide-out panel with nav links, body scroll lock, escape key close
+- PublicLayout (03-01): Outlet-based layout wrapping all non-landing public pages
+- Routes wired: /fleet, /fleet/:slug, /book, /book/:code (all with placeholder pages)
+- Landing page remains standalone with its own cinematic Hero nav
 
-User must run these migrations in Supabase SQL Editor and fill in .env with real credentials before data flows. Phase 3 builds the public-facing layout shell and can proceed independently.
+Phase 4 builds the Fleet Catalog page, which will replace the FleetPage placeholder with a real Supabase-queried vehicle grid. The PublicLayout, header, and routing infrastructure are ready.
 
 ---
 
