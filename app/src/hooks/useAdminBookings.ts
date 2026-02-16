@@ -239,7 +239,7 @@ async function updateBookingStatus({
     return updated;
   }
 
-  const updates: Record<string, unknown> = { status };
+  const updates: { status: BookingStatus; admin_notes?: string | null } = { status };
   if (admin_notes !== undefined) {
     updates.admin_notes = admin_notes;
   }
@@ -264,7 +264,12 @@ async function updateBookingStatus({
 export function useUpdateBookingStatus() {
   const queryClient = useQueryClient();
 
-  return useMutation<BookingWithVehicle, Error, UpdateBookingStatusInput>({
+  return useMutation<
+    BookingWithVehicle,
+    Error,
+    UpdateBookingStatusInput,
+    { previousAll: BookingWithVehicle[] | undefined }
+  >({
     mutationFn: updateBookingStatus,
     onMutate: async (variables) => {
       // Cancel any outgoing refetches

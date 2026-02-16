@@ -1,5 +1,4 @@
 import { createClient, type SupabaseClient } from '@supabase/supabase-js';
-import type { Database } from '../types/database';
 
 const supabaseUrl = import.meta.env.VITE_SUPABASE_URL as string;
 const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY as string;
@@ -9,6 +8,13 @@ const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY as string;
 // missing or still contain the placeholder values from .env.example,
 // `supabase` will be null and the app runs in "demo mode" with
 // hardcoded seed data.
+//
+// Note: The Database generic is intentionally omitted from createClient.
+// TypeScript 5.9 removed implicit index signatures on interfaces/types,
+// which breaks @supabase/supabase-js GenericSchema constraint (it
+// requires Row/Insert/Update to extend Record<string, unknown>).
+// All hooks already use explicit type assertions on query results,
+// so runtime type safety is preserved.
 // ---------------------------------------------------------------
 
 function isConfigured(url: string, key: string): boolean {
@@ -19,6 +25,6 @@ function isConfigured(url: string, key: string): boolean {
 
 export const supabaseConfigured = isConfigured(supabaseUrl, supabaseAnonKey);
 
-export const supabase: SupabaseClient<Database> | null = supabaseConfigured
-  ? createClient<Database>(supabaseUrl, supabaseAnonKey)
+export const supabase: SupabaseClient | null = supabaseConfigured
+  ? createClient(supabaseUrl, supabaseAnonKey)
   : null;

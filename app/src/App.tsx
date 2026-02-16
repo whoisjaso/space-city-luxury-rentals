@@ -1,4 +1,4 @@
-import { Routes, Route, Navigate } from 'react-router';
+import { Routes, Route } from 'react-router';
 import './App.css';
 import { AuthProvider } from './providers/AuthProvider';
 import { QueryProvider } from './providers/QueryProvider';
@@ -8,6 +8,7 @@ import FleetPage from './pages/FleetPage';
 import VehicleDetailPage from './pages/VehicleDetailPage';
 import BookingPage from './pages/BookingPage';
 import BookingStatusPage from './pages/BookingStatusPage';
+import NotFoundPage from './pages/NotFoundPage';
 
 // Admin
 import LoginPage from './pages/admin/LoginPage';
@@ -48,8 +49,8 @@ function App() {
             </Route>
           </Route>
 
-          {/* Catch-all: redirect unknown routes to landing page */}
-          <Route path="*" element={<Navigate to="/" replace />} />
+          {/* Catch-all: show branded 404 page for unknown routes */}
+          <Route path="*" element={<NotFoundPage />} />
         </Routes>
       </AuthProvider>
     </QueryProvider>

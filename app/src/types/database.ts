@@ -57,20 +57,48 @@ export type BookingUpdate = Partial<
 >;
 
 // ------ Supabase generic Database type ------
+// Must include Tables (with Relationships), Views, and Functions to satisfy
+// @supabase/supabase-js GenericSchema constraint.
 
-export interface Database {
+export type Database = {
   public: {
     Tables: {
       vehicles: {
         Row: Vehicle;
         Insert: VehicleInsert;
         Update: VehicleUpdate;
+        Relationships: [];
       };
       bookings: {
         Row: Booking;
         Insert: BookingInsert;
         Update: BookingUpdate;
+        Relationships: [
+          {
+            foreignKeyName: 'bookings_vehicle_id_fkey';
+            columns: ['vehicle_id'];
+            isOneToOne: false;
+            referencedRelation: 'vehicles';
+            referencedColumns: ['id'];
+          },
+        ];
       };
     };
+    Views: Record<
+      string,
+      {
+        Row: Record<string, unknown>;
+        Relationships: [];
+      }
+    >;
+    Functions: Record<
+      string,
+      {
+        Args: Record<string, unknown>;
+        Returns: unknown;
+      }
+    >;
+    Enums: Record<string, never>;
+    CompositeTypes: Record<string, never>;
   };
-}
+};
