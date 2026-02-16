@@ -247,6 +247,12 @@ function BookingPage() {
                 Pick your ride, choose your dates, and lock it in. No account
                 needed — just your name and a dream.
               </p>
+              <Link
+                to="/status"
+                className="inline-block museo-label text-[#D4AF37] text-sm hover:underline mt-1"
+              >
+                Already booked? Check your reservation status
+              </Link>
             </div>
 
             {/* Loading state */}

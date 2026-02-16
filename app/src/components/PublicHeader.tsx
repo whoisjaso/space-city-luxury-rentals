@@ -7,6 +7,7 @@ const navLinks = [
   { label: 'Fleet', href: '/fleet', type: 'route' as const },
   { label: 'Inventory', href: '/inventory', type: 'route' as const },
   { label: 'Experiences', href: '/#experiences', type: 'hash' as const },
+  { label: 'Check Status', href: '/status', type: 'route' as const },
   { label: 'Contact', href: '/#contact', type: 'hash' as const },
 ];
 

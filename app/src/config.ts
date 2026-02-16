@@ -289,6 +289,7 @@ export const footerConfig: FooterConfig = {
     { label: "Our Fleet", href: "/fleet" },
     { label: "Inventory", href: "/inventory" },
     { label: "Book a Vehicle", href: "/book" },
+    { label: "Check Reservation", href: "/status" },
     { label: "Contact", href: "/#contact" },
   ],
   quickLinksTitle: "Quick Links",

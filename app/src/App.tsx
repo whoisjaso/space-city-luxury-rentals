@@ -36,6 +36,7 @@ function App() {
             <Route path="/inventory" element={<InventoryPage />} />
             <Route path="/fleet/:slug" element={<VehicleDetailPage />} />
             <Route path="/book" element={<BookingPage />} />
+            <Route path="/status" element={<BookingStatusPage />} />
             <Route path="/book/:code" element={<BookingStatusPage />} />
           </Route>
 
