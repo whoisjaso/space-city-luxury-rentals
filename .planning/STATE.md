@@ -8,16 +8,17 @@
 
 ## Current Position
 
-**Phase:** 1 of 9
-**Plan:** Not yet planned
-**Status:** Not Started
-**Progress:** [..........] 0%
+**Phase:** 1 of 9 (Routing & Animation Survival)
+**Plan:** 1 of 3 in Phase 1
+**Status:** In progress
+**Last activity:** 2026-02-15 -- Completed 01-01-PLAN.md
+**Progress:** [#.........] ~3% (1 plan of ~27 estimated)
 
 ## Phase Overview
 
 | Phase | Name | Status |
 |-------|------|--------|
-| 1 | Routing & Animation Survival | Not Started |
+| 1 | Routing & Animation Survival | In Progress (1/3 plans) |
 | 2 | Supabase Foundation | Not Started |
 | 3 | Public Layout & Brand Shell | Not Started |
 | 4 | Fleet Catalog Page | Not Started |
@@ -29,8 +30,8 @@
 
 ## Performance Metrics
 
-**Plans completed:** 0
-**Plans total:** 0 (not yet planned)
+**Plans completed:** 1
+**Plans total:** 3 (Phase 1 planned)
 **Requirements delivered:** 0/20
 **Phases completed:** 0/9
 
@@ -45,12 +46,15 @@
 | Prices in cents | Integer storage avoids floating-point rounding | Phase 2 |
 | Array for vehicle images | text[] column simpler than separate table for MVP | Phase 2 |
 | Lenis scoped to landing only | Prevents scroll position corruption on route changes | Phase 1 |
+| Centralized GSAP imports via lib/gsap.ts | Single registerPlugin call; all components import from lib/gsap.ts, never directly from 'gsap' | Phase 1 |
+| cursor:none behind @media (any-hover: hover) and (pointer: fine) | Touch devices need system cursor; custom cursor JS only works with mouse | Phase 1 |
+| Deleted useScrollTrigger.ts entirely | No component imports it; useGSAP from @gsap/react is the replacement | Phase 1 |
 
 ### Known Issues
 
-- `useLenis.ts` ticker cleanup bug: creates new anonymous function that never matches the one added (memory leak)
-- `useScrollTrigger.ts` dependency bug: config object as useEffect dependency changes every render (infinite ScrollTrigger recreation)
-- Three `cursor: none` declarations with no accessibility media queries
+- ~~`useLenis.ts` ticker cleanup bug: creates new anonymous function that never matches the one added (memory leak)~~ FIXED in 01-01
+- ~~`useScrollTrigger.ts` dependency bug: config object as useEffect dependency changes every render (infinite ScrollTrigger recreation)~~ FIXED in 01-01 (file deleted)
+- ~~Three `cursor: none` declarations with no accessibility media queries~~ FIXED in 01-01
 - Supabase free tier auto-pauses after 7 days inactivity (must upgrade to Pro before production)
 
 ### Blockers
@@ -59,7 +63,7 @@ None currently.
 
 ### TODOs (Cross-Phase)
 
-- [ ] Fix existing GSAP/Lenis bugs before building on top of them (Phase 1)
+- [x] Fix existing GSAP/Lenis bugs before building on top of them (Phase 1) -- DONE in 01-01
 - [ ] Decide on image optimization approach for vehicle photos (Phase 7)
 - [ ] Upgrade Supabase to Pro tier before production launch (Phase 9)
 - [ ] Consider email notifications for booking confirmation (post-MVP)
@@ -69,13 +73,13 @@ None currently.
 ### Last Session
 
 **Date:** 2026-02-15
-**Activity:** Roadmap creation
-**Completed:** ROADMAP.md, STATE.md, REQUIREMENTS.md traceability
-**Next Step:** Plan Phase 1 with `/gsd:plan-phase 1`
+**Activity:** Execute plan 01-01
+**Completed:** Dependencies installed, bugs fixed, GSAP centralized, vercel.json created
+**Next Step:** Execute plan 01-02 (migrate section components from useEffect to useGSAP)
 
 ### Context for Next Session
 
-Phase 1 is the highest-risk phase. The gating concern is introducing React Router into an app with 30+ GSAP ScrollTrigger instances and Lenis smooth scroll. Research flagged this phase as needing `/gsd:research-phase` before planning. Key pitfalls to address: P1 (ScrollTrigger memory leaks), P2 (Lenis scroll corruption), P5 (Vercel SPA 404s), P6 (StrictMode double-mount). Three existing bugs in hooks must be fixed as part of this phase.
+Plan 01-01 is complete. The centralized `lib/gsap.ts` exports `gsap`, `ScrollTrigger`, and `useGSAP`. All 7 section files now import from this module. The three known bugs are fixed. Plan 01-02 should migrate all section components from raw `useEffect` + `gsap` to the `useGSAP` hook for proper React lifecycle integration and automatic ScrollTrigger cleanup. Plan 01-03 will then add React Router.
 
 ---
 
