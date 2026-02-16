@@ -21,8 +21,8 @@
 
 ### Admin
 
-- [ ] **ADMIN-01**: Joey can log in to the admin panel with email/password (single admin account)
-- [ ] **ADMIN-02**: Joey can add, edit, and delete vehicles with photo upload, pricing, descriptions, and experience tags
+- [x] **ADMIN-01**: Joey can log in to the admin panel with email/password (single admin account)
+- [x] **ADMIN-02**: Joey can add, edit, and delete vehicles with photo upload, pricing, descriptions, and experience tags
 - [ ] **ADMIN-03**: Joey can view all booking requests and approve or decline them with notes visible to the customer
 - [ ] **ADMIN-04**: Joey sees a dashboard with quick stats (total bookings, pending requests, active vehicles)
 
