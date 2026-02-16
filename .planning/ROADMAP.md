@@ -189,7 +189,7 @@ Plans:
 | 1 | Routing & Animation Survival | INFRA-01 | ✓ Complete |
 | 2 | Supabase Foundation | INFRA-02, INFRA-03 | ✓ Complete |
 | 3 | Public Layout & Brand Shell | BRAND-01, BRAND-04 | ✓ Complete |
-| 4 | Fleet Catalog Page | CAT-01, CAT-03, BRAND-03 | Not Started |
+| 4 | Fleet Catalog Page | CAT-01, CAT-03, BRAND-03 | ✓ Complete |
 | 5 | Vehicle Detail Pages | CAT-02, CAT-04, BRAND-02 | Not Started |
 | 6 | Guest Booking Flow | BOOK-01, BOOK-02, BOOK-03, BOOK-04 | Not Started |
 | 7 | Admin Auth & Vehicle Management | ADMIN-01, ADMIN-02 | Not Started |
