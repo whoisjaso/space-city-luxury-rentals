@@ -10,7 +10,7 @@ import type { Vehicle } from '../types/database';
 
 const now = new Date().toISOString();
 
-const SEED_VEHICLES: Vehicle[] = [
+export const SEED_VEHICLES: Vehicle[] = [
   {
     id: 'seed-001',
     slug: 'rolls-royce-ghost',
