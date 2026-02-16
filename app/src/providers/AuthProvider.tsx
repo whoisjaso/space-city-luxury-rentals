@@ -92,20 +92,25 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
     // Try Supabase auth
     if (supabaseConfigured && supabase) {
-      const { error } = await supabase.auth.signInWithPassword({ email, password });
-      if (error) {
-        // If email not confirmed, suggest demo credentials
-        if (error.message.includes('Email not confirmed')) {
-          throw new Error(
-            'Email not confirmed. Use demo credentials: admin@spacecity.com / admin123'
-          );
+      try {
+        const { error } = await supabase.auth.signInWithPassword({ email, password });
+        if (error) {
+          if (error.message.includes('Email not confirmed')) {
+            throw new Error('Email not confirmed. Please check your inbox.');
+          }
+          throw error;
         }
-        throw error;
+        return;
+      } catch (fetchErr) {
+        // Network or configuration error
+        if (fetchErr instanceof TypeError && String(fetchErr.message).includes('fetch')) {
+          throw new Error('Unable to reach authentication server. Please try again later.');
+        }
+        throw fetchErr;
       }
-      return;
     }
 
-    throw new Error('Supabase is not configured. Use demo credentials: admin@spacecity.com / admin123');
+    throw new Error('Authentication service unavailable. Please try again later.');
   }, []);
 
   const signOut = useCallback(async () => {

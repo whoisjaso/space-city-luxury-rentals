@@ -1,6 +1,6 @@
 import { useState, type FormEvent } from 'react';
 import { Navigate, Link } from 'react-router';
-import { LogIn, AlertCircle, Info } from 'lucide-react';
+import { LogIn, AlertCircle } from 'lucide-react';
 import { useAuth } from '../../providers/AuthProvider';
 
 
@@ -61,23 +61,6 @@ export default function LoginPage() {
           <p className="museo-body text-white/40 mt-2 text-sm">
             Sign in to manage your fleet
           </p>
-        </div>
-
-        {/* Login options info */}
-        <div className="bg-[#2E1065]/10 border border-[#2E1065]/30 rounded-lg px-5 py-4 flex items-start gap-3">
-          <Info className="w-5 h-5 text-[#D4AF37] mt-0.5 shrink-0" />
-          <div>
-            <p className="text-white/70 text-sm font-medium">
-              Admin Credentials
-            </p>
-            <p className="text-white/40 text-sm mt-1">
-              <strong className="text-white/60">Supabase:</strong>{' '}
-              joey@spacecityrentals.com / SpaceCity2024
-              <br />
-              <strong className="text-white/60">Demo:</strong>{' '}
-              admin@spacecity.com / admin123
-            </p>
-          </div>
         </div>
 
         {/* Login form */}
