@@ -1,0 +1,254 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 0 0% 2%;
+    --foreground: 0 0% 94%;
+    --card: 0 0% 4%;
+    --card-foreground: 0 0% 94%;
+    --popover: 0 0% 4%;
+    --popover-foreground: 0 0% 94%;
+    --primary: 45 70% 52%;
+    --primary-foreground: 0 0% 2%;
+    --secondary: 270 100% 28%;
+    --secondary-foreground: 0 0% 94%;
+    --muted: 0 0% 15%;
+    --muted-foreground: 0 0% 55%;
+    --accent: 45 70% 52%;
+    --accent-foreground: 0 0% 2%;
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 0 0% 15%;
+    --input: 0 0% 15%;
+    --ring: 45 70% 52%;
+    --radius: 0.5rem;
+    
+    /* Space City Rentals Brand Colors */
+    --space-purple: #4A148C;
+    --space-gold: #D4AF37;
+    --space-black: #050505;
+    --space-charcoal: #0a0a0a;
+    --space-light: #f0f0f0;
+    --space-grey: #8c8c91;
+    --space-dark-grey: #2a2a2a;
+  }
+
+  * {
+    @apply border-border;
+  }
+  
+  html {
+    scroll-behavior: auto;
+  }
+  
+  html.lenis, html.lenis body {
+    height: auto;
+  }
+
+  .lenis.lenis-smooth {
+    scroll-behavior: auto !important;
+  }
+
+  .lenis.lenis-smooth [data-lenis-prevent] {
+    overscroll-behavior: contain;
+  }
+
+  .lenis.lenis-stopped {
+    overflow: hidden;
+  }
+
+  .lenis.lenis-scrolling iframe {
+    pointer-events: none;
+  }
+  
+  body {
+    @apply bg-[#050505] text-[#f0f0f0] antialiased;
+    font-family: 'Inter', sans-serif;
+    overflow-x: hidden;
+    cursor: none;
+  }
+  
+  ::selection {
+    background: rgba(212, 175, 55, 0.3);
+    color: inherit;
+  }
+}
+
+@layer components {
+  .museo-headline {
+    @apply font-semibold tracking-tight leading-none;
+    font-family: 'Inter', sans-serif;
+  }
+  
+  .museo-body {
+    @apply font-light leading-relaxed;
+    line-height: 1.7;
+  }
+  
+  .museo-label {
+    @apply text-xs uppercase tracking-widest font-medium;
+    letter-spacing: 0.2em;
+  }
+  
+  .border-museo {
+    border-color: rgba(255, 255, 255, 0.2);
+  }
+  
+  .text-gold {
+    color: var(--space-gold);
+  }
+  
+  .text-gold-gradient {
+    background: linear-gradient(135deg, #D4AF37 0%, #F4E4A6 50%, #D4AF37 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  
+  .bg-gold {
+    background-color: var(--space-gold);
+  }
+  
+  .border-gold {
+    border-color: var(--space-gold);
+  }
+  
+  .hover\:border-gold:hover {
+    border-color: var(--space-gold);
+  }
+  
+  .clip-reveal {
+    clip-path: inset(0 0 100% 0);
+  }
+  
+  .clip-reveal-active {
+    clip-path: inset(0 0 0% 0);
+    transition: clip-path 1.2s cubic-bezier(0.77, 0, 0.175, 1);
+  }
+}
+
+@layer utilities {
+  .text-shadow-museo {
+    text-shadow: 0 4px 30px rgba(0, 0, 0, 0.3);
+  }
+  
+  .will-change-transform {
+    will-change: transform;
+  }
+  
+  .backface-hidden {
+    backface-visibility: hidden;
+  }
+  
+  .perspective-1000 {
+    perspective: 1000px;
+  }
+  
+  .gpu-accelerate {
+    transform: translateZ(0);
+  }
+}
+
+/* Custom cursor styles */
+.custom-cursor {
+  position: fixed;
+  width: 12px;
+  height: 12px;
+  background: #D4AF37;
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 9999;
+  mix-blend-mode: difference;
+  transition: transform 0.15s ease-out, width 0.2s ease, height 0.2s ease;
+  transform: translate(-50%, -50%);
+}
+
+.custom-cursor.hover {
+  width: 40px;
+  height: 40px;
+}
+
+/* Marquee animation */
+@keyframes marquee {
+  0% {
+    transform: translateX(0%);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+.animate-marquee {
+  animation: marquee 30s linear infinite;
+}
+
+/* Section transitions */
+.section-dark {
+  background-color: #050505;
+}
+
+.section-purple {
+  background: linear-gradient(180deg, #050505 0%, #1a0a2e 50%, #050505 100%);
+}
+
+.section-charcoal {
+  background-color: #0a0a0a;
+}
+
+/* Smooth opacity transitions */
+.fade-in-up {
+  opacity: 0;
+  transform: translateY(20px);
+}
+
+.fade-in-up.visible {
+  opacity: 1;
+  transform: translateY(0);
+  transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+}
+
+/* Stagger delay utilities */
+.stagger-1 { transition-delay: 0.1s; }
+.stagger-2 { transition-delay: 0.2s; }
+.stagger-3 { transition-delay: 0.3s; }
+.stagger-4 { transition-delay: 0.4s; }
+.stagger-5 { transition-delay: 0.5s; }
+
+/* Image reveal animation */
+.img-reveal {
+  position: relative;
+  overflow: hidden;
+}
+
+.img-reveal::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: #8c8c91;
+  transform: scaleY(1);
+  transform-origin: top;
+  transition: transform 1s cubic-bezier(0.77, 0, 0.175, 1);
+}
+
+.img-reveal.revealed::after {
+  transform: scaleY(0);
+  transform-origin: bottom;
+}
+
+/* Sticky gallery styles */
+.sticky-gallery {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+}
+
+/* Hide default scrollbar for cleaner look */
+::-webkit-scrollbar {
+  width: 0;
+  background: transparent;
+}
