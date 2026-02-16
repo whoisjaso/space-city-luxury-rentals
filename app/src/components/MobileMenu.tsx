@@ -121,6 +121,17 @@ const MobileMenu = ({ open, onClose, navLinks, currentPath }: MobileMenuProps) =
           >
             View Fleet
           </Link>
+          <Link
+            to="/admin"
+            onClick={onClose}
+            className="mt-3 w-full py-3 flex items-center justify-center gap-2 border border-white/10 text-white/60 museo-label text-sm hover:text-white hover:border-white/20 transition-colors"
+          >
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+              <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
+              <circle cx="12" cy="7" r="4" />
+            </svg>
+            Admin
+          </Link>
           <p className="museo-body text-white/30 text-xs text-center mt-4">
             Houston's Premier Luxury Rentals
           </p>

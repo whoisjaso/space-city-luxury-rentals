@@ -83,18 +83,42 @@ const PublicHeader = () => {
                 </a>
               )
             )}
+            <Link
+              to="/admin"
+              className="w-9 h-9 rounded-full border border-white/20 flex items-center justify-center text-white/60 hover:text-white hover:border-white/40 transition-colors"
+              aria-label="Admin"
+            >
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
+                <circle cx="12" cy="7" r="4" />
+              </svg>
+            </Link>
           </nav>
 
-          {/* Mobile Hamburger */}
-          <button
-            onClick={() => setMobileMenuOpen(true)}
-            className="md:hidden flex flex-col items-center justify-center w-10 h-10 gap-1.5"
-            aria-label="Open navigation menu"
-          >
-            <span className="block w-6 h-px bg-white/80" />
-            <span className="block w-4 h-px bg-white/80" />
-            <span className="block w-6 h-px bg-white/80" />
-          </button>
+          {/* Admin icon for mobile */}
+          <div className="flex items-center gap-3 md:hidden">
+            <Link
+              to="/admin"
+              className="w-9 h-9 rounded-full border border-white/20 flex items-center justify-center text-white/60 hover:text-white hover:border-white/40 transition-colors"
+              aria-label="Admin"
+            >
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
+                <circle cx="12" cy="7" r="4" />
+              </svg>
+            </Link>
+
+            {/* Mobile Hamburger */}
+            <button
+              onClick={() => setMobileMenuOpen(true)}
+              className="flex flex-col items-center justify-center w-10 h-10 gap-1.5"
+              aria-label="Open navigation menu"
+            >
+              <span className="block w-6 h-px bg-white/80" />
+              <span className="block w-4 h-px bg-white/80" />
+              <span className="block w-6 h-px bg-white/80" />
+            </button>
+          </div>
         </div>
       </header>
 
