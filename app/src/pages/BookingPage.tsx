@@ -2,6 +2,7 @@ import { useState, useRef } from 'react';
 import { useSearchParams, Link } from 'react-router';
 import { gsap, useGSAP } from '../lib/gsap';
 import { useVehicles } from '../hooks/useVehicles';
+import { useVehicleAvailability } from '../hooks/useVehicleAvailability';
 import BookingForm from '../components/BookingForm';
 
 // ---------------------------------------------------------------
@@ -23,6 +24,7 @@ function BookingPage() {
   const [searchParams] = useSearchParams();
   const preselectedSlug = searchParams.get('vehicle') ?? undefined;
   const { data: vehicles = [], isLoading } = useVehicles();
+  const { data: unavailableIds } = useVehicleAvailability();
   const [confirmation, setConfirmation] = useState<ConfirmationData | null>(
     null,
   );
@@ -274,6 +276,7 @@ function BookingPage() {
               <BookingForm
                 vehicles={vehicles}
                 preselectedSlug={preselectedSlug}
+                unavailableVehicleIds={unavailableIds}
                 onSuccess={handleFormSuccess}
               />
             )}

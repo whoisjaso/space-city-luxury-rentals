@@ -29,6 +29,16 @@ const STATUS_CONFIG: Record<
     dotColor: 'bg-red-400',
     textColor: 'text-red-400',
   },
+  completed: {
+    label: 'Completed',
+    dotColor: 'bg-blue-400',
+    textColor: 'text-blue-400',
+  },
+  cancelled: {
+    label: 'Cancelled',
+    dotColor: 'bg-white/40',
+    textColor: 'text-white/40',
+  },
 };
 
 function formatDate(dateStr: string): string {

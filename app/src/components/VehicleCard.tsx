@@ -8,9 +8,10 @@ import type { Vehicle } from '../types/database';
 
 interface VehicleCardProps {
   vehicle: Vehicle;
+  isAvailable?: boolean;
 }
 
-const VehicleCard = ({ vehicle }: VehicleCardProps) => {
+const VehicleCard = ({ vehicle, isAvailable = true }: VehicleCardProps) => {
   const formattedPrice = `$${(vehicle.daily_price_cents / 100).toLocaleString()}/day`;
 
   return (
@@ -24,12 +25,29 @@ const VehicleCard = ({ vehicle }: VehicleCardProps) => {
         <img
           src={vehicle.images[0] || '/images/placeholder-vehicle.jpg'}
           alt={vehicle.name}
-          className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+          className={`w-full h-full object-cover transition-all duration-700 group-hover:scale-105${
+            !isAvailable ? ' grayscale brightness-50' : ''
+          }`}
           loading="lazy"
         />
 
         {/* Gradient overlay for text legibility */}
         <div className="absolute inset-0 bg-gradient-to-t from-[#050505] via-[#050505]/20 to-transparent" />
+
+        {/* Availability badge */}
+        <div className="absolute top-4 left-4">
+          {isAvailable ? (
+            <span className="museo-label text-emerald-400 text-[10px] flex items-center gap-1.5">
+              <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
+              AVAILABLE
+            </span>
+          ) : (
+            <span className="museo-label text-white/40 text-[10px] flex items-center gap-1.5">
+              <span className="w-1.5 h-1.5 rounded-full bg-white/30" />
+              CURRENTLY RENTED
+            </span>
+          )}
+        </div>
 
         {/* Price badge */}
         <div className="absolute top-4 right-4 bg-[#050505]/70 backdrop-blur-sm border border-[#D4AF37]/30 rounded-full px-4 py-1.5">

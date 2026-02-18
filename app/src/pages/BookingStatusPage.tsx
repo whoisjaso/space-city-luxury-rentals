@@ -5,7 +5,7 @@ import {
   useBookingStatus,
   useBookingsByEmail,
 } from '../hooks/useBooking';
-import type { BookingStatus } from '../types/database';
+import type { BookingStatus, PaymentStatus } from '../types/database';
 
 // ---------------------------------------------------------------
 // BookingStatusPage — guests look up bookings by confirmation code
@@ -35,6 +35,27 @@ const STATUS_CONFIG: Record<
     bg: 'bg-red-500/10',
     border: 'border-red-500/20',
   },
+  completed: {
+    label: 'Completed',
+    color: 'text-blue-400',
+    bg: 'bg-blue-500/10',
+    border: 'border-blue-500/20',
+  },
+  cancelled: {
+    label: 'Cancelled',
+    color: 'text-white/40',
+    bg: 'bg-white/5',
+    border: 'border-white/10',
+  },
+};
+
+const PAYMENT_MESSAGES: Partial<Record<PaymentStatus, string>> = {
+  authorized:
+    'Your card has been authorized. You will not be charged until your booking is confirmed by our team.',
+  captured: 'Payment has been processed.',
+  refunded: 'Your payment has been fully refunded.',
+  partially_refunded: 'A partial refund has been issued to your card.',
+  cancelled: 'The hold on your card has been released.',
 };
 
 function BookingStatusPage() {
@@ -215,6 +236,9 @@ function BookingStatusPage() {
             guestName={bookingByCode.guest_name}
             adminNotes={bookingByCode.admin_notes}
             createdAt={bookingByCode.created_at}
+            paymentStatus={bookingByCode.payment_status}
+            totalAmountCents={bookingByCode.total_amount_cents}
+            capturedAmountCents={bookingByCode.captured_amount_cents}
           />
         )}
 
@@ -236,6 +260,9 @@ function BookingStatusPage() {
                 guestName={b.guest_name}
                 adminNotes={b.admin_notes}
                 createdAt={b.created_at}
+                paymentStatus={b.payment_status}
+                totalAmountCents={b.total_amount_cents}
+                capturedAmountCents={b.captured_amount_cents}
               />
             ))}
           </div>
@@ -268,6 +295,9 @@ interface BookingCardProps {
   guestName: string;
   adminNotes: string | null;
   createdAt: string;
+  paymentStatus?: PaymentStatus;
+  totalAmountCents?: number | null;
+  capturedAmountCents?: number | null;
 }
 
 function BookingCard({
@@ -279,8 +309,13 @@ function BookingCard({
   guestName,
   adminNotes,
   createdAt,
+  paymentStatus,
+  totalAmountCents,
+  capturedAmountCents,
 }: BookingCardProps) {
-  const cfg = STATUS_CONFIG[status];
+  const cfg = STATUS_CONFIG[status] ?? STATUS_CONFIG.pending;
+  const paymentMessage = paymentStatus ? PAYMENT_MESSAGES[paymentStatus] : null;
+  const formatCents = (cents: number) => `$${(cents / 100).toLocaleString()}`;
 
   return (
     <div className="bg-white/[0.03] border border-white/10 rounded-xl p-6 md:p-8 space-y-5">
@@ -352,6 +387,32 @@ function BookingCard({
           </span>
           <p className="text-white/60 text-sm leading-relaxed">
             {adminNotes}
+          </p>
+        </div>
+      )}
+
+      {/* Payment info */}
+      {paymentMessage && (
+        <div className="border-t border-white/5 pt-4 space-y-2">
+          <span className="museo-label text-white/30 text-xs block">
+            Payment Info
+          </span>
+          {totalAmountCents != null && totalAmountCents > 0 && (
+            <div className="flex items-center justify-between">
+              <span className="text-white/40 text-sm">
+                {paymentStatus === 'captured' ? 'Amount Charged' : 'Authorization Hold'}
+              </span>
+              <span className="text-white text-sm font-medium">
+                {formatCents(
+                  paymentStatus === 'captured' && capturedAmountCents != null
+                    ? capturedAmountCents
+                    : totalAmountCents,
+                )}
+              </span>
+            </div>
+          )}
+          <p className="text-white/40 text-xs leading-relaxed">
+            {paymentMessage}
           </p>
         </div>
       )}

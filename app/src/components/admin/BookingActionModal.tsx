@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { X, CheckCircle, XCircle, MessageSquare, Mail, Phone } from 'lucide-react';
 import type { BookingWithVehicle } from '../../hooks/useAdminBookings';
+import { useCancelPayment } from '../../hooks/useAdminPayments';
 
 // ---------------------------------------------------------------
 // BookingActionModal — confirm approve/decline with optional notes,
@@ -118,16 +119,27 @@ export default function BookingActionModal({
   isSuccess = false,
 }: BookingActionModalProps) {
   const [notes, setNotes] = useState('');
+  const cancelPayment = useCancelPayment();
 
   const isApprove = action === 'approve';
+  const hasAuthorizedPayment =
+    !isApprove && booking.payment_status === 'authorized';
+
   const title = isApprove ? 'Approve Booking' : 'Decline Booking';
   const buttonLabel = isApprove ? 'Approve' : 'Decline';
   const placeholder = isApprove
     ? 'Add a note for the customer (optional)'
     : 'Reason for declining (recommended)';
 
+  const formatCents = (cents: number | null | undefined) =>
+    cents != null ? `$${(cents / 100).toLocaleString()}` : '$0';
+
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+    // When declining a booking with an authorized payment, release the hold
+    if (hasAuthorizedPayment) {
+      cancelPayment.mutate({ booking_id: booking.id });
+    }
     onConfirm(notes.trim());
   };
 
@@ -343,6 +355,16 @@ export default function BookingActionModal({
               className="w-full bg-white/[0.04] border border-white/10 rounded-lg px-4 py-3 text-white text-sm museo-body placeholder:text-white/20 focus:outline-none focus:ring-2 focus:ring-[#D4AF37]/60 focus:border-[#D4AF37]/40 transition-all resize-none"
             />
           </div>
+
+          {/* Payment hold notice */}
+          {hasAuthorizedPayment && (
+            <div className="bg-blue-500/10 border border-blue-500/20 rounded-lg px-4 py-3">
+              <p className="text-blue-400 text-sm">
+                The {formatCents(booking.total_amount_cents)} hold on the
+                customer's card will be automatically released.
+              </p>
+            </div>
+          )}
 
           {/* Action buttons */}
           <div className="flex gap-3">

@@ -7,6 +7,7 @@ import type { BookingWithVehicle } from '../../hooks/useAdminBookings';
 import type { BookingStatus } from '../../types/database';
 import BookingTable from '../../components/admin/BookingTable';
 import BookingActionModal from '../../components/admin/BookingActionModal';
+import PaymentActionsModal from '../../components/admin/PaymentActionsModal';
 
 // ---------------------------------------------------------------
 // BookingsPage — admin booking management with status filtering,
@@ -33,6 +34,8 @@ export default function BookingsPage() {
     booking: BookingWithVehicle;
     action: 'approve' | 'decline';
   } | null>(null);
+  const [paymentModalBooking, setPaymentModalBooking] =
+    useState<BookingWithVehicle | null>(null);
 
   const { data: bookings = [], isLoading } = useAdminBookings(statusFilter);
 
@@ -126,7 +129,11 @@ export default function BookingsPage() {
           ))}
         </div>
       ) : (
-        <BookingTable bookings={bookings} onAction={handleAction} />
+        <BookingTable
+          bookings={bookings}
+          onAction={handleAction}
+          onPaymentAction={setPaymentModalBooking}
+        />
       )}
 
       {/* Action modal */}
@@ -139,6 +146,14 @@ export default function BookingsPage() {
           onDone={handleDone}
           isLoading={updateStatus.isPending}
           isSuccess={updateStatus.isSuccess}
+        />
+      )}
+
+      {/* Payment actions modal */}
+      {paymentModalBooking && (
+        <PaymentActionsModal
+          booking={paymentModalBooking}
+          onClose={() => setPaymentModalBooking(null)}
         />
       )}
     </div>

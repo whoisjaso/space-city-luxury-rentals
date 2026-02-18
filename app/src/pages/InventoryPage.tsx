@@ -2,6 +2,7 @@ import { useState, useRef } from 'react';
 import { Link } from 'react-router';
 import { gsap, ScrollTrigger, useGSAP } from '../lib/gsap';
 import { useVehicles } from '../hooks/useVehicles';
+import { useVehicleAvailability } from '../hooks/useVehicleAvailability';
 import { Phone, Mail, Instagram } from 'lucide-react';
 
 const EXPERIENCE_TAGS = [
@@ -17,6 +18,7 @@ const EXPERIENCE_TAGS = [
 function InventoryPage() {
   const [activeTag, setActiveTag] = useState('All');
   const { data: vehicles = [], isLoading } = useVehicles();
+  const { data: unavailableIds = new Set<string>() } = useVehicleAvailability();
   const sectionRef = useRef<HTMLDivElement>(null);
   const headerRef = useRef<HTMLDivElement>(null);
   const gridRef = useRef<HTMLDivElement>(null);
@@ -188,7 +190,9 @@ function InventoryPage() {
                   <img
                     src={vehicle.images[0] || '/images/placeholder-vehicle.jpg'}
                     alt={vehicle.name}
-                    className="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
+                    className={`w-full h-full object-cover transition-all duration-700 ease-out group-hover:scale-105${
+                      unavailableIds.has(vehicle.id) ? ' grayscale brightness-50' : ''
+                    }`}
                     loading="lazy"
                   />
                   {/* Dark gradient overlay */}
@@ -196,10 +200,17 @@ function InventoryPage() {
 
                   {/* Top-left: availability */}
                   <div className="absolute top-4 left-4 sm:top-5 sm:left-6">
-                    <span className="museo-label text-emerald-400 text-[10px] flex items-center gap-1.5">
-                      <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
-                      AVAILABLE NOW
-                    </span>
+                    {unavailableIds.has(vehicle.id) ? (
+                      <span className="museo-label text-white/40 text-[10px] flex items-center gap-1.5">
+                        <span className="w-1.5 h-1.5 rounded-full bg-white/30" />
+                        CURRENTLY RENTED
+                      </span>
+                    ) : (
+                      <span className="museo-label text-emerald-400 text-[10px] flex items-center gap-1.5">
+                        <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
+                        AVAILABLE NOW
+                      </span>
+                    )}
                   </div>
 
                   {/* Top-right: price badge */}

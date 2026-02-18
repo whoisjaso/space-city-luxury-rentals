@@ -1,4 +1,4 @@
-import { Calendar, Clock, Car } from 'lucide-react';
+import { Calendar, Clock, Car, DollarSign } from 'lucide-react';
 import type { AdminStats } from '../../hooks/useAdminBookings';
 
 // ---------------------------------------------------------------
@@ -12,10 +12,13 @@ interface DashboardStatsProps {
 }
 
 export default function DashboardStats({ stats, isLoading }: DashboardStatsProps) {
+  const formatCents = (cents: number) =>
+    cents > 0 ? `$${(cents / 100).toLocaleString()}` : '$0';
+
   if (isLoading) {
     return (
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-        {[1, 2, 3].map((i) => (
+      <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
+        {[1, 2, 3, 4].map((i) => (
           <div
             key={i}
             className="bg-[#1a1a1a] border border-white/5 rounded-xl p-6 animate-pulse"
@@ -51,10 +54,17 @@ export default function DashboardStats({ stats, isLoading }: DashboardStatsProps
       icon: <Car className="w-5 h-5" />,
       highlight: false,
     },
+    {
+      label: 'Pending Captures',
+      value: formatCents(stats?.authorizedPaymentsCents ?? 0),
+      subtitle: 'authorized holds',
+      icon: <DollarSign className="w-5 h-5" />,
+      highlight: (stats?.authorizedPaymentsCents ?? 0) > 0,
+    },
   ];
 
   return (
-    <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+    <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
       {cards.map((card) => (
         <div
           key={card.label}

@@ -20,6 +20,7 @@ export interface AdminStats {
   totalBookings: number;
   pendingBookings: number;
   activeVehicles: number;
+  authorizedPaymentsCents: number;
 }
 
 interface UpdateBookingStatusInput {
@@ -41,6 +42,16 @@ function futureDate(daysFromNow: number): string {
   return d.toISOString().split('T')[0];
 }
 
+// Default payment fields for demo bookings
+const defaultPaymentFields = {
+  stripe_payment_intent_id: null,
+  payment_status: 'none' as const,
+  total_amount_cents: null,
+  security_deposit_cents: 50000,
+  captured_amount_cents: null,
+  refunded_amount_cents: 0,
+};
+
 let demoBookings: BookingWithVehicle[] = [
   {
     id: 'demo-b1',
@@ -54,6 +65,7 @@ let demoBookings: BookingWithVehicle[] = [
     status: 'pending',
     admin_notes: null,
     terms_accepted: true,
+    ...defaultPaymentFields,
     created_at: now,
     updated_at: now,
     vehicle_name: 'Rolls-Royce Ghost',
@@ -71,6 +83,7 @@ let demoBookings: BookingWithVehicle[] = [
     status: 'pending',
     admin_notes: null,
     terms_accepted: true,
+    ...defaultPaymentFields,
     created_at: yesterday,
     updated_at: yesterday,
     vehicle_name: 'Lamborghini Huracan',
@@ -88,6 +101,9 @@ let demoBookings: BookingWithVehicle[] = [
     status: 'approved',
     admin_notes: 'Confirmed. Pickup at the downtown location. Welcome!',
     terms_accepted: true,
+    ...defaultPaymentFields,
+    payment_status: 'authorized' as const,
+    total_amount_cents: 160000,
     created_at: twoDaysAgo,
     updated_at: yesterday,
     vehicle_name: 'Mercedes-Maybach S-Class',
@@ -105,6 +121,7 @@ let demoBookings: BookingWithVehicle[] = [
     status: 'declined',
     admin_notes: 'Vehicle unavailable for those dates. Please try a different weekend.',
     terms_accepted: true,
+    ...defaultPaymentFields,
     created_at: threeDaysAgo,
     updated_at: twoDaysAgo,
     vehicle_name: 'Dodge Hellcat Widebody',
@@ -122,6 +139,7 @@ let demoBookings: BookingWithVehicle[] = [
     status: 'pending',
     admin_notes: null,
     terms_accepted: true,
+    ...defaultPaymentFields,
     created_at: yesterday,
     updated_at: yesterday,
     vehicle_name: 'Chevrolet Corvette C8',
@@ -180,15 +198,19 @@ export function useAdminBookings(statusFilter?: BookingStatus) {
 async function fetchAdminStats(): Promise<AdminStats> {
   if (isDemoMode() || !supabase) {
     await new Promise((r) => setTimeout(r, 200));
+    const authorizedCents = demoBookings
+      .filter((b) => b.payment_status === 'authorized')
+      .reduce((sum, b) => sum + (b.total_amount_cents ?? 0), 0);
     return {
       totalBookings: demoBookings.length,
       pendingBookings: demoBookings.filter((b) => b.status === 'pending').length,
       activeVehicles: SEED_VEHICLES.filter((v) => v.is_active).length,
+      authorizedPaymentsCents: authorizedCents,
     };
   }
 
   // Fetch counts in parallel
-  const [bookingsRes, pendingRes, vehiclesRes] = await Promise.all([
+  const [bookingsRes, pendingRes, vehiclesRes, authorizedRes] = await Promise.all([
     supabase.from('bookings').select('id', { count: 'exact', head: true }),
     supabase
       .from('bookings')
@@ -198,16 +220,28 @@ async function fetchAdminStats(): Promise<AdminStats> {
       .from('vehicles')
       .select('id', { count: 'exact', head: true })
       .eq('is_active', true),
+    supabase
+      .from('bookings')
+      .select('total_amount_cents')
+      .eq('payment_status', 'authorized'),
   ]);
 
   if (bookingsRes.error) throw bookingsRes.error;
   if (pendingRes.error) throw pendingRes.error;
   if (vehiclesRes.error) throw vehiclesRes.error;
+  if (authorizedRes.error) throw authorizedRes.error;
+
+  const authorizedCents = (authorizedRes.data ?? []).reduce(
+    (sum: number, row: { total_amount_cents: number | null }) =>
+      sum + (row.total_amount_cents ?? 0),
+    0,
+  );
 
   return {
     totalBookings: bookingsRes.count ?? 0,
     pendingBookings: pendingRes.count ?? 0,
     activeVehicles: vehiclesRes.count ?? 0,
+    authorizedPaymentsCents: authorizedCents,
   };
 }
 
@@ -321,6 +355,8 @@ export function useUpdateBookingStatus() {
       queryClient.invalidateQueries({ queryKey: ['admin', 'stats'] });
       // Also invalidate guest-facing booking queries so status pages update
       queryClient.invalidateQueries({ queryKey: ['booking'] });
+      // Refresh public vehicle availability when booking status changes
+      queryClient.invalidateQueries({ queryKey: ['vehicle-availability'] });
     },
   });
 }

@@ -9,7 +9,7 @@ import {
   StickyNote,
 } from 'lucide-react';
 import type { BookingWithVehicle } from '../../hooks/useAdminBookings';
-import type { BookingStatus } from '../../types/database';
+import type { BookingStatus, PaymentStatus } from '../../types/database';
 
 // ---------------------------------------------------------------
 // BookingTable — displays bookings in a table (desktop) or card
@@ -19,6 +19,7 @@ import type { BookingStatus } from '../../types/database';
 interface BookingTableProps {
   bookings: BookingWithVehicle[];
   onAction: (bookingId: string, action: 'approve' | 'decline') => void;
+  onPaymentAction?: (booking: BookingWithVehicle) => void;
 }
 
 const STATUS_CONFIG: Record<
@@ -43,6 +44,30 @@ const STATUS_CONFIG: Record<
     textColor: 'text-red-400',
     bg: 'bg-red-500/10',
   },
+  completed: {
+    label: 'Completed',
+    dotColor: 'bg-blue-400',
+    textColor: 'text-blue-400',
+    bg: 'bg-blue-500/10',
+  },
+  cancelled: {
+    label: 'Cancelled',
+    dotColor: 'bg-white/40',
+    textColor: 'text-white/40',
+    bg: 'bg-white/5',
+  },
+};
+
+const PAYMENT_STATUS_CONFIG: Record<
+  PaymentStatus,
+  { label: string; color: string; bg: string }
+> = {
+  none: { label: 'No Payment', color: 'text-white/30', bg: 'bg-white/5' },
+  authorized: { label: 'Authorized', color: 'text-blue-400', bg: 'bg-blue-500/10' },
+  captured: { label: 'Captured', color: 'text-green-400', bg: 'bg-green-500/10' },
+  cancelled: { label: 'Released', color: 'text-white/40', bg: 'bg-white/5' },
+  refunded: { label: 'Refunded', color: 'text-orange-400', bg: 'bg-orange-500/10' },
+  partially_refunded: { label: 'Partial Refund', color: 'text-orange-400', bg: 'bg-orange-500/10' },
 };
 
 function formatDate(dateStr: string): string {
@@ -64,12 +89,24 @@ function formatFullDate(dateStr: string): string {
 }
 
 function StatusBadge({ status }: { status: BookingStatus }) {
-  const cfg = STATUS_CONFIG[status];
+  const cfg = STATUS_CONFIG[status] ?? STATUS_CONFIG.pending;
   return (
     <span
       className={`inline-flex items-center gap-1.5 ${cfg.bg} rounded-full px-2.5 py-1 text-[11px] font-semibold uppercase tracking-wider ${cfg.textColor}`}
     >
       <span className={`w-1.5 h-1.5 rounded-full ${cfg.dotColor}`} />
+      {cfg.label}
+    </span>
+  );
+}
+
+function PaymentBadge({ status }: { status: PaymentStatus }) {
+  const cfg = PAYMENT_STATUS_CONFIG[status] ?? PAYMENT_STATUS_CONFIG.none;
+  if (status === 'none') return null;
+  return (
+    <span
+      className={`inline-flex items-center ${cfg.bg} rounded-full px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wider ${cfg.color}`}
+    >
       {cfg.label}
     </span>
   );
@@ -134,7 +171,7 @@ function ActionButtons({
   );
 }
 
-export default function BookingTable({ bookings, onAction }: BookingTableProps) {
+export default function BookingTable({ bookings, onAction, onPaymentAction }: BookingTableProps) {
   const [expandedId, setExpandedId] = useState<string | null>(null);
 
   const toggleExpanded = (id: string) => {
@@ -201,7 +238,10 @@ export default function BookingTable({ bookings, onAction }: BookingTableProps) 
                       {formatDate(booking.end_date)}
                     </td>
                     <td className="py-3 px-4">
-                      <StatusBadge status={booking.status} />
+                      <div className="flex items-center gap-2 flex-wrap">
+                        <StatusBadge status={booking.status} />
+                        <PaymentBadge status={booking.payment_status} />
+                      </div>
                     </td>
                     <td className="py-3 px-4 text-right">
                       <div className="flex items-center justify-end gap-3">
@@ -267,6 +307,20 @@ export default function BookingTable({ bookings, onAction }: BookingTableProps) 
                               </div>
                             </div>
                           )}
+                          {booking.payment_status !== 'none' && onPaymentAction && (
+                            <div className="w-full mt-2 pt-2 border-t border-white/5">
+                              <button
+                                onClick={(e) => {
+                                  e.stopPropagation();
+                                  onPaymentAction(booking);
+                                }}
+                                className="inline-flex items-center gap-1.5 text-[#D4AF37] hover:text-[#D4AF37]/80 text-xs font-medium transition-colors"
+                              >
+                                <span className="text-[10px]">$</span>
+                                Payment Actions
+                              </button>
+                            </div>
+                          )}
                         </div>
                       </td>
                     </tr>
@@ -293,11 +347,12 @@ export default function BookingTable({ bookings, onAction }: BookingTableProps) 
                 className="w-full text-left px-4 py-4 flex items-start justify-between gap-3"
               >
                 <div className="space-y-1 min-w-0">
-                  <div className="flex items-center gap-2">
+                  <div className="flex items-center gap-2 flex-wrap">
                     <span className="font-mono text-[#D4AF37] text-xs font-bold tracking-wider">
                       {booking.confirmation_code}
                     </span>
                     <StatusBadge status={booking.status} />
+                    <PaymentBadge status={booking.payment_status} />
                   </div>
                   <p className="text-white text-sm font-medium truncate">
                     {booking.guest_name}
@@ -371,8 +426,19 @@ export default function BookingTable({ bookings, onAction }: BookingTableProps) 
                   )}
 
                   {/* Action buttons */}
-                  <div className="pt-1">
+                  <div className="pt-1 flex items-center justify-between">
                     <ActionButtons booking={booking} onAction={onAction} />
+                    {booking.payment_status !== 'none' && onPaymentAction && (
+                      <button
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          onPaymentAction(booking);
+                        }}
+                        className="inline-flex items-center gap-1 text-[#D4AF37] text-xs font-medium"
+                      >
+                        $ Payment
+                      </button>
+                    )}
                   </div>
                 </div>
               )}

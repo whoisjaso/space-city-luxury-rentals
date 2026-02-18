@@ -4,7 +4,15 @@
 // remote project is connected.
 // ---------------------------------------------------------------
 
-export type BookingStatus = 'pending' | 'approved' | 'declined';
+export type BookingStatus = 'pending' | 'approved' | 'declined' | 'completed' | 'cancelled';
+
+export type PaymentStatus =
+  | 'none'
+  | 'authorized'
+  | 'captured'
+  | 'cancelled'
+  | 'refunded'
+  | 'partially_refunded';
 
 // ------ Row types (what you read) ------
 
@@ -35,8 +43,25 @@ export interface Booking {
   status: BookingStatus;
   admin_notes: string | null;
   terms_accepted: boolean;
+  // Payment fields
+  stripe_payment_intent_id: string | null;
+  payment_status: PaymentStatus;
+  total_amount_cents: number | null;
+  security_deposit_cents: number;
+  captured_amount_cents: number | null;
+  refunded_amount_cents: number;
   created_at: string;
   updated_at: string;
+}
+
+export interface PaymentEvent {
+  id: string;
+  booking_id: string;
+  event_type: 'authorized' | 'captured' | 'cancelled' | 'refunded' | 'partial_refund' | 'failed';
+  amount_cents: number | null;
+  stripe_event_id: string | null;
+  metadata: Record<string, unknown>;
+  created_at: string;
 }
 
 // ------ Insert types (what you write) ------
@@ -79,6 +104,20 @@ export type Database = {
             columns: ['vehicle_id'];
             isOneToOne: false;
             referencedRelation: 'vehicles';
+            referencedColumns: ['id'];
+          },
+        ];
+      };
+      payment_events: {
+        Row: PaymentEvent;
+        Insert: Omit<PaymentEvent, 'id' | 'created_at'>;
+        Update: Partial<Omit<PaymentEvent, 'id' | 'created_at'>>;
+        Relationships: [
+          {
+            foreignKeyName: 'payment_events_booking_id_fkey';
+            columns: ['booking_id'];
+            isOneToOne: false;
+            referencedRelation: 'bookings';
             referencedColumns: ['id'];
           },
         ];

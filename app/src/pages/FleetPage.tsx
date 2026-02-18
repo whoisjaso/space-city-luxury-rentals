@@ -1,6 +1,7 @@
 import { useState, useRef } from 'react';
 import { gsap, ScrollTrigger, useGSAP } from '../lib/gsap';
 import { useVehicles } from '../hooks/useVehicles';
+import { useVehicleAvailability } from '../hooks/useVehicleAvailability';
 import VehicleCard from '../components/VehicleCard';
 import ExperienceFilter from '../components/ExperienceFilter';
 
@@ -23,6 +24,7 @@ const EXPERIENCE_TAGS = [
 function FleetPage() {
   const [activeTag, setActiveTag] = useState('All');
   const { data: vehicles = [], isLoading, error } = useVehicles();
+  const { data: unavailableIds = new Set<string>() } = useVehicleAvailability();
   const sectionRef = useRef<HTMLDivElement>(null);
   const headerRef = useRef<HTMLDivElement>(null);
   const gridRef = useRef<HTMLDivElement>(null);
@@ -144,7 +146,7 @@ function FleetPage() {
           >
             {filteredVehicles.map((vehicle) => (
               <div key={vehicle.id} data-vehicle-card>
-                <VehicleCard vehicle={vehicle} />
+                <VehicleCard vehicle={vehicle} isAvailable={!unavailableIds.has(vehicle.id)} />
               </div>
             ))}
           </div>

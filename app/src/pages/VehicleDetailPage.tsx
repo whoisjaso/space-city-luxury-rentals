@@ -2,6 +2,7 @@ import { useRef } from 'react';
 import { useParams, Link } from 'react-router';
 import { gsap, useGSAP } from '../lib/gsap';
 import { useVehicle } from '../hooks/useVehicle';
+import { useVehicleAvailability } from '../hooks/useVehicleAvailability';
 import ImageGallery from '../components/ImageGallery';
 
 // ---------------------------------------------------------------
@@ -13,6 +14,7 @@ import ImageGallery from '../components/ImageGallery';
 function VehicleDetailPage() {
   const { slug } = useParams();
   const { data: vehicle, isLoading, error } = useVehicle(slug ?? '');
+  const { data: unavailableIds } = useVehicleAvailability();
 
   const pageRef = useRef<HTMLDivElement>(null);
   const galleryRef = useRef<HTMLDivElement>(null);
@@ -116,6 +118,7 @@ function VehicleDetailPage() {
   // ---- Price formatting ----
   const formattedPrice = `$${(vehicle.daily_price_cents / 100).toLocaleString()}`;
   const isPopular = vehicle.rental_count > 10;
+  const isUnavailable = unavailableIds?.has(vehicle.id) ?? false;
 
   return (
     <div ref={pageRef} className="min-h-screen bg-[#050505]">
@@ -220,12 +223,23 @@ function VehicleDetailPage() {
               </div>
 
               {/* Booking CTA */}
-              <Link
-                to={`/book?vehicle=${vehicle.slug}`}
-                className="block w-full text-center bg-[#D4AF37] hover:bg-[#D4AF37]/90 text-[#050505] font-bold py-4 rounded-lg transition-colors duration-300 text-lg tracking-wide"
-              >
-                Book This Vehicle
-              </Link>
+              {isUnavailable ? (
+                <div>
+                  <div className="w-full text-center bg-white/10 text-white/40 font-bold py-4 rounded-lg text-lg tracking-wide cursor-not-allowed">
+                    Currently Rented
+                  </div>
+                  <p className="text-white/30 text-xs text-center mt-2">
+                    This vehicle is currently out on rental. Check back soon or browse other vehicles.
+                  </p>
+                </div>
+              ) : (
+                <Link
+                  to={`/book?vehicle=${vehicle.slug}`}
+                  className="block w-full text-center bg-[#D4AF37] hover:bg-[#D4AF37]/90 text-[#050505] font-bold py-4 rounded-lg transition-colors duration-300 text-lg tracking-wide"
+                >
+                  Book This Vehicle
+                </Link>
+              )}
             </div>
           </div>
         </div>

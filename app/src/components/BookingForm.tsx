@@ -2,17 +2,23 @@ import { useState, useCallback, useMemo } from 'react';
 import type { Vehicle } from '../types/database';
 import { useCreateBooking } from '../hooks/useBooking';
 import type { CreateBookingInput } from '../hooks/useBooking';
+import { useCreatePaymentIntent } from '../hooks/usePayment';
+import type { PaymentIntentResult } from '../hooks/usePayment';
+import { isPaymentDemoMode } from '../lib/stripe';
+import PaymentStep from './PaymentStep';
 import TermsModal from './TermsModal';
 
 // ---------------------------------------------------------------
-// BookingForm — single-page booking form with real-time validation.
-// Designed to feel fast and luxurious. Dark inputs, gold accents,
-// inline error messages, and a single "Reserve Now" CTA.
+// BookingForm — two-step booking form with real-time validation.
+// Step 1: guest details (vehicle, dates, contact info).
+// Step 2: Stripe payment authorization (when Stripe configured).
+// In demo mode, step 2 is skipped and booking is created directly.
 // ---------------------------------------------------------------
 
 interface BookingFormProps {
   vehicles: Vehicle[];
   preselectedSlug?: string;
+  unavailableVehicleIds?: Set<string>;
   onSuccess: (booking: { confirmation_code: string }) => void;
 }
 
@@ -36,6 +42,8 @@ interface FieldErrors {
   termsAccepted?: string;
 }
 
+type Step = 'details' | 'payment';
+
 /** Get tomorrow's date as YYYY-MM-DD string. */
 function getTomorrow(): string {
   const d = new Date();
@@ -53,8 +61,12 @@ function countDigits(s: string): number {
   return (s.match(/\d/g) || []).length;
 }
 
-function BookingForm({ vehicles, preselectedSlug, onSuccess }: BookingFormProps) {
+function BookingForm({ vehicles, preselectedSlug, unavailableVehicleIds, onSuccess }: BookingFormProps) {
   const createBooking = useCreateBooking();
+  const createPaymentIntent = useCreatePaymentIntent();
+
+  const [step, setStep] = useState<Step>('details');
+  const [paymentData, setPaymentData] = useState<PaymentIntentResult | null>(null);
 
   const [form, setForm] = useState<FormData>({
     vehicleSlug: preselectedSlug ?? '',
@@ -183,25 +195,49 @@ function BookingForm({ vehicles, preselectedSlug, onSuccess }: BookingFormProps)
       return;
     }
 
-    const input: CreateBookingInput = {
-      vehicle_id: selectedVehicle.id,
-      guest_name: form.guestName.trim(),
-      guest_email: form.guestEmail.trim().toLowerCase(),
-      guest_phone: form.guestPhone.trim(),
-      start_date: form.startDate,
-      end_date: form.endDate,
-      terms_accepted: form.termsAccepted,
-    };
+    if (isPaymentDemoMode()) {
+      // Demo / no-Stripe mode: create booking directly (existing flow)
+      const input: CreateBookingInput = {
+        vehicle_id: selectedVehicle.id,
+        guest_name: form.guestName.trim(),
+        guest_email: form.guestEmail.trim().toLowerCase(),
+        guest_phone: form.guestPhone.trim(),
+        start_date: form.startDate,
+        end_date: form.endDate,
+        terms_accepted: form.termsAccepted,
+      };
 
-    try {
-      const booking = await createBooking.mutateAsync(input);
-      onSuccess({ confirmation_code: booking.confirmation_code });
-    } catch (err) {
-      setSubmitError(
-        err instanceof Error
-          ? err.message
-          : 'Something went wrong. Please try again.',
-      );
+      try {
+        const booking = await createBooking.mutateAsync(input);
+        onSuccess({ confirmation_code: booking.confirmation_code });
+      } catch (err) {
+        setSubmitError(
+          err instanceof Error
+            ? err.message
+            : 'Something went wrong. Please try again.',
+        );
+      }
+    } else {
+      // Stripe mode: create PaymentIntent, then show payment step
+      try {
+        const result = await createPaymentIntent.mutateAsync({
+          vehicle_id: selectedVehicle.id,
+          start_date: form.startDate,
+          end_date: form.endDate,
+          guest_name: form.guestName.trim(),
+          guest_email: form.guestEmail.trim().toLowerCase(),
+          guest_phone: form.guestPhone.trim(),
+        });
+        setPaymentData(result);
+        setStep('payment');
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      } catch (err) {
+        setSubmitError(
+          err instanceof Error
+            ? err.message
+            : 'Failed to initialize payment. Please try again.',
+        );
+      }
     }
   };
 
@@ -224,6 +260,8 @@ function BookingForm({ vehicles, preselectedSlug, onSuccess }: BookingFormProps)
       ? `$${((selectedVehicle.daily_price_cents / 100) * totalDays).toLocaleString()}`
       : null;
 
+  const isSubmitting = createBooking.isPending || createPaymentIntent.isPending;
+
   // ---- Shared input styles ----
 
   const inputBase =
@@ -231,6 +269,35 @@ function BookingForm({ vehicles, preselectedSlug, onSuccess }: BookingFormProps)
   const errorInput = 'border-red-500/50 focus:ring-red-500/60 focus:border-red-500/40';
   const labelClass = 'museo-label text-white/50 block mb-1.5';
   const errorText = 'text-red-400 text-xs mt-1';
+
+  // ---- Payment step (step 2) ----
+
+  if (step === 'payment' && paymentData && selectedVehicle) {
+    return (
+      <PaymentStep
+        paymentData={paymentData}
+        bookingDetails={{
+          vehicle_id: selectedVehicle.id,
+          vehicleName: selectedVehicle.name,
+          start_date: form.startDate,
+          end_date: form.endDate,
+          totalDays,
+          dailyPriceCents: selectedVehicle.daily_price_cents,
+          guest_name: form.guestName.trim(),
+          guest_email: form.guestEmail.trim().toLowerCase(),
+          guest_phone: form.guestPhone.trim(),
+          terms_accepted: form.termsAccepted,
+        }}
+        onSuccess={onSuccess}
+        onBack={() => {
+          setStep('details');
+          setPaymentData(null);
+        }}
+      />
+    );
+  }
+
+  // ---- Details form (step 1) ----
 
   return (
     <>
@@ -247,11 +314,15 @@ function BookingForm({ vehicles, preselectedSlug, onSuccess }: BookingFormProps)
             <option value="" className="bg-[#0a0a0a]">
               Select a vehicle
             </option>
-            {vehicles.map((v) => (
-              <option key={v.id} value={v.slug} className="bg-[#0a0a0a]">
-                {v.name} — ${(v.daily_price_cents / 100).toLocaleString()}/day
-              </option>
-            ))}
+            {vehicles.map((v) => {
+              const rented = unavailableVehicleIds?.has(v.id) ?? false;
+              return (
+                <option key={v.id} value={v.slug} className="bg-[#0a0a0a]">
+                  {v.name} — ${(v.daily_price_cents / 100).toLocaleString()}/day
+                  {rented ? ' (Currently Rented)' : ''}
+                </option>
+              );
+            })}
           </select>
           {touched.vehicleSlug && errors.vehicleSlug && (
             <p className={errorText}>{errors.vehicleSlug}</p>
@@ -389,10 +460,10 @@ function BookingForm({ vehicles, preselectedSlug, onSuccess }: BookingFormProps)
         {/* Submit button */}
         <button
           type="submit"
-          disabled={!isValid || createBooking.isPending}
+          disabled={!isValid || isSubmitting}
           className="w-full bg-[#D4AF37] hover:bg-[#D4AF37]/90 disabled:bg-[#D4AF37]/30 disabled:cursor-not-allowed text-[#050505] font-bold py-4 rounded-lg transition-colors duration-300 text-lg tracking-wide flex items-center justify-center gap-3"
         >
-          {createBooking.isPending ? (
+          {isSubmitting ? (
             <>
               <svg
                 className="animate-spin h-5 w-5"
@@ -414,10 +485,12 @@ function BookingForm({ vehicles, preselectedSlug, onSuccess }: BookingFormProps)
                   d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"
                 />
               </svg>
-              Submitting...
+              {createPaymentIntent.isPending ? 'Initializing Payment...' : 'Submitting...'}
             </>
-          ) : (
+          ) : isPaymentDemoMode() ? (
             'Reserve Now'
+          ) : (
+            'Continue to Payment'
           )}
         </button>
       </form>
